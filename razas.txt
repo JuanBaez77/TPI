@@ -1,1 +1,10 @@
-snals
+affenpinscher
+airedale terrier
+akita
+akita americano
+alaskan Husky
+alaskan malamute
+american Foxhound
+american pit bull terrier
+american staffordshire terrier
+ariegeois
