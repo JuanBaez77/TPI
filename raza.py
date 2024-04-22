@@ -5,7 +5,7 @@ class Razas:
     def set_raza(self,raza):
         if type(raza) == str:
             return raza
-        
+    # Metodos
     def add_raza(self):
         raza_existe = False
         with open("razas.txt", "r") as file:
@@ -29,14 +29,3 @@ class Razas:
                 if self.raza.lower() not in linea.lower():
                     escribir.write(linea)
             print("Se eliminó la raza de la base de datos...")
-                                
-
-
-                          
-
-
-    
-
-
-
-
