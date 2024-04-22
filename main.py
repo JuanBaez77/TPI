@@ -10,17 +10,20 @@ def menu():
     if n == 1:
         # Submenú para Personas
         m = int(input(
-            "Lista de Clientes // presione(1)\n"
-            "Personas Activas // presione(2)\n"
-            "Empleados // presione(3)\n"
+            "Registrar persona // presione(1)\n"
+            "Lista de Clientes // presione(2)\n"
+            "Personas Activas // presione(3)\n"
+            "Empleados // presione(4)\n"
         ))
-        
         if m == 1:
-            print("Mostrando lista de clientes...")
+            Persona.registrarPersona()
+            print("Persona Registrada")
         elif m == 2:
+            print("Mostrando lista de clientes...")
+        elif m == 3:
             print("Mostrando personas activas...")
             Persona.mostrarPersona()
-        elif m == 3:
+        elif m == 4:
             print("Mostrando empleados...")
 
     elif n == 2:
