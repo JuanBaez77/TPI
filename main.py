@@ -1,5 +1,5 @@
-from raza import Razas
-
+from Raza import Razas
+from Persona import Persona
 def menu():
     print("          MENU\n")
     n = int(input("Listado de mascotas activas // presione(1)\nListado de tratamientos // presione(2)\nListado de diagnosticos // presione(3)\nListado de Vacunas // presione(4)\nListado de razas // presione(5)\nListado de veterinarios // presione(6)\nListado de clientes // presione(6)\n-->"))
