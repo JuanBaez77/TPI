@@ -17,7 +17,6 @@ def menu():
             ))
             if m == 1:
                 Persona.registrarPersona()
-                print("Persona Registrada")
             elif m == 2:
                 print("Mostrando lista de clientes...")
             elif m == 3:
