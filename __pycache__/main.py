@@ -36,13 +36,15 @@ def menu():
         elif m == 2:
             print("Agregar nueva mascota...")
         elif m == 3:
-            j = int(input("Agregar raza // presione(1)\nEliminar raza // presione(2)\n--> "))
+            j = int(input("Mostrar Razas // presione(1)\nAgregar raza // presione(2)\nEliminar raza // presione(3)\n--> "))
             if j == 1:
-                raza = Razas(input("Que raza desea agregar --> "))
-                raza.add_raza()
+                raza = Razas.mostrarRaza()
             elif j == 2:
+                raza = Razas(input("Que raza desea agregar --> "))
+                raza.añadirRaza()
+            elif j == 3:
                 eliminar_raza = Razas(input("Que raza desea eliminar --> "))
-                eliminar_raza.delete_raza()
+                eliminar_raza.eliminarRaza()
         elif m == 4:
             print("Mostrando historial de vacunas...")
 
