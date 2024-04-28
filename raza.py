@@ -21,13 +21,3 @@ class Razas:
             with open("razas.txt", "a") as file:
                 file.write(self.raza + "\n")
                 print("La raza fue guardada con éxito...")
-
-
-                          
-
-
-    
-
-
-
-
