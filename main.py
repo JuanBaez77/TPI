@@ -40,23 +40,44 @@ def menu():
             elif m == 2:
                 print("Agregar nueva mascota...")
             elif m == 3:
-                j = int(input("Agregar raza // presione(1)\nEliminar raza // presione(2)\n--> "))
+                j = int(input("Mostrar Razas // presione(1)\nAgregar raza // presione(2)\nEliminar raza // presione(3)\n--> "))
                 if j == 1:
+                    raza = Razas.mostrarRaza()
+            elif j == 2:
                     raza = Razas(input("Que raza desea agregar --> "))
-                    raza.add_raza()
-                elif j == 2:
+                    raza.añadirRaza()
+            elif j == 3:
                     eliminar_raza = Razas(input("Que raza desea eliminar --> "))
-                    eliminar_raza.delete_raza()
+                    eliminar_raza.eliminarRaza()
             elif m == 4:
                 print("Mostrando historial de vacunas...")
             else:
                 print("Opción inválida. Por favor, intenta de nuevo.")
 
-        elif n == 3:
+        elif n == 2:
             m = int(input(
-                "Tratamientos Disponibles // presione(1)\n"
-                "Agenda de Tratamientos // presione(2)\n--> "
-            ))
+            "Mascotas Activas // presione(1)\n"
+            "Nueva Mascota // presione(2)\n"
+            "Razas de Mascotas // presione(3)\n"
+            "Historial de Vacunas // presione(4)\n--> "
+        ))
+        
+        if m == 1:
+            print("Mostrando mascotas activas...")
+        elif m == 2:
+            print("Agregar nueva mascota...")
+        elif m == 3:
+            j = int(input("Mostrar Razas // presione(1)\nAgregar raza // presione(2)\nEliminar raza // presione(3)\n--> "))
+            if j == 1:
+                raza = Razas.mostrarRaza()
+            elif j == 2:
+                raza = Razas(input("Que raza desea agregar --> "))
+                raza.añadirRaza()
+            elif j == 3:
+                eliminar_raza = Razas(input("Que raza desea eliminar --> "))
+                eliminar_raza.eliminarRaza()
+        elif m == 4:
+            print("Mostrando historial de vacunas...")
 
             if m == 1:
                 print("Mostrando tratamientos disponibles...")
