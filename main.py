@@ -1,5 +1,5 @@
 # IMPORT DE CLASES
-from Raza import Razas
+from raza import Razas
 from Persona import Persona
 
 
