@@ -32,19 +32,19 @@ class Razas:
         """
         razaEncontrada = False
         with open("razas.csv", "r", encoding="UTF-8", newline="") as lectura:
-           razasAlmacenadas = csv.reader(lectura)
-           for linea in razasAlmacenadas:
-               if linea[0].lower() == self.__raza:
-                   print("La raza ya esta almacenada en la base de datos...")
-                   razaEncontrada = True
-                   break
+            razasAlmacenadas = csv.reader(lectura)
+        for linea in razasAlmacenadas:
+            if linea[0].lower() == self.__raza:
+                print("La raza ya esta almacenada en la base de datos...")
+                razaEncontrada = True
+                break
         
         if not razaEncontrada:
             with open("razas.csv", "a", encoding="UTF-8", newline="") as escritura:
                 agregarRaza = csv.writer(escritura, delimiter="\n")
                 agregarRaza.writerow([(self.__raza)])
                 print("Se almaceno la nueva raza con exito...")         
-   
+
     def eliminarRaza(self):
         """
         Este método permite al usuario eliminar una raza de la base de datos
