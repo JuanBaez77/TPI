@@ -77,13 +77,13 @@ class Persona:
             encontrado = 0
             for row in reader:
                 if row[3] == documento:
-                    print(f"Nombre: {row[0]} {row[2]}")
-                    estado_actual = row[-1]
+                    print(f"Nombre: {row[0]} {row[1]}")
+                    estado_actual = row[6]
                     if estado_actual == "False":
-                        row[-1] = "True"
+                        row[6] = "True"
                         print("Exito al cambiar estado de Inactivo a Activo")                    
                     else:
-                        row[-1] = "False"
+                        row[6] = "False"
                         print("Exito al cambiar estado de Activo a Inactivo")    
                     encontrado = 1
             if encontrado == 0:
