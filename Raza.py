@@ -62,38 +62,6 @@ class Razas:
             with open("razas.csv", "w", encoding="UTF-8", newline="") as escritura:
                 escritura.write(contenido)
             print("Se eliminó la raza de la base de datos")
-        else:
-            print("La raza no está almacenada en la base de datos")        
-=======
-class Razas:
-    def __init__(self,raza=""):
-        self.raza = raza
 
-    def set_raza(self,raza):
-        if type(raza) == str:
-            return raza
-    # Metodos
-    def add_raza(self):
-        raza_existe = False
-        with open("razas.txt", "r") as file:
-            for linea in file:
-                if self.raza.strip() == linea.strip():
-                    raza_existe = True
-                    print("La raza ya se encuentra en la base de datos...")
-                    break
-        
-        if not raza_existe:
-            with open("razas.txt", "a") as file:
-                file.write(self.raza + "\n")
-                print("La raza fue guardada con éxito...")
-                
-    def delete_raza(self):
-        with open("razas.txt", "r") as leer:
-            lineas = leer.readlines()
-        
-        with open("razas.txt", "w") as escribir:
-            for linea in lineas:
-                if self.raza.lower() not in linea.lower():
-                    escribir.write(linea)
-            print("Se eliminó la raza de la base de datos...")
->>>>>>> 9e22afde1882639a8b3b1a9e6d071df9eb8fc80c
+        else:
+            print("La raza no está almacenada en la base de datos") 

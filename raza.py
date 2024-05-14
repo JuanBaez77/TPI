@@ -62,5 +62,6 @@ class Razas:
             with open("razas.csv", "w", encoding="UTF-8", newline="") as escritura:
                 escritura.write(contenido)
             print("Se eliminó la raza de la base de datos")
+
         else:
             print("La raza no está almacenada en la base de datos") 
