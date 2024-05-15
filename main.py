@@ -1,5 +1,5 @@
 # IMPORT DE CLASES
-from raza import Razas
+from Raza import Razas
 from Persona import Persona
 from Tratamiento import Tratamiento
 from Vacuna import Vacuna

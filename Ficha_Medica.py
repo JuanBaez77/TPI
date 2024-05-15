@@ -1,5 +1,5 @@
 from Persona import Persona
-from raza import Razas
+from Raza import Razas
 
 class FichaMedica:
     def __init__(self,Persona,Razas,):
