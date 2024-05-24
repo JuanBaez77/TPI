@@ -1,87 +1,10 @@
 # IMPORT DE CLASES
-import Raza
-from Persona import Persona
-from Tratamiento import Tratamiento
-from Vacuna import Vacuna
-
+# from Tratamiento import Tratamiento
+# from Vacuna import Vacuna
+from menu import MenuDesign
 def menu():
-    while True:
-        print("          MENU\n")
-        n = int(input("Personas // presione(1)\nMascotas // presione(2)\nTratamientos // presione(3)\nSalir del menu // presione(4)\n--> "))
-
-        if n == 1:
-            m = int(input(
-                "Registrar persona // presione(1)\n"
-                "Personas Activas // presione(2)\n"
-                "Lista de Clientes // presione(3)\n"
-                "Empleados // presione(4)\n"
-                "Ver todas las personas // presione(5)\n"
-                "Volver atras // Presione (6)\n"
-            ))
-            if m == 1:
-                Persona.registrarPersona()
-            elif m == 2:
-                print("Mostrando personas activas...")
-                Persona.mostrarPersonaActiva()
-            elif m == 3:
-                print("Mostrando lista de clientes...")
-            elif m == 4:
-                print("Mostrando empleados...")
-            elif m == 5:
-                Persona.mostrarPersona()
-                i = int(input(
-                    "\n\nCambiar estado persona //presione(1)\n"
-                    "volver //presione(2)\n"))
-                if i == 1:
-                    Persona.cambiarEstadoPersona()
-                    continue
-                elif i== 2:
-                    print("Volviendo...")
-                    continue
-            elif m == 6:
-                print("Volviendo...")
-                continue
-            else:
-                print("Opción inválida. Por favor, intenta de nuevo.")
-
-        elif n == 2:
-            m = int(input(
-            "Mascotas Activas // presione(1)\n"
-            "Nueva Mascota // presione(2)\n"
-            "Razas de Mascotas // presione(3)\n"
-            "Historial de Vacunas // presione(4)\n--> "
-        ))
-        
-            if m == 1:
-                print("Mostrando mascotas activas...")
-            elif m == 2:
-                print("Agregar nueva mascota...")
-            elif m == 3:
-                j = Raza.menuRaza()
-                if j == 1:
-                    Raza.mostrarRaza()
-                elif j == 2:
-                    Raza.crearRaza()
-                elif j == 3:
-                    Raza.modificarEstadoRaza()
-            elif m == 4:
-                print("Mostrando historial de vacunas...")
-        elif n == 3:
-            m = int(input(
-            "Tratamientos Disponibles // presione(1)\n"
-            "Agenda de Tratamientos // presione(2)\n"
-        ))
-            if m == 1:
-                print("Mostrando tratamientos disponibles...")
-            elif m == 2:
-                print("Mostrando agenda de tratamientos...")
-            else:
-                print("Opción inválida. Por favor, intenta de nuevo.")
-        elif n == 4:
-            print("Saliendo del programa...")
-            break
-        else:
-            print("Opción inválida. Por favor, intenta de nuevo.")
+        raiz = MenuDesign("veterinaria")
+        raiz.mainloop()
 
 if __name__ == "__main__":
     menu()
