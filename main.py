@@ -1,7 +1,6 @@
-# IMPORT DE CLASES
-# from Tratamiento import Tratamiento
-# from Vacuna import Vacuna
+# IMPORTAR MENU
 from menu import MenuDesign
+
 def menu():
         raiz = MenuDesign("veterinaria")
         raiz.mainloop()

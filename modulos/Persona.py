@@ -71,7 +71,7 @@ class Persona:
                 tipoPersona = "EMP"
             estado = True
             nueva_persona = cls(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)
-            with open("persona.csv", "a", newline="") as file:
+            with open("csv/persona.csv", "a", newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow([
                     nueva_persona.nombre,
@@ -90,7 +90,7 @@ class Persona:
     def mostrarPersonaActiva(cls):
         try:
             print("\tLISTA PERSONAS\t")
-            with open("persona.csv", encoding="UTF-8") as file:
+            with open("csv/persona.csv", encoding="UTF-8") as file:
                 reader = csv.reader(file)
                 next(reader)
                 for row in reader:
@@ -102,7 +102,7 @@ class Persona:
     def mostrarPersona(cls):
         try:
             print("\tLISTA PERSONAS\t")
-            with open("persona.csv", encoding="UTF-8") as file:
+            with open("csv/persona.csv", encoding="UTF-8") as file:
                 reader = csv.reader(file)
                 next(reader)
                 for row in reader:
@@ -114,7 +114,7 @@ class Persona:
         documento = input("DOCUMENTO DE LA PERSONA QUE DESEA CAMBIAR\n")
         personas = []
         encontrado = False
-        with open("persona.csv", encoding="UTF-8") as file:
+        with open("csv/persona.csv", encoding="UTF-8") as file:
             reader = csv.reader(file)
             header = next(reader)
             for row in reader:
@@ -132,7 +132,7 @@ class Persona:
             if encontrado == False:
                 print("Error. Documento no encontrado")
             else:
-                with open("persona.csv", "w", newline= "", encoding="utf-8") as file:
+                with open("csv/persona.csv", "w", newline= "", encoding="utf-8") as file:
                     writer = csv.writer(file)
                     writer.writerow(header)
                     writer.writerows(personas)
