@@ -5,7 +5,10 @@ import modulos.Raza as Raza
 
 # CREAMOS COLORES PARA EL MENU
 COLOR_PRINCIPAL = "#2a3138"
+COLOR_SECUNDARIO = "#3e444e"
 COLOR_PAGINA = "#e0e0e0"
+COLOR_BOTON = "#3e444e"
+
 class MenuDesign(tk.Tk):
     def __init__(self, nombreVeterinaria):
         super().__init__()
@@ -41,20 +44,21 @@ class MenuDesign(tk.Tk):
         for widget in self.pagina.winfo_children():
             widget.destroy()
         # BOTONES PARA ACCEDER A LAS FUNCIONES DEL MENU PERSONA
-        btnMostrarPersona = Button(self.pagina, text="Mostrar personas", command=Persona.mostrarPersona).pack()
-        btnMostrarPersonaActiva = Button(self.pagina, text="mostrar personas activas", command=Persona.mostrarPersonaActiva).pack()
-        btnRegistrarPersona = Button(self.pagina, text="Registrar personas", command=Persona.registrarPersona).pack()
-        btncambiarEstado = Button(self.pagina, text="Cambiar estado de una persona", command=Persona.cambiarEstadoPersona).pack()
-
+        Button(self.pagina, text="Mostrar personas", command=lambda: Persona.mostrarPersona(self.pagina), bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="Mostrar personas activas", command=lambda: Persona.mostrarPersonaActiva(self.pagina), bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="Registrar personas", command=Persona.registrarPersona, bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar estado de una persona", command=Persona.cambiarEstadoPersona, bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        
 
     def menuMascota(self):
         # borrar contenido en pagina
         for widget in self.pagina.winfo_children():
             widget.destroy()
-    # BOTONES PARA ACCEDER A LAS FUNCIONES DEL MENU MASCOTA
-        btnMostrarMascotas = Button(self.pagina, text="Mostrar mascotas activas").pack()
-        btnNuevaMascota = Button(self.pagina, text="Agregar nueva mascota").pack()
-        btnMenuRaza = Button(self.pagina, text="MENU DE RAZAS", command=Raza.menuRaza).pack()
+        # BOTONES PARA ACCEDER A LAS FUNCIONES DEL MENU MASCOTA
+        Button(self.pagina, text="Mostrar mascotas activas", bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="Agregar nueva mascota", bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="MENU DE RAZAS", command=Raza.menuRaza, bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+
 
 def menuTratamiento():
     ventana_tratamiento = Toplevel()
