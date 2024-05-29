@@ -91,8 +91,15 @@ class MenuDesign(tk.Tk):
         entryApellido = Entry(registro, textvariable=apellido, width="35").place(x=22, y=160)
         entryDocumento = Entry(registro, textvariable=documento, width="35").place(x=22, y=280)
         entryTelefono = Entry(registro, textvariable=telefono, width="35").place(x=22, y=340)
-        entryTipoPersona = OptionMenu(registro, tipoPersona, "CLI", "EMP").place(x=22, y=400)
-        entryTipoDocumento = OptionMenu(registro, tipoDocumento, "DNI", "PAS").place(x=22, y=210)
+
+        entryTipoPersona = OptionMenu(registro, tipoPersona, "CLI", "EMP")
+        entryTipoPersona.place(x=22, y=400)
+        entryTipoPersona.config(font=("Roboto", 9), bg=COLOR_PRINCIPAL, fg=COLOR_PAGINA,highlightbackground=COLOR_SECUNDARIO, highlightcolor=COLOR_SECUNDARIO)
+
+        entryTipoDocumento = OptionMenu(registro, tipoDocumento, "DNI", "PAS")
+        entryTipoDocumento.place(x=22, y=210)
+        
+        entryTipoDocumento.config(font=("Roboto", 9), bg=COLOR_PRINCIPAL, fg=COLOR_PAGINA,highlightbackground=COLOR_SECUNDARIO, highlightcolor=COLOR_SECUNDARIO)
 
         submit = Button(registro, text="Registrar", command=lambda: self.guardar_persona(newPersona, registro), width=30)
         submit.place(x=22, y=450)

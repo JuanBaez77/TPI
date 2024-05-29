@@ -179,7 +179,12 @@ class Persona:
                     writer.writerow(header)
                     writer.writerows(personas)
 
-
 # STR
     def __str__(self):
         return f"{self.nombre} {self.apellido}, {self.tipoDocumento}: {self.documento}, Tel: {self.telefono}, Tipo: {self.tipoPersona}, Estado: {self.estado}"
+
+class Cliente:
+    pass
+
+class Empleado:
+    pass
