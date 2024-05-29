@@ -53,73 +53,68 @@ class Persona:
         self.__estado = estado
 
 # METODOS
-    @classmethod
-    def registrarPersona(cls, parent_frame):
-        try:
-            # Limpiar el frame antes de registrar una persona
-            for widget in parent_frame.winfo_children():
-                widget.destroy()
-            
-            # Crear los widgets de entrada
-            Label(parent_frame, text="Ingrese el nombre:").pack(pady=5)
-            entry_nombre = Entry(parent_frame)
-            entry_nombre.pack(pady=5)
 
-            Label(parent_frame, text="Ingrese el apellido:").pack(pady=5)
-            entry_apellido = Entry(parent_frame)
-            entry_apellido.pack(pady=5)
+    def registrarPersona():
+        registro = Tk()
+        registro.geometry("650x550")
+        registro.title("Registro")
+        registro.resizable(False, False)
+        registro.config(background="#2a3138")
+        tituloRegistro = Label(registro, text="Registrar Persona", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
 
-            Label(parent_frame, text="Seleccione el tipo de documento:").pack(pady=5)
-            tipoDocumento = StringVar()
-            tipoDocumento.set("DNI")
-            for texto, valor in [("DNI", "DNI"), ("PASAPORTE", "PAS")]:
-                Radiobutton(parent_frame, text=texto, variable=tipoDocumento, value=valor).pack(anchor="w")
+        # Crear los widgets de entrada
+        lNombre = Label(registro, text="Nombre:", bg="#2a3138", fg="white").place(x=22, y=70)
+        lApellido = Label(registro, text="Apellido:", bg="#2a3138", fg="white").place(x=22, y=130)
+        lTipoDocumento = Label(registro, text="Tipo de documento:", bg="#2a3138", fg="white").place(x=22, y=190)
+        lDocumento = Label(registro, text="Documento:", bg="#2a3138", fg="white").place(x=22, y=250)
+        lTelefono = Label(registro, text="Telefono:", bg="#2a3138", fg="white").place(x=22, y=310)
+        lTipoPersona = Label(registro, text="Tipo de Persona", bg="#2a3138", fg="white").place(x=22, y=370)
+        
+        nombre = StringVar()
+        apellido = StringVar()
+        documento = StringVar()
+        telefono = StringVar()
+        tipoDocumento = StringVar()
+        tipoDocumento.set("DNI")
+        tipoPersona = StringVar()
+        tipoPersona.set("CLI")  
+        
+        entryNombre = Entry(registro, textvariable=nombre, width="35").place(x=22, y=100)
+        entryApellido = Entry(registro, textvariable=apellido, width="35").place(x=22, y=160)
+        entryDocumento = Entry(registro, textvariable=documento, width="35").place(x=22, y=280)
+        entryTelefono = Entry(registro, textvariable=telefono, width="35").place(x=22, y=340)
+        entryTipoPersona = OptionMenu(registro, tipoPersona, "CLI", "EMP").place(x=22, y=400)
+        entryTipoDocumento = OptionMenu(registro, tipoDocumento, "DNI", "PAS").place(x=22, y=210)
+        
+        def save_persona():
+            nombre_val = nombre.get()
+            apellido_val = apellido.get()
+            tipoDocumento_val = tipoDocumento.get()
+            documento_val = documento.get()
+            telefono_val = telefono.get()
+            tipoPersona_val = tipoPersona.get()
+            print(f"{nombre_val}, {apellido_val}, {tipoDocumento_val}")
+            nueva_persona = Persona(
+                nombre_val, apellido_val, tipoDocumento_val,
+                documento_val, telefono_val, tipoPersona_val, True
+            )
+            with open("csv/persona.csv", "a", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow([
+                    nueva_persona.getNombre(),
+                    nueva_persona.getApellido(),
+                    nueva_persona.getTipoDocumento(),
+                    nueva_persona.getDocumento(),
+                    nueva_persona.getTelefono(),
+                    nueva_persona.getTipoPersona(),
+                    nueva_persona.getEstado()
+                ])
+            registro.destroy()
 
-            Label(parent_frame, text="Ingrese el número de documento:").pack(pady=5)
-            entry_documento = Entry(parent_frame)
-            entry_documento.pack(pady=5)
+        submit = Button(registro, text="Registrar", command=save_persona, width=30)
+        submit.place(x=22, y=450)
 
-            Label(parent_frame, text="Ingrese el número de teléfono:").pack(pady=5)
-            entry_telefono = Entry(parent_frame)
-            entry_telefono.pack(pady=5)
-
-            Label(parent_frame, text="Seleccione el tipo de persona:").pack(pady=5)
-            tipoPersona = StringVar()
-            tipoPersona.set("CLI")
-            for texto, valor in [("CLIENTE", "CLI"), ("EMPLEADO", "EMP")]:
-                Radiobutton(parent_frame, text=texto, variable=tipoPersona, value=valor).pack(anchor="w")
-
-            def registrar():
-                try:
-                    nombre = entry_nombre.get()
-                    apellido = entry_apellido.get()
-                    documento = int(entry_documento.get())
-                    telefono = int(entry_telefono.get())
-                    nueva_persona = cls(
-                        nombre, apellido, tipoDocumento.get(),
-                        documento, telefono, tipoPersona.get(), True
-                    )
-                    with open("csv/persona.csv", "a", newline="") as file:
-                        writer = csv.writer(file)
-                        writer.writerow([
-                            nueva_persona.nombre,
-                            nueva_persona.apellido,
-                            nueva_persona.tipoDocumento,
-                            nueva_persona.documento,
-                            nueva_persona.telefono,
-                            nueva_persona.tipoPersona,
-                            nueva_persona.estado
-                        ])
-                    print("Persona registrada con éxito.")
-                except ValueError:
-                    print("Error: introduzca un valor válido.")
-
-            # Crear el botón de registro
-            Button(parent_frame, text="Registrar", command=registrar).pack(pady=20)
-
-        except Exception as e:
-            print(f"Error: {e}")
-
+        registro.mainloop()
     @classmethod
     def mostrarPersonaActiva(cls, parent_frame):
         try:
@@ -217,3 +212,8 @@ class Persona:
                     writer = csv.writer(file)
                     writer.writerow(header)
                     writer.writerows(personas)
+
+
+# STR
+    def __str__(self):
+        return f"{self.nombre} {self.apellido}, {self.tipoDocumento}: {self.documento}, Tel: {self.telefono}, Tipo: {self.tipoPersona}, Estado: {self.estado}"
