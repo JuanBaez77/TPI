@@ -1,5 +1,6 @@
 import csv
 from tkinter import *
+from tkinter import messagebox
 class Persona:
     def __init__(self,nombre,apellido,tipoDocumento,documento,telefono,tipoPersona,estado):
         self.__nombre = nombre
@@ -54,67 +55,32 @@ class Persona:
 
 # METODOS
 
-    def registrarPersona():
-        registro = Tk()
-        registro.geometry("650x550")
-        registro.title("Registro")
-        registro.resizable(False, False)
-        registro.config(background="#2a3138")
-        tituloRegistro = Label(registro, text="Registrar Persona", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
 
-        # Crear los widgets de entrada
-        lNombre = Label(registro, text="Nombre:", bg="#2a3138", fg="white").place(x=22, y=70)
-        lApellido = Label(registro, text="Apellido:", bg="#2a3138", fg="white").place(x=22, y=130)
-        lTipoDocumento = Label(registro, text="Tipo de documento:", bg="#2a3138", fg="white").place(x=22, y=190)
-        lDocumento = Label(registro, text="Documento:", bg="#2a3138", fg="white").place(x=22, y=250)
-        lTelefono = Label(registro, text="Telefono:", bg="#2a3138", fg="white").place(x=22, y=310)
-        lTipoPersona = Label(registro, text="Tipo de Persona", bg="#2a3138", fg="white").place(x=22, y=370)
-        
-        nombre = StringVar()
-        apellido = StringVar()
-        documento = StringVar()
-        telefono = StringVar()
-        tipoDocumento = StringVar()
-        tipoDocumento.set("DNI")
-        tipoPersona = StringVar()
-        tipoPersona.set("CLI")  
-        
-        entryNombre = Entry(registro, textvariable=nombre, width="35").place(x=22, y=100)
-        entryApellido = Entry(registro, textvariable=apellido, width="35").place(x=22, y=160)
-        entryDocumento = Entry(registro, textvariable=documento, width="35").place(x=22, y=280)
-        entryTelefono = Entry(registro, textvariable=telefono, width="35").place(x=22, y=340)
-        entryTipoPersona = OptionMenu(registro, tipoPersona, "CLI", "EMP").place(x=22, y=400)
-        entryTipoDocumento = OptionMenu(registro, tipoDocumento, "DNI", "PAS").place(x=22, y=210)
-        
-        def save_persona():
-            nombre_val = nombre.get()
-            apellido_val = apellido.get()
-            tipoDocumento_val = tipoDocumento.get()
-            documento_val = documento.get()
-            telefono_val = telefono.get()
-            tipoPersona_val = tipoPersona.get()
-            print(f"{nombre_val}, {apellido_val}, {tipoDocumento_val}")
-            nueva_persona = Persona(
-                nombre_val, apellido_val, tipoDocumento_val,
-                documento_val, telefono_val, tipoPersona_val, True
-            )
-            with open("csv/persona.csv", "a", newline="") as file:
-                writer = csv.writer(file)
-                writer.writerow([
-                    nueva_persona.getNombre(),
-                    nueva_persona.getApellido(),
-                    nueva_persona.getTipoDocumento(),
-                    nueva_persona.getDocumento(),
-                    nueva_persona.getTelefono(),
-                    nueva_persona.getTipoPersona(),
-                    nueva_persona.getEstado()
-                ])
-            registro.destroy()
-
-        submit = Button(registro, text="Registrar", command=save_persona, width=30)
-        submit.place(x=22, y=450)
-
-        registro.mainloop()
+    def guardar_persona(list, registro):
+        nombre_val = list[0].get()
+        apellido_val = list[1].get()
+        tipoDocumento_val = list[2].get()
+        documento_val = list[3].get()
+        telefono_val = list[4].get()
+        tipoPersona_val = list[5].get()
+        print(f"{nombre_val}, {apellido_val}, {tipoDocumento_val}")
+        nueva_persona = Persona(
+            nombre_val, apellido_val, tipoDocumento_val,
+            documento_val, telefono_val, tipoPersona_val, True
+        )
+        with open("csv/persona.csv", "a", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow([
+                nueva_persona.getNombre(),
+                nueva_persona.getApellido(),
+                nueva_persona.getTipoDocumento(),
+                nueva_persona.getDocumento(),
+                nueva_persona.getTelefono(),
+                nueva_persona.getTipoPersona(),
+                nueva_persona.getEstado()
+            ])
+        registro.destroy()
+        messagebox.showinfo("Éxito", "Persona registrada con éxito")
     @classmethod
     def mostrarPersonaActiva(cls, parent_frame):
         try:
