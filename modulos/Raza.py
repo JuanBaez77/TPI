@@ -29,7 +29,7 @@ def mostrarRaza():
     Mostrar por pantalla las razas almacenadas en el csv
     """
     try:
-        with open("csv/razas.csv", "r", encoding="UTF-8", newline="") as lectura:
+        with open("TPI/csv/razas.csv", "r", encoding="UTF-8", newline="") as lectura:
             razasAlmacenadas = csv.reader(lectura)
             top = Toplevel()
             top.title("Razas Almacenadas")
@@ -61,7 +61,7 @@ def crearRaza():
         if nombre_raza:
             raza = Raza(nombre_raza)
             try:
-                with open("csv/razas.csv", mode='a', newline='') as archivo:
+                with open("TPI/csv/razas.csv", mode='a', newline='') as archivo:
                     razaNueva = csv.writer(archivo)
                     razaNueva.writerow([raza.get_raza(), "1"])
                 messagebox.showinfo("Éxito", f"Raza '{raza.get_raza()}' guardada en razas.csv")
@@ -95,7 +95,7 @@ def modificarEstadoRaza():
         filas = []
 
         try:
-            with open("csv/razas.csv", "r", encoding="UTF-8", newline="") as lectura:
+            with open("TPI/csv/razas.csv", "r", encoding="UTF-8", newline="") as lectura:
                 razasAlmacenadas = csv.reader(lectura)
                 for linea in razasAlmacenadas:
                     if linea[0] == nombre_raza:
@@ -104,7 +104,7 @@ def modificarEstadoRaza():
                     filas.append(linea)
 
             if encontrado:
-                with open("csv/razas.csv", "w", encoding="UTF-8", newline="") as escritura:
+                with open("TPI/csv/razas.csv", "w", encoding="UTF-8", newline="") as escritura:
                     escritor = csv.writer(escritura)
                     escritor.writerows(filas)
                 messagebox.showinfo("Éxito", f"Estado de la raza '{nombre_raza}' actualizado a {nuevoEstado}")
@@ -132,7 +132,7 @@ def modificarEstadoRaza():
 def menuRaza():
     ventana = Tk()
     ventana.title("Menu Razas")
-    ventana.iconbitmap("img/404022.ico")
+    ventana.iconbitmap("TPI/img/404022.ico")
     ventana.geometry("300x250")
 
     Button(ventana, text="Mostrar Razas", command=mostrarRaza).pack(pady=10)
