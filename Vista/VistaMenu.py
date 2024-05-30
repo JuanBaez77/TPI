@@ -9,7 +9,7 @@ from Controllers.ControladorMascota import ControladorMascota
 listaMascotas = []
 listaMascotasCompleta = ControladorMascota.cargarMascotas(listaMascotas)
 # CREAMOS COLORES PARA EL MENU
-COLOR_PRINCIPAL = "#2a3138"
+COLOR_PRINCIPAL = "#6890C5"
 COLOR_SECUNDARIO = "#3e444e"
 COLOR_PAGINA = "#e0e0e0"
 COLOR_BOTON = "#3e444e"
@@ -27,19 +27,19 @@ class Vista(tk.Tk):
         self.title(f"VETERINARIA {self.nombreVeterinaria.upper()}")
         self.geometry("1024x600")
         self.labelTitulo = Label(self.menu_lateral, text="MENU PRINCIPAL")
-        self.labelTitulo.config(fg="#fff",bg=COLOR_PRINCIPAL, font=("Roboto", 20))
-        self.labelTitulo.pack(fill="x", pady=10, padx=5)
+        self.labelTitulo.config(fg="#fff",bg="black", font=("Roboto", 20))
+        self.labelTitulo.pack(fill="x")
         btn_persona = Button(self.menu_lateral, text="Personas", command=self.menuPersona, fg="white", font=("Roboto", 10), bd= 0, bg=COLOR_PRINCIPAL)
         btn_persona.pack(fill="x",pady=10, padx=10)
         btn_mascota = Button(self.menu_lateral, text="Mascotas", command=self.menuMascota, fg="white", font=("Roboto", 10), bd= 0, bg=COLOR_PRINCIPAL)
         btn_mascota.pack(fill="x", pady=10, padx=10)
         btn_tratamiento = Button(self.menu_lateral, text="Tratamientos", command=menuTratamiento, fg="white", font=("Roboto", 10), bd= 0, bg=COLOR_PRINCIPAL)
         btn_tratamiento.pack(fill="x", pady=10, padx=10)
-        btn_salir = Button(self.menu_lateral, text="SALIR", font=("Roboto", 10), command=self.quit, fg="white", bd= 0, bg="red")
+        btn_salir = Button(self.menu_lateral, text="SALIR", font=("Roboto", 10), command=self.quit, fg="black", bd= 0, bg="red")
         btn_salir.pack(fill="x", pady=10, padx=10)
     
     def colores(self):
-        self.menu_lateral = Frame(self, bg=COLOR_PRINCIPAL, width=275)
+        self.menu_lateral = Frame(self, bg="#5C88C4", width=275,)
         self.menu_lateral.pack(side=tk.LEFT, fill="both", expand=False)
 
         self.pagina = Frame(self, bg=COLOR_PAGINA,width= 150)
