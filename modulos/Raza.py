@@ -52,33 +52,6 @@ def mostrarRaza():
     except Exception as e:
         messagebox.showerror("Error", f"No se pudo leer el archivo: {e}")
 
-def crearRaza():
-    """
-    Permitir al usuario añadir una raza al csv
-    """
-    def guardarRaza():
-        nombre_raza = raza_entry.get().lower()
-        if nombre_raza:
-            raza = Raza(nombre_raza)
-            try:
-                with open("TPI/csv/razas.csv", mode='a', newline='') as archivo:
-                    razaNueva = csv.writer(archivo)
-                    razaNueva.writerow([raza.get_raza(), "1"])
-                messagebox.showinfo("Éxito", f"Raza '{raza.get_raza()}' guardada en razas.csv")
-                raza_entry.delete(0, END)
-            except Exception as e:
-                messagebox.showerror("Error", f"No se pudo guardar la raza: {e}")
-        else:
-            messagebox.showerror("Error", "Por favor ingrese un nombre de raza.")
-
-    top = Toplevel()
-    top.title("Agregar Raza")
-    top.geometry("300x150")
-
-    Label(top, text="Ingrese el nombre de la raza:").pack(pady=10)
-    raza_entry = Entry(top)
-    raza_entry.pack(pady=5)
-    Button(top, text="Guardar", command=guardarRaza).pack(pady=20)
 
 def modificarEstadoRaza():
     """
@@ -132,7 +105,7 @@ def modificarEstadoRaza():
 def menuRaza():
     ventana = Tk()
     ventana.title("Menu Razas")
-    ventana.iconbitmap("TPI/img/404022.ico")
+    ventana.iconbitmap("TPI/404022.ico")
     ventana.geometry("300x250")
 
     Button(ventana, text="Mostrar Razas", command=mostrarRaza).pack(pady=10)

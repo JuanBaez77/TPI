@@ -1,12 +1,13 @@
 # IMPORTAR MENU
-from modulos.menu import MenuDesign
+from Vista.VistaMenu import Vista
+
 def nombreVeter():
-        with open("assets/nombre.txt") as file:
+        with open("TPI/assets/nombre.txt") as file:
                 reader = file.read()
         return reader
 
 def menu():
-        raiz = MenuDesign(nombreVeter())
+        raiz = Vista(nombreVeter())
         raiz.mainloop()
 
 if __name__ == "__main__":
