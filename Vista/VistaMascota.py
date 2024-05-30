@@ -11,7 +11,7 @@ class VistaMascota(tk.Frame):
     
         # CREAR UN ESTILO PARA LA TABLA
         self.style = ttk.Style()
-        self.style.configure("Treeview.Heading", background="black", foreground="red", font=("Roboto", 12, "bold"))
+        self.style.configure("Treeview.Heading", background="", foreground="red", font=("Roboto", 12, "bold"))
         
         # APLICO EL ESTILO
         self.treeview = ttk.Treeview(self.master, style="Treeview")
