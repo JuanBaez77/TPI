@@ -63,7 +63,6 @@ class Persona:
         documento_val = list[3].get()
         telefono_val = list[4].get()
         tipoPersona_val = list[5].get()
-        print(f"{nombre_val}, {apellido_val}, {tipoDocumento_val}")
         nueva_persona = Persona(
             nombre_val, apellido_val, tipoDocumento_val,
             documento_val, telefono_val, tipoPersona_val, True

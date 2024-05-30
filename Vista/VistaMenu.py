@@ -1,21 +1,27 @@
 import tkinter as tk
 from tkinter import *
-from tkinter import messagebox
-from modulos.Persona import Persona
-import modulos.Raza as Raza
+from Modulos.Persona import Persona
+from .VistaMascota import VistaMascota
+from Controllers.ControladorMascota import ControladorMascota
 
+
+# CREAMOS LAS LISTAS
+listaMascotas = []
+listaMascotasCompleta = ControladorMascota.cargarMascotas(listaMascotas)
 # CREAMOS COLORES PARA EL MENU
 COLOR_PRINCIPAL = "#2a3138"
 COLOR_SECUNDARIO = "#3e444e"
 COLOR_PAGINA = "#e0e0e0"
 COLOR_BOTON = "#3e444e"
 
-class MenuDesign(tk.Tk):
+class Vista(tk.Tk):
     def __init__(self, nombreVeterinaria):
         super().__init__()
         self.nombreVeterinaria = nombreVeterinaria
         self.colores()
         self.configMenu()
+    
+    
 
     def configMenu(self):
         self.title(f"VETERINARIA {self.nombreVeterinaria.upper()}")
@@ -52,14 +58,22 @@ class MenuDesign(tk.Tk):
 
     
     def menuMascota(self):
-        # borrar contenido en pagina
+        # LIMPIAMOS EL CONTENIDO DE LA PAGINA
         for widget in self.pagina.winfo_children():
             widget.destroy()
-        # BOTONES PARA ACCEDER A LAS FUNCIONES DEL MENU MASCOTA
-        Button(self.pagina, text="Mostrar mascotas activas", bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Agregar nueva mascota", bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="MENU DE RAZAS", command=Raza.menuRaza, bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
 
+        Label(self.pagina, text="LISTA DE MASCOTAS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
+        
+        # INSTANCIAMOS LA CLASE "VISTA MASCOTA"
+        vista_mascotas = VistaMascota(self.pagina)
+        vista_mascotas.pack(fill="both", expand=True)
+
+        # MOSTRAMOS LAS MASCOTAS ALMACENADAS
+        vista_mascotas.mostrar_mascotas(listaMascotasCompleta)
+        
+        # BOTON PARA AGREGAR MASCOTAS
+        Button(self.pagina, text="Cargar Nueva Mascota", command=vista_mascotas.crearMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        
     def registrarPersona(self):
         registro = Toplevel()
         registro.geometry("650x550")
