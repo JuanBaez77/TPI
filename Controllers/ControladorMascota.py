@@ -9,8 +9,8 @@ class ControladorMascota:
     
     def __init__(self,vista):
         self._vista = vista
-        self._listaRazas = []
         self._listaMascotas = []
+        self.listaRazas = []
     
     def guardarMascota(list, registro):
         nombre_val = list[0].get()
@@ -19,7 +19,7 @@ class ControladorMascota:
         estado_val = list[3].get()
         nueva_mascota = Mascota(nombre_val,raza_val,propietario_val,estado_val)
         
-        with open("csv/mascota.csv", "a", newline="") as file:
+        with open("TPI/csv/mascota.csv", "a", newline="") as file:
             writer = csv.writer(file)
             writer.writerow([
                 nueva_mascota.get_nombre(),
@@ -53,7 +53,7 @@ class ControladorMascota:
             messagebox.showerror("Error", "Por favor ingrese un nombre de raza.")
 
     def cargarMascotas(lista=list):
-        with open("csv/mascota.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        with open("TPI/csv/mascota.csv", mode='r', encoding="utf-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido) 
             for linea in contenido:

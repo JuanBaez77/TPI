@@ -26,20 +26,20 @@ class Vista(tk.Tk):
         self.labelTitulo = Label(self.menu_lateral, text="MENU PRINCIPAL")
         self.labelTitulo.config(fg="#fff",bg="gray", font=("Roboto", 20))
         self.labelTitulo.pack(fill="x")
-        btn_persona = Button(self.menu_lateral, text="Personas", command=self.menuPersona, fg="white", font=("Roboto", 10), bd=0, bg=COLOR_PRINCIPAL)
-        btn_persona.pack(fill="x", pady=10, padx=10)
-        btn_mascota = Button(self.menu_lateral, text="Mascotas", command=self.menuMascota, fg="white", font=("Roboto", 10), bd=0, bg=COLOR_PRINCIPAL)
+        btn_persona = Button(self.menu_lateral, text="Personas", command=self.menuPersona, fg="white", font=("Roboto", 10), bd= 0, bg=COLOR_PRINCIPAL)
+        btn_persona.pack(fill="x",pady=10, padx=10)
+        btn_mascota = Button(self.menu_lateral, text="Mascotas", command=self.menuMascota, fg="white", font=("Roboto", 10), bd= 0, bg=COLOR_PRINCIPAL)
         btn_mascota.pack(fill="x", pady=10, padx=10)
-        btn_tratamiento = Button(self.menu_lateral, text="Tratamientos", command=menuTratamiento, fg="white", font=("Roboto", 10), bd=0, bg=COLOR_PRINCIPAL)
+        btn_tratamiento = Button(self.menu_lateral, text="Tratamientos", command=menuTratamiento, fg="white", font=("Roboto", 10), bd= 0, bg=COLOR_PRINCIPAL)
         btn_tratamiento.pack(fill="x", pady=10, padx=10)
-        btn_salir = Button(self.menu_lateral, text="SALIR", font=("Roboto", 10), command=self.quit, fg="black", bd=0, bg="red")
+        btn_salir = Button(self.menu_lateral, text="SALIR", font=("Roboto", 10), command=self.quit, fg="black", bd= 0, bg="red")
         btn_salir.pack(fill="x", pady=10, padx=10)
-
+    
     def colores(self):
-        self.menu_lateral = Frame(self, bg=COLOR_PRINCIPAL, width=275)
+        self.menu_lateral = Frame(self, bg=COLOR_PRINCIPAL, width=275,)
         self.menu_lateral.pack(side=tk.LEFT, fill="both", expand=False)
 
-        self.pagina = Frame(self, bg=COLOR_PAGINA, width=150)
+        self.pagina = Frame(self, bg=COLOR_PAGINA,width= 150)
         self.pagina.pack(side=tk.RIGHT, fill="both", expand=True)
 
     def menuPersona(self):
