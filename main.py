@@ -2,7 +2,7 @@
 from Vista.VistaMenu import Vista
 
 def nombreVeter():
-        with open("assets/nombre.txt") as file:
+        with open("TPI/assets/nombre.txt") as file:
                 reader = file.read()
         return reader
 

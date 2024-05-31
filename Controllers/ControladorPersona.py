@@ -21,7 +21,7 @@ class ControladorPersona:
             nombre_val, apellido_val, tipoDocumento_val,
             documento_val, telefono_val, tipoPersona_val, True
         )
-        with open("csv/persona.csv", "a", newline="") as file:
+        with open("TPI/csv/persona.csv", "a", newline="") as file:
             writer = csv.writer(file)
             writer.writerow([
                 nueva_persona.getNombre(),
@@ -37,7 +37,7 @@ class ControladorPersona:
 
     @staticmethod
     def cargarPersona(lista=list):
-        with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        with open("TPI/csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido)  # Omitir la primera fila (cabecera)
             for linea in contenido:
@@ -57,7 +57,7 @@ class ControladorPersona:
         encontrado = False
 
         try:
-            with open("csv/persona.csv", encoding="UTF-8") as file:
+            with open("TPI/csv/persona.csv", encoding="UTF-8") as file:
                 reader = csv.reader(file)
                 header = next(reader)
                 for row in reader:
@@ -74,7 +74,7 @@ class ControladorPersona:
                     personas.append(row)
 
             if encontrado:
-                with open("csv/persona.csv", "w", newline="", encoding="utf-8") as file:
+                with open("TPI/csv/persona.csv", "w", newline="", encoding="utf-8") as file:
                     writer = csv.writer(file)
                     writer.writerow(header)
                     writer.writerows(personas)

@@ -1,5 +1,4 @@
 import csv
-import pandas as pd
 from tkinter import *
 from tkinter import messagebox
 from Modulos.Raza import Raza

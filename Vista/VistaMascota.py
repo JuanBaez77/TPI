@@ -38,7 +38,12 @@ class VistaMascota(tk.Frame):
 
         # LLENAR LA TABLA 
         for mascota in lista_mascotas:
-            self.treeview.insert("", "end", values=(mascota.get_nombre(),mascota.get_raza(),mascota.get_propietario(),mascota.get_estado())) 
+            estado_color = "green" if mascota.get_estado() == "True" else "red"
+            self.treeview.insert("", "end", values=(mascota.get_nombre(),mascota.get_raza(),mascota.get_propietario(),mascota.get_estado()), tags=('#2dc426' if mascota.get_estado() == "True" else 'red')) 
+
+            # Aplicar estilos
+            self.treeview.tag_configure('green', background='lightgreen', foreground='black')
+            self.treeview.tag_configure('red', background='lightcoral', foreground='black')
 
     def crearMascota(self):
         registro = Toplevel()
