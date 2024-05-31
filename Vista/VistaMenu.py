@@ -6,19 +6,8 @@ from Vista.VistaPersona import VistaPersona
 from Controllers.ControladorMascota import ControladorMascota
 from Controllers.ControladorPersona import ControladorPersona
 
-listaMascotas = []
-listaMascotasCompleta = ControladorMascota.cargarMascotas(listaMascotas)
-<<<<<<< HEAD
-listaPersonas = []
-listaPersonasCompleta = ControladorPersona.cargarPersona(listaPersonas)
-
-COLOR_PRINCIPAL = "#6890C5"
-COLOR_SECUNDARIO = "#3e444e"
-=======
-# CREAMOS COLORES PARA EL MENU
 COLOR_PRINCIPAL = "#2C3E50"
 COLOR_SECUNDARIO = "#18BC9C"
->>>>>>> e0943462cc07a64b9b44dc179a1e79a4e05bc1ff
 COLOR_PAGINA = "#e0e0e0"
 COLOR_BOTON = "#3e444e"
 
@@ -29,15 +18,13 @@ class Vista(tk.Tk):
         self.colores()
         self.configMenu()
 
+        self.controladorPersona = ControladorPersona(self, self.actualizarVistaPersonas)
+
     def configMenu(self):
         self.title(f"VETERINARIA {self.nombreVeterinaria.upper()}")
         self.geometry("1024x600")
         self.labelTitulo = Label(self.menu_lateral, text="MENU PRINCIPAL")
-<<<<<<< HEAD
-        self.labelTitulo.config(fg="#fff", bg="black", font=("Roboto", 20))
-=======
         self.labelTitulo.config(fg="#fff",bg="gray", font=("Roboto", 20))
->>>>>>> e0943462cc07a64b9b44dc179a1e79a4e05bc1ff
         self.labelTitulo.pack(fill="x")
         btn_persona = Button(self.menu_lateral, text="Personas", command=self.menuPersona, fg="white", font=("Roboto", 10), bd=0, bg=COLOR_PRINCIPAL)
         btn_persona.pack(fill="x", pady=10, padx=10)
@@ -49,11 +36,7 @@ class Vista(tk.Tk):
         btn_salir.pack(fill="x", pady=10, padx=10)
 
     def colores(self):
-<<<<<<< HEAD
-        self.menu_lateral = Frame(self, bg="#5C88C4", width=275)
-=======
-        self.menu_lateral = Frame(self, bg=COLOR_PRINCIPAL, width=275,)
->>>>>>> e0943462cc07a64b9b44dc179a1e79a4e05bc1ff
+        self.menu_lateral = Frame(self, bg=COLOR_PRINCIPAL, width=275)
         self.menu_lateral.pack(side=tk.LEFT, fill="both", expand=False)
 
         self.pagina = Frame(self, bg=COLOR_PAGINA, width=150)
@@ -65,14 +48,18 @@ class Vista(tk.Tk):
 
         Label(self.pagina, text="LISTA DE PERSONAS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
 
-        vista_personas = VistaPersona(self.pagina)
-        vista_personas.pack(fill="both", expand=True)
+        self.vista_personas = VistaPersona(self.pagina)
+        self.vista_personas.pack(fill="both", expand=True)
 
-        vista_personas.mostrar_persona(listaPersonasCompleta)
+        self.actualizarVistaPersonas()
 
-        Button(self.pagina, text="Cargar Nueva Persona", command=vista_personas.registrarPersona, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=8, padx=20, fill="x")
+        Button(self.pagina, text="Cargar Nueva Persona", command=self.vista_personas.registrarPersona, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=8, padx=20, fill="x")
 
         Button(self.pagina, text="Cambiar Estado de Persona", command=self.abrir_cambiar_estado, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+    
+    def actualizarVistaPersonas(self):
+        listaPersonas = ControladorPersona.cargarPersona([])
+        self.vista_personas.mostrar_persona(listaPersonas)
 
     def menuMascota(self):
         for widget in self.pagina.winfo_children():
@@ -83,26 +70,9 @@ class Vista(tk.Tk):
         vista_mascotas = VistaMascota(self.pagina)
         vista_mascotas.pack(fill="both", expand=True)
 
-        vista_mascotas.mostrar_mascotas(listaMascotasCompleta)
-<<<<<<< HEAD
+        vista_mascotas.mostrar_mascotas(ControladorMascota.cargarMascotas([]))
 
         Button(self.pagina, text="Cargar Nueva Mascota", command=vista_mascotas.crearMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-=======
-        
-        # BOTON PARA AGREGAR MASCOTAS
-        Button(self.pagina, text="Cargar Nueva Mascota", command=vista_mascotas.crearMascota, bg=COLOR_SECUNDARIO, fg="black", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        
-        # BOTON PARA MODIFICAR ESTADO
-        Button(self.pagina, text="Eliminar Mascota", bg=COLOR_SECUNDARIO, fg="black", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        
-    def registrarPersona(self):
-        registro = Toplevel()
-        registro.geometry("650x550")
-        registro.title("Registro")
-        registro.resizable(False, False)
-        registro.config(background="#2a3138")
-        tituloRegistro = Label(registro, text="Registrar Persona", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
->>>>>>> e0943462cc07a64b9b44dc179a1e79a4e05bc1ff
 
     def abrir_cambiar_estado(self):
         cambiar_estado_ventana = Toplevel(self)
@@ -118,9 +88,8 @@ class Vista(tk.Tk):
         label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
         label_mensaje.pack(pady=5)
 
-        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: ControladorPersona.cambiarEstadoPersona(entry_documento.get(), label_mensaje))
+        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorPersona.cambiarEstadoPersona(entry_documento.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)
-
 
 def menuTratamiento():
     ventana_tratamiento = Toplevel()

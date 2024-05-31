@@ -4,9 +4,10 @@ from Modulos.Persona import Persona
 
 class ControladorPersona:
     
-    def __init__(self, vista):
+    def __init__(self, vista, update_callback=None):
         self._vista = vista
         self._listaPersonas = []
+        self.update_callback = update_callback
     
     @staticmethod
     def guardarPersona(lista, registro):
@@ -51,8 +52,7 @@ class ControladorPersona:
                 lista.append(persona)
         return lista
     
-    @staticmethod
-    def cambiarEstadoPersona(documento, label_mensaje):
+    def cambiarEstadoPersona(self, documento, label_mensaje):
         personas = []
         encontrado = False
 
@@ -79,6 +79,8 @@ class ControladorPersona:
                     writer.writerow(header)
                     writer.writerows(personas)
                 label_mensaje.config(text=mensaje, fg="green")
+                if self.update_callback:
+                    self.update_callback()
             else:
                 label_mensaje.config(text="Error. Documento no encontrado", fg="red")
 
