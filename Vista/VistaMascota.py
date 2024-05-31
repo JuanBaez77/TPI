@@ -50,10 +50,12 @@ class VistaMascota(tk.Frame):
 
         # CREAMOS LAS ENTRADAS
         nombre = Label(registro, text="Nombre:", bg="#2a3138", fg="white").place(x=22, y=70)
+        nuevaRaza = Label(registro, text="Agregar una Raza nueva:", bg="#2a3138", fg="white").place(x=390, y=130)
         raza = Label(registro, text="Selecciona una Raza:", bg="#2a3138", fg="white").place(x=22, y=130)
         propietario = Label(registro, text="Propietario:", bg="#2a3138", fg="white").place(x=22, y=190)
         estado = Label(registro, text="Estado", bg="#2a3138", fg="white").place(x=22, y=250)
         
+        nuevaRaza = StringVar()
         nombre = StringVar()
         raza = StringVar()
         raza.set("Raza")
@@ -74,10 +76,10 @@ class VistaMascota(tk.Frame):
         entryTipoRaza.config(font=("Roboto", 9), bg="#3e444e", fg="white", highlightbackground="#2a3138", highlightcolor="#2a3138")
         
         
-        enviarRaza = Button(registro, text="Cargar Raza", command=lambda: self.guardarRaza(newRaza), width=20, bg="green")
+        enviarRaza = Button(registro, text="Cargar Raza", command=lambda: self.guardarRaza(newRaza), width=20, bg="#18BC9C")
         enviarRaza.place(x=380, y=190)
         
-        enviar = Button(registro, text="Registrar", command=lambda: self.guardarMascota(newMascota, registro), width=30, bg="green")
+        enviar = Button(registro, text="Registrar", command=lambda: self.guardarMascota(newMascota, registro), width=30, bg="#18BC9C")
         enviar.place(x=22, y=450)
 
     def guardarMascota(self, newPersona, registro):
