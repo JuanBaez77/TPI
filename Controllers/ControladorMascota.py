@@ -1,4 +1,5 @@
 import csv
+import pandas as pd
 from tkinter import *
 from tkinter import messagebox
 from Modulos.Raza import Raza
@@ -8,8 +9,8 @@ class ControladorMascota:
     
     def __init__(self,vista):
         self._vista = vista
-        self._listaPersonas = []
         self._listaRazas = []
+        self._listaMascotas = []
     
     def guardarMascota(list, registro):
         nombre_val = list[0].get()
@@ -30,56 +31,63 @@ class ControladorMascota:
         messagebox.showinfo("Éxito", "Mascota registrada con éxito")
 
     def cargarRazas(self):
-        with open("razas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        listaRazasCompleta = []
+        with open("TPI/csv/razas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
-            for id_raza, estado in contenido:
-                self._listaRazas[int(estado)] = id_raza
-        return self._listaRazas
-    
-    def mostrarRaza(self):
-        self._vista.mostrarRazas(self._listaRazas)
-        
-    def crearRaza():
-        """
-        Permitir al usuario añadir una raza al csv
-        """
-        def guardarRaza():
-            nombre_raza = raza_entry.get().lower()
-            if nombre_raza:
-                raza = Raza(nombre_raza)
-                try:
-                    with open("csv/razas.csv", mode='a', newline='') as archivo:
-                        razaNueva = csv.writer(archivo)
-                        razaNueva.writerow([raza.get_raza(), "1"])
-                    messagebox.showinfo("Éxito", f"Raza '{raza.get_raza()}' guardada en razas.csv")
-                    raza_entry.delete(0, END)
-                except Exception as e:
-                    messagebox.showerror("Error", f"No se pudo guardar la raza: {e}")
-            else:
-                messagebox.showerror("Error", "Por favor ingrese un nombre de raza.")
+            for i in contenido:
+                listaRazasCompleta.append(i)
+        return listaRazasCompleta
 
-        top = Toplevel()
-        top.title("Agregar Raza")
-        top.geometry("300x150")
-
-        Label(top, text="Ingrese el nombre de la raza:").pack(pady=10)
-        raza_entry = Entry(top)
-        raza_entry.pack(pady=5)
-        Button(top, text="Guardar", command=guardarRaza).pack(pady=20)
+    def guardarRaza(newRaza):
+        nombre_raza = newRaza.get().lower()
+        if nombre_raza:
+            raza = Raza(nombre_raza, 1)
+            try:
+                with open("TPI/csv/razas.csv", mode='a', newline='') as archivo:
+                    razaNueva = csv.writer(archivo)
+                    razaNueva.writerow([raza.get_raza(), "1"])
+                messagebox.showinfo("Éxito", f"Raza '{raza.get_raza()}' guardada en razas.csv")
+            except Exception as e:
+                messagebox.showerror("Error", f"No se pudo guardar la raza: {e}")
+        else:
+            messagebox.showerror("Error", "Por favor ingrese un nombre de raza.")
 
     def cargarMascotas(lista=list):
         with open("csv/mascota.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
+            next(contenido) 
             for linea in contenido:
                 nombre = linea[0]
                 raza = linea[1]
                 propietario = linea[2]
-                estado = int(linea[3])
+                estado = linea[3]
                 mascota = Mascota(nombre, raza, propietario, estado)
                 lista.append(mascota)
         return lista
 
-    def mostrarMascota(self):
-        self._vista.mostrarMascotas(self._listaMascotas)
-    
-    
+    def cambiarEstadoPersona(cls,):
+        documento = input("DOCUMENTO DE LA PERSONA QUE DESEA CAMBIAR\n")
+        personas = []
+        encontrado = False
+        with open("csv/persona.csv", encoding="UTF-8") as file:
+            reader = csv.reader(file)
+            header = next(reader)
+            for row in reader:
+                if row[3] == documento:
+                    print(f"Nombre: {row[0]} {row[1]}")
+                    estado_actual = row[6]
+                    if estado_actual == "False":
+                        row[6] = "True"
+                        print("Exito al cambiar estado de Inactivo a Activo")                    
+                    else:
+                        row[6] = "False"
+                        print("Exito al cambiar estado de Activo a Inactivo")    
+                    encontrado = True
+                personas.append(row)
+            if encontrado == False:
+                print("Error. Documento no encontrado")
+            else:
+                with open("csv/persona.csv", "w", newline= "", encoding="utf-8") as file:
+                    writer = csv.writer(file)
+                    writer.writerow(header)
+                    writer.writerows(personas)
