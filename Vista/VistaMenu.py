@@ -2,12 +2,15 @@ import tkinter as tk
 from tkinter import *
 from Modulos.Persona import Persona
 from .VistaMascota import VistaMascota
+from Vista.VistaPersona import VistaPersona
 from Controllers.ControladorMascota import ControladorMascota
-
+from Controllers.ControladorPersona import ControladorPersona
 
 # CREAMOS LAS LISTAS
 listaMascotas = []
 listaMascotasCompleta = ControladorMascota.cargarMascotas(listaMascotas)
+listaPersonas = []
+listaPersonasCompleta = ControladorPersona.cargarPersona(listaPersonas)
 # CREAMOS COLORES PARA EL MENU
 COLOR_PRINCIPAL = "#6890C5"
 COLOR_SECUNDARIO = "#3e444e"
@@ -51,12 +54,19 @@ class Vista(tk.Tk):
         for widget in self.pagina.winfo_children():
             widget.destroy()
         # BOTONES PARA ACCEDER A LAS FUNCIONES DEL MENU PERSONA
-        Button(self.pagina, text="Mostrar personas", command=lambda: Persona.mostrarPersona(self.pagina), bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Mostrar personas activas", command=lambda: Persona.mostrarPersonaActiva(self.pagina), bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Registrar personas", command=self.registrarPersona, bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Cambiar estado de una persona", command=Persona.cambiarEstadoPersona, bg=COLOR_SECUNDARIO, fg="white", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Label(self.pagina, text="LISTA DE PERSONAS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
+        
+        # INSTANCIAMOS LA CLASE "VISTA PERSONA"
+        vista_personas = VistaPersona(self.pagina)
+        vista_personas.pack(fill="both", expand=True)
 
-    
+        # MOSTRAMOS LAS PERSONAS ALMACENADAS
+        vista_personas.mostrar_persona(listaPersonasCompleta)
+        
+        # BOTON PARA AGREGAR PERSONAS
+        Button(self.pagina, text="Cargar Nueva Persona", command=vista_personas.registrarPersona, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+
+        
     def menuMascota(self):
         # LIMPIAMOS EL CONTENIDO DE LA PAGINA
         for widget in self.pagina.winfo_children():
@@ -73,53 +83,7 @@ class Vista(tk.Tk):
         
         # BOTON PARA AGREGAR MASCOTAS
         Button(self.pagina, text="Cargar Nueva Mascota", command=vista_mascotas.crearMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        
-    def registrarPersona(self):
-        registro = Toplevel()
-        registro.geometry("650x550")
-        registro.title("Registro")
-        registro.resizable(False, False)
-        registro.config(background="#2a3138")
-        tituloRegistro = Label(registro, text="Registrar Persona", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
 
-        # Crear los widgets de entrada
-        lNombre = Label(registro, text="Nombre:", bg="#2a3138", fg="white").place(x=22, y=70)
-        lApellido = Label(registro, text="Apellido:", bg="#2a3138", fg="white").place(x=22, y=130)
-        lTipoDocumento = Label(registro, text="Tipo de documento:", bg="#2a3138", fg="white").place(x=22, y=190)
-        lDocumento = Label(registro, text="Documento:", bg="#2a3138", fg="white").place(x=22, y=250)
-        lTelefono = Label(registro, text="Telefono:", bg="#2a3138", fg="white").place(x=22, y=310)
-        lTipoPersona = Label(registro, text="Tipo de Persona", bg="#2a3138", fg="white").place(x=22, y=370)
-
-        nombre = StringVar()
-        apellido = StringVar()
-        documento = StringVar()
-        telefono = StringVar()
-        tipoDocumento = StringVar()
-        tipoDocumento.set("DNI")
-        tipoPersona = StringVar()
-        tipoPersona.set("CLI")
-
-        newPersona = [nombre, apellido, tipoDocumento, documento, telefono, tipoPersona]
-
-        entryNombre = Entry(registro, textvariable=nombre, width="35").place(x=22, y=100)
-        entryApellido = Entry(registro, textvariable=apellido, width="35").place(x=22, y=160)
-        entryDocumento = Entry(registro, textvariable=documento, width="35").place(x=22, y=280)
-        entryTelefono = Entry(registro, textvariable=telefono, width="35").place(x=22, y=340)
-
-        entryTipoPersona = OptionMenu(registro, tipoPersona, "CLI", "EMP")
-        entryTipoPersona.place(x=22, y=400)
-        entryTipoPersona.config(font=("Roboto", 9), bg=COLOR_PRINCIPAL, fg=COLOR_PAGINA,highlightbackground=COLOR_SECUNDARIO, highlightcolor=COLOR_SECUNDARIO)
-
-        entryTipoDocumento = OptionMenu(registro, tipoDocumento, "DNI", "PAS")
-        entryTipoDocumento.place(x=22, y=210)
-        
-        entryTipoDocumento.config(font=("Roboto", 9), bg=COLOR_PRINCIPAL, fg=COLOR_PAGINA,highlightbackground=COLOR_SECUNDARIO, highlightcolor=COLOR_SECUNDARIO)
-
-        submit = Button(registro, text="Registrar", command=lambda: self.guardar_persona(newPersona, registro), width=30)
-        submit.place(x=22, y=450)
-
-    def guardar_persona(self, newPersona, registro):
-        Persona.guardar_persona(newPersona, registro)
 
 def menuTratamiento():
     ventana_tratamiento = Toplevel()

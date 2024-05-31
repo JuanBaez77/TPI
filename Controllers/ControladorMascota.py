@@ -8,7 +8,7 @@ class ControladorMascota:
     
     def __init__(self,vista):
         self._vista = vista
-        self._listaMascotas = []
+        self._listaPersonas = []
         self._listaRazas = []
     
     def guardarMascota(list, registro):
@@ -18,7 +18,7 @@ class ControladorMascota:
         estado_val = list[3].get()
         nueva_mascota = Mascota(nombre_val,raza_val,propietario_val,estado_val)
         
-        with open("TPI/csv/mascota.csv", "a", newline="") as file:
+        with open("csv/mascota.csv", "a", newline="") as file:
             writer = csv.writer(file)
             writer.writerow([
                 nueva_mascota.get_nombre(),
@@ -30,7 +30,7 @@ class ControladorMascota:
         messagebox.showinfo("Éxito", "Mascota registrada con éxito")
 
     def cargarRazas(self):
-        with open("TPI/razas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        with open("razas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             for id_raza, estado in contenido:
                 self._listaRazas[int(estado)] = id_raza
@@ -48,7 +48,7 @@ class ControladorMascota:
             if nombre_raza:
                 raza = Raza(nombre_raza)
                 try:
-                    with open("TPI/csv/razas.csv", mode='a', newline='') as archivo:
+                    with open("csv/razas.csv", mode='a', newline='') as archivo:
                         razaNueva = csv.writer(archivo)
                         razaNueva.writerow([raza.get_raza(), "1"])
                     messagebox.showinfo("Éxito", f"Raza '{raza.get_raza()}' guardada en razas.csv")
@@ -68,7 +68,7 @@ class ControladorMascota:
         Button(top, text="Guardar", command=guardarRaza).pack(pady=20)
 
     def cargarMascotas(lista=list):
-        with open("TPI/csv/mascota.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        with open("csv/mascota.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             for linea in contenido:
                 nombre = linea[0]
