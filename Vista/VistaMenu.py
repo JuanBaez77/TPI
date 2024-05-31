@@ -74,6 +74,9 @@ class Vista(tk.Tk):
         # BOTON PARA AGREGAR MASCOTAS
         Button(self.pagina, text="Cargar Nueva Mascota", command=vista_mascotas.crearMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
         
+        # BOTON PARA MODIFICAR ESTADO
+        Button(self.pagina, text="Eliminar Mascota", bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        
     def registrarPersona(self):
         registro = Toplevel()
         registro.geometry("650x550")
@@ -129,5 +132,5 @@ def menuTratamiento():
     menu_tratamiento = Menu(ventana_tratamiento)
     ventana_tratamiento.config(menu=menu_tratamiento)
 
-    menu_tratamiento.add_command(label="Tratamientos Disponibles", command=mostrar_tratamientos_disponibles)
-    menu_tratamiento.add_command(label="Agenda de Tratamientos", command=mostrar_agenda_tratamientos)
+    menu_tratamiento.add_command(label="Tratamientos Disponibles")
+    menu_tratamiento.add_command(label="Agenda de Tratamientos")

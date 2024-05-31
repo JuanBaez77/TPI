@@ -1,16 +1,21 @@
-Coco,Golden,Juan,1
-Firulais,Husky,Valeria,1
-Luna,Beagle,Ana,1
-Max,Labrador,Pedro,1
-Bella,Poodle,Maria,1
-Rocky,Bulldog,Jose,1
-Lucy,Shih Tzu,Laura,1
-Charlie,Boxer,David,1
-Daisy,Bulldog Francés,Carla,1
-Milo,Chihuahua,Jorge,1
-Bailey,Doberman,Ines,1
-Molly,Pastor Alemán,Raul,1
-Sol,Callejera,Juan,1
-Fran,Grandote,Mio,1
-ewfw,rwerwerewrwer,wrwer,1
-Pancho,Salchicha,Fran,1
+Nombre,Raza,Propietario,Estado
+Coco,Golden,Juan,True
+Firulais,Husky,Valeria,False
+Luna,Beagle,Ana,True
+Max,Labrador,Pedro,True
+Bella,Poodle,Maria,True
+Rocky,Bulldog,Jose,False
+Lucy,Shih Tzu,Laura,True
+Charlie,Boxer,David,True
+Daisy,Bulldog Francés,Carla,True
+Milo,Chihuahua,Jorge,False
+Bailey,Doberman,Ines,False
+Molly,Pastor Alemán,Raul,True
+Sol,Callejera,Juan,True
+Fran,Grandote,Mio,True
+ewfw,rwerwerewrwer,wrwer,True
+Pancho,Salchicha,Fran,False
+eqwewq,perro pastor de shetland,eqw,False
+juan,labrador retriever,sa,False
+juan,nashe,sasa,True
+sadsa,pastor aleman,dsada,True
