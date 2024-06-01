@@ -6,10 +6,11 @@ from Modulos.Mascota import Mascota
 
 class ControladorMascota:
     
-    def __init__(self,vista):
+    def __init__(self,vista, update_callback=None):
         self._vista = vista
         self._listaMascotas = []
         self.listaRazas = []
+        self.update_callback = update_callback
     
     def guardarMascota(list, registro):
         nombre_val = list[0].get()
@@ -90,3 +91,32 @@ class ControladorMascota:
                     writer = csv.writer(file)
                     writer.writerow(header)
                     writer.writerows(personas)
+
+    def cambiarEstadoMascota(self, nombre, label_mensaje):
+        mascotas = []
+        encontrado = False
+        with open("TPI/csv/mascota.csv", encoding="UTF-8") as file:
+            reader = csv.reader(file)
+            header = next(reader)
+            for row in reader:
+                if row[0] == nombre:
+                    estado_actual = row[3]
+                    if estado_actual == "False":
+                        row[3] = "True"
+                        mensaje = f"Éxito al cambiar estado de Inactivo a Activo para {nombre}"
+                    else:
+                        row[3] = "False"
+                        mensaje = f"Éxito al cambiar estado de Activo a Inactivo para {nombre}"
+                    encontrado = True
+                mascotas.append(row)
+
+        if encontrado:
+            with open("TPI/csv/mascota.csv", "w", newline="", encoding="utf-8") as file:
+                writer = csv.writer(file)
+                writer.writerow(header)
+                writer.writerows(mascotas)
+            label_mensaje.config(text=mensaje, fg="green")
+            if self.update_callback:
+                    self.update_callback()
+            else:
+                label_mensaje.config(text="Error. Documento no encontrado", fg="red")
