@@ -12,7 +12,7 @@ class VistaMascota(tk.Frame):
     
         # CREAR UN ESTILO PARA LA TABLA
         self.style = ttk.Style()
-        self.style.configure("Treeview.Heading", background="", foreground="blue", font=("Roboto", 12, "bold"))
+        self.style.configure("Treeview.Heading", background="", foreground="red", font=("Roboto", 12, "bold"))
         
         # APLICO EL ESTILO
         self.treeview = ttk.Treeview(self.master, style="Treeview")
@@ -41,7 +41,7 @@ class VistaMascota(tk.Frame):
             estado_color = "green" if mascota.get_estado() == "True" else "red"
             self.treeview.insert("", "end", values=(mascota.get_nombre(),mascota.get_raza(),mascota.get_propietario(),mascota.get_estado()), tags=('#2dc426' if mascota.get_estado() == "True" else 'red')) 
 
-            # Aplicar estilos
+            # APLICAR ESTILOS
             self.treeview.tag_configure('green', background='lightgreen', foreground='black')
             self.treeview.tag_configure('red', background='lightcoral', foreground='black')
 
