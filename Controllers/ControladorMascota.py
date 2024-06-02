@@ -12,7 +12,22 @@ class ControladorMascota:
         self.listaRazas = []
         self.update_callback = update_callback
     
+    def cargarMascotas(lista=list):
+        # ESTE METODO VA A ALMACENAR LAS RAZAS EN UNA LISTA Y LA RETORNA
+        with open("TPI/csv/mascota.csv", mode='r', encoding="utf-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido) 
+            for linea in contenido:
+                nombre = linea[0]
+                raza = linea[1]
+                propietario = linea[2]
+                estado = linea[3]
+                mascota = Mascota(nombre, raza, propietario, estado)
+                lista.append(mascota)
+        return lista
+    
     def guardarMascota(list, registro):
+        # ESTE METODO VA A CREAR UNA NUEVA LINEA EN EL CSV CON EL NOMBRE, RAZA, PROPIETARIO Y ESTADO
         nombre_val = list[0].get()
         raza_val = list[1].get()
         propietario_val = list[2].get()
@@ -31,6 +46,7 @@ class ControladorMascota:
         messagebox.showinfo("Éxito", "Mascota registrada con éxito")
 
     def cargarRazas(self):
+        # ESTE METODO VA A ALMACENAR LAS RAZAS EN UNA LISTA Y LA VA A RETORNAR
         listaRazasCompleta = []
         with open("TPI/csv/razas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
@@ -39,6 +55,7 @@ class ControladorMascota:
         return listaRazasCompleta
 
     def guardarRaza(newRaza):
+        # ESTE METODO VA A CREAR UNA NUEVA LINEA EN EL CSV ALMACENANDO RAZA Y ESTADO
         nombre_raza = newRaza.get().lower()
         if nombre_raza:
             raza = Raza(nombre_raza, 1)
@@ -52,47 +69,8 @@ class ControladorMascota:
         else:
             messagebox.showerror("Error", "Por favor ingrese un nombre de raza.")
 
-    def cargarMascotas(lista=list):
-        with open("TPI/csv/mascota.csv", mode='r', encoding="utf-8", newline="") as archivo:
-            contenido = csv.reader(archivo)
-            next(contenido) 
-            for linea in contenido:
-                nombre = linea[0]
-                raza = linea[1]
-                propietario = linea[2]
-                estado = linea[3]
-                mascota = Mascota(nombre, raza, propietario, estado)
-                lista.append(mascota)
-        return lista
-
-    def cambiarEstadoPersona(cls,):
-        documento = input("DOCUMENTO DE LA PERSONA QUE DESEA CAMBIAR\n")
-        personas = []
-        encontrado = False
-        with open("csv/persona.csv", encoding="UTF-8") as file:
-            reader = csv.reader(file)
-            header = next(reader)
-            for row in reader:
-                if row[3] == documento:
-                    print(f"Nombre: {row[0]} {row[1]}")
-                    estado_actual = row[6]
-                    if estado_actual == "False":
-                        row[6] = "True"
-                        print("Exito al cambiar estado de Inactivo a Activo")                    
-                    else:
-                        row[6] = "False"
-                        print("Exito al cambiar estado de Activo a Inactivo")    
-                    encontrado = True
-                personas.append(row)
-            if encontrado == False:
-                print("Error. Documento no encontrado")
-            else:
-                with open("csv/persona.csv", "w", newline= "", encoding="utf-8") as file:
-                    writer = csv.writer(file)
-                    writer.writerow(header)
-                    writer.writerows(personas)
-
     def cambiarEstadoMascota(self, nombre, label_mensaje):
+        # ESTE METODO MODIFICARA EL ESTADO DE LA MASCOTA DE TRUE A FALSE Y VICEVERSA
         mascotas = []
         encontrado = False
         with open("TPI/csv/mascota.csv", encoding="UTF-8") as file:

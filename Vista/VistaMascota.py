@@ -40,12 +40,12 @@ class VistaMascota(tk.Frame):
         for mascota in lista_mascotas:
             estado_color = "green" if mascota.get_estado() == "True" else "red"
             self.treeview.insert("", "end", values=(mascota.get_nombre(),mascota.get_raza(),mascota.get_propietario(),mascota.get_estado()), tags=('#2dc426' if mascota.get_estado() == "True" else 'red')) 
-
-            # APLICAR ESTILOS
+        # APLICAR ESTILOS
             self.treeview.tag_configure('green', background='lightgreen', foreground='black')
             self.treeview.tag_configure('red', background='lightcoral', foreground='black')
 
     def crearMascota(self):
+        # CREAMOS LA VENTANA PARA EL REGISTRO DE MASCOTAS
         registro = Toplevel()
         registro.geometry("650x550")
         registro.title("Registro")
@@ -67,6 +67,7 @@ class VistaMascota(tk.Frame):
         propietario = StringVar()
         estado = StringVar()
         
+        # CREAMOS LA LISTA PARA LUEGO CREAR EL OBJETO
         newMascota = [nombre, raza, propietario, estado]
         newRaza = raza
 
@@ -75,27 +76,32 @@ class VistaMascota(tk.Frame):
         entryPropietario = Entry(registro, textvariable=propietario, width="35").place(x=22, y=220)
         entryEstado = Entry(registro, textvariable=estado, width="35").place(x=22, y=280)
         
-        tiposRaza = self.mostrarRaza()
-        entryTipoRaza = OptionMenu(registro, raza, *tiposRaza)
+        # BOTON PARA MOSTRAR LAS RAZAS ALMACENADAS EN EL CSV
+        listaRaza = self.mostrarRaza()
+        entryTipoRaza = OptionMenu(registro, raza, *listaRaza) 
         entryTipoRaza.place(x=22, y=155)
         entryTipoRaza.config(font=("Roboto", 9), bg="#3e444e", fg="white", highlightbackground="#2a3138", highlightcolor="#2a3138")
         
-        
+        # BOTON PARA GUARDAR LAS RAZA EN EL CSV
         enviarRaza = Button(registro, text="Cargar Raza", command=lambda: self.guardarRaza(newRaza), width=20, bg="#18BC9C")
         enviarRaza.place(x=380, y=190)
         
+        # BOTON PARA GUARDAR LA MASCOTA EN EL CSV
         enviar = Button(registro, text="Registrar", command=lambda: self.guardarMascota(newMascota, registro), width=30, bg="#18BC9C")
         enviar.place(x=22, y=450)
 
     def guardarMascota(self, newPersona, registro):
+        # CON ESTE METODO GUARDAMOS LA MASCOTA EN EL CSV
         ControladorMascota.guardarMascota(newPersona, registro)
     
     def guardarRaza(self, newRaza):
+        # CON ESTE METODO GUARDAMOS LA RAZA EN EL CSV
         ControladorMascota.guardarRaza(newRaza)
         
     def mostrarRaza(self):
+        # CON ESTE METODO MOSTRAMOS LAS RAZAS ALMACENADAS 
         listaRazasDisponibles = []
-        lista = ControladorMascota.cargarRazas(self)
+        lista = ControladorMascota.cargarRazas(self) #LLAMAMOS AL METODO PARA OBTENER LA LISTA CON LAS RAZAS
         for raza in lista:
             #if raza.get_estado() == 1:
                 listaRazasDisponibles.append(raza[0])

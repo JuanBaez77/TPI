@@ -8,6 +8,7 @@ def nombreVeter():
 
 def menu():
         raiz = Vista(nombreVeter())
+        raiz.iconbitmap("TPI/assets/logo_nuevo.ico")
         raiz.mainloop()
 
 if __name__ == "__main__":
