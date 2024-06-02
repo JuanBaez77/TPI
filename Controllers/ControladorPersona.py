@@ -71,7 +71,8 @@ class ControladorPersona:
             contenido = csv.reader(archivo)
             next(contenido)
             for row in contenido:
-                listaPropietarioCompleta.append(f"{row[1]} {row[2]}")
+                if row[6] == "CLI" and row[7] == "True":
+                    listaPropietarioCompleta.append(f"{row[1]} {row[2]}")
         return listaPropietarioCompleta
 
     def cambiarEstadoPersona(self, documento, label_mensaje):
