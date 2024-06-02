@@ -27,7 +27,7 @@ class Vista(tk.Tk):
         
 
     def configMenu(self):
-        self.title(f"VETERINARIA {self.nombreVeterinaria.upper()}")
+        self.title(f"Veterinary {self.nombreVeterinaria}")
         self.geometry("1024x600")
         self.labelTitulo = Label(self.barra_superior, text="      MENU")
         self.labelTitulo.config(fg="#fff",bg="#1f2329", font=(fuente, 20))
@@ -36,6 +36,14 @@ class Vista(tk.Tk):
         self.icon_persona = ImageTk.PhotoImage(Image.open("TPI/assets/person_icon.png").resize((20, 20)))
         self.icon_mascota = ImageTk.PhotoImage(Image.open("TPI/assets/pet_icon.png").resize((20, 20)))
         self.icon_tratamiento = ImageTk.PhotoImage(Image.open("TPI/assets/treatment_icon.webp").resize((20, 20)))
+        self.icon_logo = ImageTk.PhotoImage(Image.open("TPI/assets/logo_nuevo.png").resize((100, 100)))
+        self.fondo = ImageTk.PhotoImage(Image.open("TPI/assets/logo_nuevo.png").resize((600, 600)))
+        
+        logo = Label(self.menu_lateral, image=self.icon_logo, bg=COLOR_PRINCIPAL)
+        logo.pack(side=tk.TOP, padx=10)
+        
+        fondo = tk.Label(self.pagina, image=self.fondo, bg=COLOR_PAGINA)
+        fondo.place(x=0, y=0, relwidth=1, relheight=1)
         
         btn_persona = Button(self.menu_lateral, text="     Personas" ,image=self.icon_persona,compound="left", command=self.menuPersona, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL,padx=20)
         btn_persona.pack(fill="x", anchor="w")
@@ -90,7 +98,7 @@ class Vista(tk.Tk):
         for widget in self.pagina.winfo_children():
             widget.destroy()
 
-        Label(self.pagina, text="LISTA DE MASCOTAS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
+        Label(self.pagina, text="LISTA DE MASCOTAS", font=(fuente, 12), bg=self.pagina['bg']).pack(pady=5)
 
         self.vista_mascotas = VistaMascota(self.pagina)
         self.vista_mascotas.pack(fill="both", expand=True)
@@ -99,7 +107,7 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cargar Nueva Mascota", command=self.vista_mascotas.crearMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
         Button(self.pagina, text="Cambiar Estado", command=self.cambiarEstadoMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-
+        
     def actualizarVistaMascota(self):
         listaMascota = ControladorMascota.cargarMascotas([])
         self.vista_mascotas.mostrar_mascotas(listaMascota)

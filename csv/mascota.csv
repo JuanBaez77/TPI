@@ -5,7 +5,7 @@ Luna,Beagle,Ana,False
 Max,Labrador,Pedro,True
 Bella,Poodle,Maria,True
 Rocky,Bulldog,Jose,False
-Lucy,Shih Tzu,Laura,True
+Lucy,Shih Tzu,Laura,False
 Charlie,Boxer,David,True
 Daisy,Bulldog Francés,Carla,True
 Milo,Chihuahua,Jorge,False
@@ -39,3 +39,4 @@ Duke,Boston Terrier,Daniela,True
 Roco,Boxer,Lucia,True
 Julian,Golden,Sofia,False
 Ulio,Samoyedo,Juan,True
+juAN,Doberman,Ulio,True
