@@ -28,10 +28,19 @@ class ControladorMascota:
     
     def guardarMascota(list, registro):
         # ESTE METODO VA A CREAR UNA NUEVA LINEA EN EL CSV CON EL NOMBRE, RAZA, PROPIETARIO Y ESTADO
+        def cambiarAIDPropietario(propietario_val):
+            with open("csv/persona.csv", encoding="UTF-8") as file:
+                    reader = csv.reader(file)
+                    header = next(reader)
+                    for row in reader:
+                        if (f"{row[1]} {row[2]}") == (f"{propietario_val}"):
+                            identificadorPro = row[0]
+            return identificadorPro
         nombre_val = list[0].get()
         raza_val = list[1].get()
-        propietario_val = list[2].get()
-        estado_val = list[3].get()
+        propietario = list[2].get()
+        propietario_val = cambiarAIDPropietario(propietario)
+        estado_val = True
         nueva_mascota = Mascota(nombre_val,raza_val,propietario_val,estado_val)
         
         with open("csv/mascota.csv", "a", newline="") as file:

@@ -65,6 +65,15 @@ class ControladorPersona:
                 lista.append(persona)
         return lista
 
+    def cargarPropietario(self):
+        listaPropietarioCompleta = []
+        with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido)
+            for row in contenido:
+                listaPropietarioCompleta.append(f"{row[1]} {row[2]}")
+        return listaPropietarioCompleta
+
     def cambiarEstadoPersona(self, documento, label_mensaje):
         personas = []
         encontrado = False
