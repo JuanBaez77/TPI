@@ -1,42 +1,41 @@
 Nombre,Raza,Propietario,Estado
-Coco,Golden,Juan,True
-Firulais,Husky,Valeria,False
-Luna,Beagle,Ana,False
-Max,Labrador,Pedro,True
-Bella,Poodle,Maria,True
-Rocky,Bulldog,Jose,False
-Lucy,Shih Tzu,Laura,False
-Charlie,Boxer,David,True
-Daisy,Bulldog Francés,Carla,True
-Milo,Chihuahua,Jorge,False
-Bailey,Doberman,Ines,False
-Molly,Pastor Alemán,Raul,True
-Ulio,francisco,sa,True
-Simba,Collie,Isabel,False
-Buster,Akita,Roberto,True
-Nala,Samoyedo,Elena,False
-Buddy,Setter Irlandés,Francisco,True
-Lola,Shar Pei,Julia,True
-Oliver,Whippet,Oscar,True
-Sadie,Mastín Español,Lucia,False
-Toby,Galgo Español,Carmen,True
-Maggie,San Bernardo,Sofia,False
-Jake,Airedale Terrier,Diego,False
-Zoe,Basenji,Pablo,True
-Leo,Bichón Frisé,Silvia,False
-Ruby,Cane Corso,Juan Carlos,True
-Sammy,Papillon,Margarita,False
-Stella,Caniche,Guillermo,True
-Oscar,Cocker Spaniel,Clara,True
-Missy,Border Collie,Adrian,False
-Gizmo,Saluki,Victor,True
-Ellie,Maltes,Cristina,True
-Rex,Scottish Terrier,Fernando,False
-Mia,Spitz Japonés,Monica,True
-Koda,Alaskan Malamute,Jose Luis,False
-Teddy,Labradoodle,Alberto,True
-Duke,Boston Terrier,Daniela,True
-Roco,Boxer,Lucia,True
-Julian,Golden,Sofia,False
-Ulio,Samoyedo,Juan,True
-juAN,Doberman,Ulio,True
+Coco,Golden,21,True
+Firulais,Husky,3,False
+Luna,Beagle,29,False
+Max,Labrador,8,True
+Bella,Poodle,31,True
+Rocky,Bulldog,25,False
+Lucy,Shih Tzu,14,False
+Charlie,Boxer,32,True
+Daisy,Bulldog Francés,17,True
+Milo,Chihuahua,20,False
+Bailey,Doberman,12,False
+Molly,Pastor Alemán,24,True
+Ulio,francisco,9,True
+Simba,Collie,18,False
+Buster,Akita,22,True
+Nala,Samoyedo,13,False
+Buddy,Setter Irlandés,1,True
+Lola,Shar Pei,26,True
+Oliver,Whippet,11,True
+Sadie,Mastín Español,6,False
+Toby,Galgo Español,2,True
+Maggie,San Bernardo,10,False
+Jake,Airedale Terrier,4,False
+Zoe,Basenji,5,True
+Leo,Bichón Frisé,30,False
+Ruby,Cane Corso,15,True
+Sammy,Papillon,27,False
+Stella,Caniche,28,True
+Oscar,Cocker Spaniel,19,True
+Missy,Border Collie,7,False
+Gizmo,Saluki,23,True
+Ellie,Maltes,16,True
+Rex,Scottish Terrier,33,False
+Mia,Spitz Japonés,34,True
+Koda,Alaskan Malamute,21,False
+Teddy,Labradoodle,2,True
+Duke,Boston Terrier,3,True
+Roco,Boxer,4,True
+Julian,Golden,6,False
+Ulio,Samoyedo,1,True

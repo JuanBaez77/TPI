@@ -1,7 +1,7 @@
 import csv
 from tkinter import *
 from tkinter import messagebox
-
+from Modulos.Mascota import Mascota
 class Persona:
     def __init__(self, nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado):
         self.__nombre = nombre
@@ -82,13 +82,20 @@ class Persona:
         except FileNotFoundError:
             messagebox.showerror("Error", "No se encontró el archivo personas")
 
-
-# STR
     def __str__(self):
-        return f"{self.nombre} {self.apellido}, {self.tipoDocumento}: {self.documento}, Tel: {self.telefono}, Tipo: {self.tipoPersona}, Estado: {self.estado}"
+        return f"{self.__nombre} {self.__apellido}, {self.__tipoDocumento}: {self.__documento}, Tel: {self.__telefono}, Tipo: {self.__tipoPersona}, Estado: {self.__estado}"
 
-class Cliente:
-    pass
+class Cliente(Persona):
+    def __init__(self, nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado, mascota):
+        super().__init__(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)
+        self.__mascota = mascota
 
+        #getters y setters
+        def getMascota(self):
+            return self.__mascota
+        def setMascota(self,mascota):
+            self.__mascota = mascota
+            return f"{super().__str__(), Mascota: {self.__mascota}}"
 class Empleado:
-    pass
+    def __init__(self, nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado):
+        super().__init__(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)

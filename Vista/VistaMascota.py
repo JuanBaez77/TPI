@@ -3,7 +3,7 @@ import csv
 from tkinter import ttk
 from tkinter import Toplevel, Label, StringVar, Entry, Button, OptionMenu, messagebox
 from Controllers.ControladorMascota import ControladorMascota
-
+from Controllers.ControladorPersona import ControladorPersona
 class VistaMascota(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -58,24 +58,27 @@ class VistaMascota(tk.Frame):
         nuevaRaza = Label(registro, text="Agregar una Raza nueva:", bg="#2a3138", fg="white").place(x=390, y=130)
         raza = Label(registro, text="Selecciona una Raza:", bg="#2a3138", fg="white").place(x=22, y=130)
         propietario = Label(registro, text="Propietario:", bg="#2a3138", fg="white").place(x=22, y=190)
-        estado = Label(registro, text="Estado", bg="#2a3138", fg="white").place(x=22, y=250)
-        
+
         nuevaRaza = StringVar()
         nombre = StringVar()
         raza = StringVar()
         raza.set("Raza")
         propietario = StringVar()
-        estado = StringVar()
+        propietario.set("Propietario")
         
         # CREAMOS LA LISTA PARA LUEGO CREAR EL OBJETO
-        newMascota = [nombre, raza, propietario, estado]
+        newMascota = [nombre, raza, propietario, True]
         newRaza = raza
 
         entryNombre = Entry(registro, textvariable=nombre, width="35").place(x=22, y=100)
         entryRaza = Entry(registro, textvariable=raza, width="35").place(x=350, y=160)
-        entryPropietario = Entry(registro, textvariable=propietario, width="35").place(x=22, y=220)
-        entryEstado = Entry(registro, textvariable=estado, width="35").place(x=22, y=280)
-        
+
+        listaPropietario = self.monstrarPropietario()
+        entryPropietario = OptionMenu(registro, propietario, *listaPropietario)
+        entryPropietario.place(x=22, y=220)
+        entryPropietario.config(font=("Roboto", 9), bg="#3e444e", fg="white", highlightbackground="#2a3138", highlightcolor="#2a3138")
+
+
         # BOTON PARA MOSTRAR LAS RAZAS ALMACENADAS EN EL CSV
         listaRaza = self.mostrarRaza()
         entryTipoRaza = OptionMenu(registro, raza, *listaRaza) 
@@ -103,6 +106,13 @@ class VistaMascota(tk.Frame):
         listaRazasDisponibles = []
         lista = ControladorMascota.cargarRazas(self) #LLAMAMOS AL METODO PARA OBTENER LA LISTA CON LAS RAZAS
         for raza in lista:
-            #if raza.get_estado() == 1:
+            # if raza.get_estado() == 1:
                 listaRazasDisponibles.append(raza[0])
         return listaRazasDisponibles
+
+    def monstrarPropietario(self):
+        listaPropietarioDisponibles = []
+        lista = ControladorPersona.cargarPropietario(self)
+        for propietario in lista:
+            listaPropietarioDisponibles.append(propietario)
+        return listaPropietarioDisponibles
