@@ -33,11 +33,11 @@ class Vista(tk.Tk):
         self.labelTitulo.config(fg="#fff",bg="#1f2329", font=(fuente, 20))
         self.labelTitulo.pack(fill="both", side=tk.LEFT)
         
-        self.icon_persona = ImageTk.PhotoImage(Image.open("TPI/assets/person_icon.png").resize((20, 20)))
-        self.icon_mascota = ImageTk.PhotoImage(Image.open("TPI/assets/pet_icon.png").resize((20, 20)))
-        self.icon_tratamiento = ImageTk.PhotoImage(Image.open("TPI/assets/treatment_icon.webp").resize((20, 20)))
-        self.icon_logo = ImageTk.PhotoImage(Image.open("TPI/assets/logo_nuevo.png").resize((100, 100)))
-        self.fondo = ImageTk.PhotoImage(Image.open("TPI/assets/logo_nuevo.png").resize((600, 600)))
+        self.icon_persona = ImageTk.PhotoImage(Image.open("assets/person_icon.png").resize((20, 20)))
+        self.icon_mascota = ImageTk.PhotoImage(Image.open("assets/pet_icon.png").resize((20, 20)))
+        self.icon_tratamiento = ImageTk.PhotoImage(Image.open("assets/treatment_icon.webp").resize((20, 20)))
+        self.icon_logo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((100, 100)))
+        self.fondo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((600, 600)))
         
         logo = Label(self.menu_lateral, image=self.icon_logo, bg=COLOR_PRINCIPAL)
         logo.pack(side=tk.TOP, padx=10)

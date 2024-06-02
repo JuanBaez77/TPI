@@ -37,11 +37,12 @@ class VistaPersona(tk.Frame):
 
         # LLENAR LA TABLA 
         for persona in lista_personas:
+            nombre_completo = f"{persona.getNombre()} {persona.getApellido()}"
             estado_color = "green" if persona.getEstado() == "True" else "red"
-            self.treeview.insert("", "end", values=(persona.getNombre(), persona.getDocumento(), persona.getTelefono(), persona.getEstado()), tags=('#2dc426' if persona.getEstado() == "True" else 'red'))
+            self.treeview.insert("", "end", values=(nombre_completo, persona.getDocumento(), persona.getTelefono(), persona.getEstado()), tags=('green' if persona.getEstado() == "True" else 'red'))
 
         # Aplicar estilos
-        self.treeview.tag_configure('green', background='lightgreen', foreground='black')
+        self.treeview.tag_configure('green', background='#f0f0f0', foreground='black')
         self.treeview.tag_configure('red', background='lightcoral', foreground='black')
 
 
