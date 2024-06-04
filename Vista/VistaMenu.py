@@ -178,9 +178,15 @@ class Vista(tk.Tk):
     def cambiarEstadoDiagnostico(self): 
         cambiar_estado_ventana = Toplevel(self)
         cambiar_estado_ventana.title("Cambiar Estado de Diagnostico")
-        cambiar_estado_ventana.geometry("400x200")
+        cambiar_estado_ventana.geometry("450x250")
 
-        label_propietario = Label(cambiar_estado_ventana, text="ID DEL DIAGNÓSTICO QUE DESEA CAMBIAR")
+        label_nombre = Label(cambiar_estado_ventana, text="NOMBRE DE LA MASCOTA QUE DESEA CAMBIAR")
+        label_nombre.pack(pady=5)
+
+        entry_nombre = Entry(cambiar_estado_ventana)
+        entry_nombre.pack(pady=5)
+
+        label_propietario = Label(cambiar_estado_ventana, text="ID DEL DUEÑO DE LA MASCOTA")
         label_propietario.pack(pady=5)
 
         entry_propietario = Entry(cambiar_estado_ventana)
@@ -189,7 +195,7 @@ class Vista(tk.Tk):
         label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
         label_mensaje.pack(pady=5)
 
-        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorDiagnostico.cambiarEstadoDiagnostico(entry_propietario.get(), label_mensaje))
+        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorDiagnostico.cambiarEstadoDiagnostico(entry_nombre.get(),entry_propietario.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)    
 
 

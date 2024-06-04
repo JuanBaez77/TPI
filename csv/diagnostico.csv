@@ -1,5 +1,5 @@
 Nombre,Diagnostico,Propietario,Estado
-Coco, Artritis, 21, true
+Coco, Artritis, 21,true
 Firulais, Displasia de Cadera, 3, false
 Luna, Alergia Alimentaria, 29, false
 Max, Diabetes Canina, 8, true
@@ -33,7 +33,7 @@ Gizmo, Síndrome de Brachiocefálico, 23, true
 Ellie, Obesidad Canina, 16, true
 Rex, Displasia de Cadera, 33, false
 Mia, Alergia Alimentaria, 34, true
-Koda, Parvovirus, 21, false
+Koda, Parvovirus, 21,true
 Teddy, Problemas de Conducta, 2, true
 Duke, Displasia de Cadera, 3, true
 Roco, Ansiedad por Separación, 4, true

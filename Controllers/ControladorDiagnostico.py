@@ -57,25 +57,31 @@ class ControladorDiagnostico:
                 lista.append(diagnosticos)
         return lista
     
-    def cambiarEstadoDiagnostico(self, propietario, label_mensaje):
+    def cambiarEstadoDiagnostico(self, nombre,propietario, label_mensaje):
         diagnosticos = []
         encontrado = False
+        mensaje = ""
+        nombre = str(nombre)
+        propietario = str(propietario)
+
         try:
             with open("csv/diagnostico.csv", encoding="UTF-8") as file:
                 reader = csv.reader(file)
                 header = next(reader)
                 for row in reader:
-                    if row[2] == propietario: 
-                        nombre = row[0]
-                        estado_actual = row[3]
-                        if estado_actual == "false":
-                            row[3] = "true"
-                            mensaje = f"Éxito al cambiar estado de Inactivo a Activo para {nombre}"
-                        else:
-                            row[3] = "false"
-                            mensaje = f"Éxito al cambiar estado de Activo a Inactivo para {nombre}"
-                        encontrado = True
+                    if row[0].strip() == nombre.strip():
+                        if row[2].strip() == propietario.strip():
+                            propietario = row[2]
+                            estado_actual = row[3]
+                            if estado_actual == "false":
+                                row[3] = "true"
+                                mensaje = f"Éxito al cambiar estado de Inactivo a Activo para {nombre} del dueño con ID:{propietario}"
+                            else:
+                                row[3] = "false"
+                                mensaje = f"Éxito al cambiar estado de Activo a Inactivo para {nombre} del dueño con ID: {propietario}"
+                            encontrado = True
                     diagnosticos.append(row)
+
             if encontrado:
                 with open("csv/diagnostico.csv", "w", newline="", encoding="utf-8") as file:
                     writer = csv.writer(file)
