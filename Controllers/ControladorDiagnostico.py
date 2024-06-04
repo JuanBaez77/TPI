@@ -53,31 +53,29 @@ class ControladorDiagnostico:
                 diagnostico = linea[1]
                 propietario = linea[2]
                 estado = linea[3]
-                diagnosticos = Diagnostico(nombre, diagnostico,propietario, estado)
+                diagnosticos = Diagnostico(nombre,diagnostico,propietario,estado)
                 lista.append(diagnosticos)
         return lista
     
-    def cambiarEstadoDiagnostico(self, documento, label_mensaje):
+    def cambiarEstadoDiagnostico(self, propietario, label_mensaje):
         diagnosticos = []
         encontrado = False
-
         try:
             with open("csv/diagnostico.csv", encoding="UTF-8") as file:
                 reader = csv.reader(file)
                 header = next(reader)
                 for row in reader:
-                    if row[2] == documento:
-                        nombre = f"{row[0]}"
+                    if row[2] == propietario: 
+                        nombre = row[0]
                         estado_actual = row[3]
-                        if estado_actual == "False":
-                            row[3] = "True"
+                        if estado_actual == "false":
+                            row[3] = "true"
                             mensaje = f"Éxito al cambiar estado de Inactivo a Activo para {nombre}"
                         else:
-                            row[3] = "False"
+                            row[3] = "false"
                             mensaje = f"Éxito al cambiar estado de Activo a Inactivo para {nombre}"
                         encontrado = True
                     diagnosticos.append(row)
-
             if encontrado:
                 with open("csv/diagnostico.csv", "w", newline="", encoding="utf-8") as file:
                     writer = csv.writer(file)

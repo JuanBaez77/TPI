@@ -34,7 +34,7 @@ class Diagnostico:
 
     # String representation
     def __str__(self):
-        return f"{self.__nombre}{self.__diagnostico}{self.__propietario}{self.__estado}"
+        return f"{self.get_nombre()},{self.get_diagnostico()},{self.get_propietario()},{self.get_estado()}"
 
     def __repr__(self):
-        return f"{self.__nombre}{self.__diagnostico}{self.__propietario}{self.__estado}"
+        return f"{self.get_nombre()},{self.get_diagnostico()},{self.get_propietario()},{self.get_estado()}"

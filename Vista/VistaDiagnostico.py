@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter import Toplevel, Label, StringVar, Entry, Button, OptionMenu
 from Controllers.ControladorDiagnostico import ControladorDiagnostico
-from Controllers.ControladorMascota import ControladorMascota
+
 
 class VistaDiagnostico(tk.Frame):
     def __init__(self, master, *args, **kwargs):
@@ -39,8 +39,8 @@ class VistaDiagnostico(tk.Frame):
             nombre = diagnostico.get_nombre()
             diagnostico_val = diagnostico.get_diagnostico()
             propietario = diagnostico.get_propietario()
-            estado = diagnostico.get_estado()
-            estado_color = "green" if estado == "True" else "red"
+            estado = diagnostico.get_estado().strip().lower()
+            estado_color = "green" if estado == "true" else "red"
             self.treeview.insert("", "end", values=(nombre, diagnostico_val, propietario, estado))
             self.treeview.item(self.treeview.get_children()[-1], tags=(estado_color,))
         
@@ -96,7 +96,7 @@ class VistaDiagnostico(tk.Frame):
     def mostrarDiagnostico(self):
         # CON ESTE METODO MOSTRAMOS LOS DIAGNOSTICOS ALMACENADOS 
         listaDiagnosticosDisponibles = []
-        lista = ControladorDiagnostico.cargarDiagnosticos(self) #LLAMAMOS AL METODO PARA OBTENER LA LISTA CON LOS DIAGNOSTICOS
+        lista = ControladorDiagnostico.cargarDiagnosticos() #LLAMAMOS AL METODO PARA OBTENER LA LISTA CON LOS DIAGNOSTICOS
         for diagnostico in lista:
             listaDiagnosticosDisponibles.append(diagnostico.get_nombre())  # Suponiendo que quieres obtener el nombre del diagnóstico
         return listaDiagnosticosDisponibles

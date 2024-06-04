@@ -40,9 +40,9 @@ class Vista(tk.Tk):
         self.icon_persona = ImageTk.PhotoImage(Image.open("assets/person_icon.png").resize((20, 20)))
         self.icon_mascota = ImageTk.PhotoImage(Image.open("assets/pet_icon.png").resize((20, 20)))
         self.icon_tratamiento = ImageTk.PhotoImage(Image.open("assets/treatment_icon.webp").resize((20, 20)))
+        self.icon_Diagnotico = ImageTk.PhotoImage(Image.open("assets/icon_diagnostico.png").resize((20, 20)))
         self.icon_logo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((100, 100)))
         self.fondo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((600, 600)))
-        self.icon_Diagnotico = ImageTk.PhotoImage(Image.open("assets/icon_diagnostico.png").resize((20, 20)))
         
         logo = Label(self.menu_lateral, image=self.icon_logo, bg=COLOR_PRINCIPAL)
         logo.pack(side=tk.TOP, padx=10)
@@ -60,10 +60,10 @@ class Vista(tk.Tk):
         btn_mascota.bind("<Enter>", lambda event: btn_mascota.config(bg=COLOR_HOVER, fg="white"))
         btn_mascota.bind("<Leave>", lambda event: btn_mascota.config(bg=COLOR_PRINCIPAL, fg="white"))
 
-        btn_mascota = Button(self.menu_lateral, text="     Diagnostico",image=self.icon_Diagnotico,compound="left", command=self.menuDiagnostico, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL,padx=20)
-        btn_mascota.pack(fill="x", anchor="w")
-        btn_mascota.bind("<Enter>", lambda event: btn_mascota.config(bg=COLOR_HOVER, fg="white"))
-        btn_mascota.bind("<Leave>", lambda event: btn_mascota.config(bg=COLOR_PRINCIPAL, fg="white"))
+        btn_diagnostico = Button(self.menu_lateral, text="     Diagnostico",image=self.icon_Diagnotico,compound="left", command=self.menuDiagnostico, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL,padx=5)
+        btn_diagnostico.pack(fill="x", anchor="w")
+        btn_diagnostico.bind("<Enter>", lambda event: btn_diagnostico.config(bg=COLOR_HOVER, fg="white"))
+        btn_diagnostico.bind("<Leave>", lambda event: btn_diagnostico.config(bg=COLOR_PRINCIPAL, fg="white"))
         
         btn_tratamiento = Button(self.menu_lateral, text="Tratamientos",image=self.icon_tratamiento,compound="left", command=menuTratamiento, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL, padx=20)
         btn_tratamiento.pack(fill="x", anchor="w")
@@ -169,45 +169,29 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cargar Nuevo Diagnóstico", command=self.vista_diagnostico.cargarNuevoDiagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=8, padx=20, fill="x")
 
-        Button(self.pagina, text="Cambiar Estado de Diagnóstico", command=self.abrir_cambiar_estado_diagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Estado de Diagnóstico", command=self.cambiarEstadoDiagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
 
     def actualizarVistaDiagnostico(self):
         listaDiagnostico = ControladorDiagnostico.cargarDiagnostico([])
         self.vista_diagnostico.mostrar_Diagnostico(listaDiagnostico)
 
-    def cambiarEstadoMascota(self): 
+    def cambiarEstadoDiagnostico(self): 
         cambiar_estado_ventana = Toplevel(self)
         cambiar_estado_ventana.title("Cambiar Estado de Diagnostico")
         cambiar_estado_ventana.geometry("400x200")
 
-        label_nombre = Label(cambiar_estado_ventana, text="NOMBRE DE LA MASCOTA QUE DESEA CAMBIAR")
-        label_nombre.pack(pady=5)
+        label_propietario = Label(cambiar_estado_ventana, text="ID DEL DIAGNÓSTICO QUE DESEA CAMBIAR")
+        label_propietario.pack(pady=5)
 
-        entry_nombre = Entry(cambiar_estado_ventana)
-        entry_nombre.pack(pady=5)
+        entry_propietario = Entry(cambiar_estado_ventana)
+        entry_propietario.pack(pady=5)
 
         label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
         label_mensaje.pack(pady=5)
 
-        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorMascota.cambiarEstadoMascota(entry_nombre.get(), label_mensaje))
+        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorDiagnostico.cambiarEstadoDiagnostico(entry_propietario.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)    
 
-    def abrir_cambiar_estado_diagnostico(self):
-        cambiar_estado_ventana = Toplevel(self)
-        cambiar_estado_ventana.title("Cambiar Estado de Diagnóstico")
-        cambiar_estado_ventana.geometry("400x200")
-
-        label_id_diagnostico = Label(cambiar_estado_ventana, text="ID DEL DIAGNÓSTICO QUE DESEA CAMBIAR")
-        label_id_diagnostico.pack(pady=5)
-
-        entry_id_diagnostico = Entry(cambiar_estado_ventana)
-        entry_id_diagnostico.pack(pady=5)
-
-        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
-        label_mensaje.pack(pady=5)
-
-        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorDiagnostico.cambiarEstadoDiagnostico(entry_id_diagnostico.get(), label_mensaje))
-        btn_cambiar_estado.pack(pady=20)
 
 def menuTratamiento():
     ventana_tratamiento = Toplevel()
