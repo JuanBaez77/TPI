@@ -12,30 +12,27 @@ class ControladorDiagnostico:
         self.update_callback = update_callback
     
 
-    def guardarDiagnostico(lista, registro):
-        try:
-            with open("csv/diagnostico.csv", newline="", encoding="UTF-8") as file:
-                reader = csv.reader(file)
-                next(reader)
-                last_id = 0
-                for row in reader:
-                    last_id = int(row[0])
-                identificador = last_id + 1
-        except FileNotFoundError:
-            identificador = 1  # Si el archivo no existe, empezar con el id 1
-
+    def guardarDiagnostico(lista, registro,self):
+        def IDPropietario(propietario_val):
+            with open("csv/persona.csv", encoding="UTF-8") as file:
+                    reader = csv.reader(file)
+                    header = next(reader)
+                    for row in reader:
+                        if (f"{row[1]} {row[2]}") == (f"{propietario_val}"):
+                            identificadorPro = row[0]
+            return identificadorPro
         nombre_val = lista[0].get()
         diagnostco_val = lista[1].get()
-        propietario_val = lista[2].get()
-        estado_val = lista[3].get()
+        propietario = lista[2].get()
+        propietario_val = IDPropietario(propietario)
+        estado_val = True
         nuevo_diagnostico = Diagnostico(
             nombre_val, diagnostco_val, propietario_val,
-            estado_val, True
+            estado_val
         )
         with open("csv/diagnostico.csv", "a", newline="") as file:
             writer = csv.writer(file)
             writer.writerow([
-                identificador,
                 nuevo_diagnostico.get_nombre(),
                 nuevo_diagnostico.get_diagnostico(),
                 nuevo_diagnostico.get_propietario(),
@@ -43,8 +40,11 @@ class ControladorDiagnostico:
             ])
         registro.destroy()
         messagebox.showinfo("Éxito", "Diagnostico registrado con éxito")
+        if self.update_callback:
+            self.update_callback()
 
     def cargarDiagnostico(lista=list):
+        lista = []
         with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido)  # Omitir la primera fila (cabecera)
@@ -56,6 +56,15 @@ class ControladorDiagnostico:
                 diagnosticos = Diagnostico(nombre,diagnostico,propietario,estado)
                 lista.append(diagnosticos)
         return lista
+
+    def cargarDiagnosticos(self):
+        listaDiagnosticoCompleta = []
+        with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido)
+            for row in contenido:
+                    listaDiagnosticoCompleta.append(f"{row[1]}")
+        return listaDiagnosticoCompleta
     
     def cambiarEstadoDiagnostico(self, nombre,propietario, label_mensaje):
         diagnosticos = []
@@ -91,7 +100,7 @@ class ControladorDiagnostico:
                 if self.update_callback:
                     self.update_callback()
             else:
-                label_mensaje.config(text="Error. ID no encontrado", fg="red")
+                label_mensaje.config(text="Error. Nombre o ID no encontrado", fg="red")
 
         except Exception as e:
             messagebox.showerror("Error", f"Ha ocurrido un error: {e}")

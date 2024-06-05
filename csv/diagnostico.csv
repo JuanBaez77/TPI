@@ -1,7 +1,7 @@
 Nombre,Diagnostico,Propietario,Estado
 Coco, Artritis, 21,true
-Firulais, Displasia de Cadera, 3, false
-Luna, Alergia Alimentaria, 29, false
+Firulais, Displasia de Cadera, 3,false
+Luna, Alergia Alimentaria, 29,false
 Max, Diabetes Canina, 8, true
 Bella, Ansiedad por Separación, 31, true
 Rocky, Infección del Oído, 25, false
@@ -39,3 +39,4 @@ Duke, Displasia de Cadera, 3, true
 Roco, Ansiedad por Separación, 4, true
 Julian, Problemas de Tiroides, 6, false
 Ulio, Dermatitis Atópica, 1, true
+popi,Cataratas,32,True

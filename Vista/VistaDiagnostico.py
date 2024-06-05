@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter import Toplevel, Label, StringVar, Entry, Button, OptionMenu
 from Controllers.ControladorDiagnostico import ControladorDiagnostico
-
+from Controllers.ControladorPersona import ControladorPersona
 
 class VistaDiagnostico(tk.Frame):
     def __init__(self, master, *args, **kwargs):
@@ -87,14 +87,14 @@ class VistaDiagnostico(tk.Frame):
         enviar = Button(registro, text="Registrar", command=lambda: self.guardarNuevoDiagnostico(newDiagnostico, registro), width=30, bg="#18BC9C")
         enviar.place(x=22, y=450)
 
-    def guardarNuevoDiagnostico(self, newDiagnostico):
+    def guardarNuevoDiagnostico(self, newDiagnostico,registro):
         # CON ESTE METODO GUARDAMOS EL DIAGNOSTICO EN EL CSV
-        ControladorDiagnostico.guardarDiagnostico(newDiagnostico)
+        ControladorDiagnostico.guardarDiagnostico(newDiagnostico,registro)
         
     def mostrarDiagnostico(self):
         # CON ESTE METODO MOSTRAMOS LOS DIAGNOSTICOS ALMACENADOS 
         listaDiagnosticosDisponibles = []
-        lista = ControladorDiagnostico.cargarDiagnostico(self) 
+        lista = ControladorDiagnostico.cargarDiagnosticos(self) 
         for diagnostico in lista:
             listaDiagnosticosDisponibles.append(diagnostico)  
         return listaDiagnosticosDisponibles
@@ -102,7 +102,7 @@ class VistaDiagnostico(tk.Frame):
     def mostrarPropietario(self):
         # CON ESTE METODO MOSTRAMOS LOS DIAGNOSTICOS ALMACENADOS 
         listaPopietariosDisponibles = []
-        lista = ControladorDiagnostico.cargarDiagnostico(self) 
+        lista = ControladorPersona.cargarPropietario(self) 
         for propietario in lista:
             listaPopietariosDisponibles.append(propietario)  
         return listaPopietariosDisponibles
