@@ -72,6 +72,45 @@ class ControladorPersona:
                 listaPersonas.append(persona)
         return listaPersonas
 
+
+# FILTRADORES
+    def cargarActivos(self):
+        listaPersonas = []
+        with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido)  
+            for linea in contenido:
+                identificador = linea[0]
+                nombre = linea[1]
+                apellido = linea[2]
+                tipoDocumento = linea[3]
+                documento = linea[4]
+                telefono = linea[5]
+                tipoPersona = linea[6]
+                estado = linea[7]
+                if estado == "True":
+                    persona = Persona(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)
+                    listaPersonas.append(persona)
+        return listaPersonas
+
+    def cargarTipoPersona(self,condition):
+        listaPersonas = []
+        with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido)  
+            for linea in contenido:
+                identificador = linea[0]
+                nombre = linea[1]
+                apellido = linea[2]
+                tipoDocumento = linea[3]
+                documento = linea[4]
+                telefono = linea[5]
+                tipoPersona = linea[6]
+                estado = linea[7]
+                if tipoPersona == condition:
+                    persona = Persona(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)
+                    listaPersonas.append(persona)
+        return listaPersonas
     def cargarPropietario(self):
         # Cargar propietarios desde el archivo CSV
         listaPropietarioCompleta = []

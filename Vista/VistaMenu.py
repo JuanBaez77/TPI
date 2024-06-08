@@ -89,7 +89,42 @@ class Vista(tk.Tk):
         for widget in self.pagina.winfo_children():
             widget.destroy()
 
-        Label(self.pagina, text="LISTA DE PERSONAS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
+        headerFrame = Frame(self.pagina, bg=self.pagina['bg'])
+        headerFrame.pack(fill='x', pady=5)
+
+        # GRID DEL FRAME DE ARRIBA
+        headerFrame.columnconfigure(0, weight=1)
+        headerFrame.columnconfigure(1, weight=1)
+        headerFrame.columnconfigure(2, weight=1)
+
+        label = Label(headerFrame, text="LISTA DE PERSONAS", font=("Roboto", 12), bg=self.pagina['bg'])
+        label.grid(row=0, column=1, pady=5)
+
+        # FILTRADORES
+        opciones = [
+            "Toda las Personas",
+            "Solo Activos",
+            "Propietarios",
+            "Veterinarios"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+
+        def actualizarFiltro(*args):
+            seleccion = valor.get()
+            if seleccion == "Solo Activos":
+                self.mostrarActivos()
+            elif seleccion == "Propietarios":
+                self.mostrarTipoPersona("CLI")
+            elif seleccion == "Veterinarios":
+                self.mostrarTipoPersona("EMP")
+            else:
+                self.actualizarVistaPersonas()
+
+        valor.trace("w", actualizarFiltro) 
+
+        menuFiltros = OptionMenu(headerFrame, valor, *opciones)
+        menuFiltros.grid(row=0, column=2, padx=10, sticky='e') 
 
         self.vista_personas = VistaPersona(self.pagina)
         self.vista_personas.pack(fill="both", expand=True)
@@ -99,9 +134,18 @@ class Vista(tk.Tk):
         Button(self.pagina, text="Cargar Nueva Persona", command=self.vista_personas.registrarPersona, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=8, padx=20, fill="x")
 
         Button(self.pagina, text="Cambiar Estado de Persona", command=self.abrir_cambiar_estado, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+
     
     def actualizarVistaPersonas(self):
         listaPersonas = ControladorPersona.cargarPersona([])
+        self.vista_personas.mostrar_persona(listaPersonas)
+
+    def mostrarActivos(self):
+        listaPersonas = ControladorPersona.cargarActivos([])
+        self.vista_personas.mostrar_persona(listaPersonas)
+
+    def mostrarTipoPersona(self, condition):
+        listaPersonas = ControladorPersona.cargarTipoPersona([], condition)
         self.vista_personas.mostrar_persona(listaPersonas)
 
     def menuMascota(self):
