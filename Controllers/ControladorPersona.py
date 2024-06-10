@@ -5,11 +5,11 @@ from Modulos.Persona import Persona
 class ControladorPersona:
     
     def __init__(self, vista, update_callback=None):
+        # Definir la vista y la lista de personas en el inicializador
         self._vista = vista
-        self._listaPersonas = []
+        self._listaPersonas = []  # Lista de personas inicializada aquí
         self.update_callback = update_callback
     
-    @staticmethod
     def guardarPersona(lista, registro):
         try:
             with open("csv/persona.csv", newline="", encoding="UTF-8") as file:
@@ -22,16 +22,21 @@ class ControladorPersona:
         except FileNotFoundError:
             identificador = 1  # Si el archivo no existe, empezar con el id 1
 
+        # Obtener los valores de la lista de entrada
         nombre_val = lista[0].get()
         apellido_val = lista[1].get()
         tipoDocumento_val = lista[2].get()
         documento_val = lista[3].get()
         telefono_val = lista[4].get()
         tipoPersona_val = lista[5].get()
+
+        # Crear una nueva persona
         nueva_persona = Persona(
             nombre_val, apellido_val, tipoDocumento_val,
             documento_val, telefono_val, tipoPersona_val, True
         )
+
+        # Escribir la nueva persona en el archivo CSV
         with open("csv/persona.csv", "a", newline="") as file:
             writer = csv.writer(file)
             writer.writerow([
@@ -44,14 +49,16 @@ class ControladorPersona:
                 nueva_persona.getTipoPersona(),
                 nueva_persona.getEstado()
             ])
+
+        # Destruir el registro y mostrar mensaje de éxito
         registro.destroy()
         messagebox.showinfo("Éxito", "Persona registrada con éxito")
 
-    @staticmethod
-    def cargarPersona(lista=list):
+    def cargarPersona(self):
+        listaPersonas = []
         with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
-            next(contenido)  # Omitir la primera fila (cabecera)
+            next(contenido)  
             for linea in contenido:
                 identificador = linea[0]
                 nombre = linea[1]
@@ -62,10 +69,61 @@ class ControladorPersona:
                 tipoPersona = linea[6]
                 estado = linea[7]
                 persona = Persona(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)
-                lista.append(persona)
-        return lista
+                listaPersonas.append(persona)
+        return listaPersonas
+
+
+# FILTRADORES
+    def cargarActivos(self):
+        listaPersonas = []
+        with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido)  
+            for linea in contenido:
+                identificador = linea[0]
+                nombre = linea[1]
+                apellido = linea[2]
+                tipoDocumento = linea[3]
+                documento = linea[4]
+                telefono = linea[5]
+                tipoPersona = linea[6]
+                estado = linea[7]
+                if estado == "True":
+                    persona = Persona(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)
+                    listaPersonas.append(persona)
+        return listaPersonas
+
+    def cargarTipoPersona(self,condition):
+        listaPersonas = []
+        with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido)  
+            for linea in contenido:
+                identificador = linea[0]
+                nombre = linea[1]
+                apellido = linea[2]
+                tipoDocumento = linea[3]
+                documento = linea[4]
+                telefono = linea[5]
+                tipoPersona = linea[6]
+                estado = linea[7]
+                if tipoPersona == condition:
+                    persona = Persona(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)
+                    listaPersonas.append(persona)
+        return listaPersonas
+    
+    def cambiarPersona(self,id,atirbuto,nuevovalor):
+        listaPersonas = self.cargarPersona()
+        for persona in listaPersonas:
+            if Persona.getDocumento() == id:
+                setter = f"set{atributo}"
+                persona.setter = nuevovalor
+        guardarPersona(listaPersonas)
+    
+
 
     def cargarPropietario(self):
+        # Cargar propietarios desde el archivo CSV
         listaPropietarioCompleta = []
         with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
@@ -76,6 +134,7 @@ class ControladorPersona:
         return listaPropietarioCompleta
 
     def cambiarEstadoPersona(self, documento, label_mensaje):
+        # Cambiar el estado de una persona en el archivo CSV
         personas = []
         encontrado = False
 
@@ -111,4 +170,5 @@ class ControladorPersona:
             messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
 
     def mostrarPersona(self):
+        # Mostrar las personas cargadas
         self._vista.mostrar_persona(self._listaPersonas)

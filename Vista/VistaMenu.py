@@ -4,8 +4,10 @@ from PIL import Image, ImageTk
 from Modulos.Persona import Persona
 from .VistaMascota import VistaMascota
 from Vista.VistaPersona import VistaPersona
+from Vista.VistaDiagnostico import VistaDiagnostico
 from Controllers.ControladorMascota import ControladorMascota
 from Controllers.ControladorPersona import ControladorPersona
+from Controllers.ControladorDiagnostico import ControladorDiagnostico
 
 COLOR_PRINCIPAL = "#2a3138"
 COLOR_SECUNDARIO = "#18BC9C"
@@ -24,6 +26,8 @@ class Vista(tk.Tk):
 
         self.controladorPersona = ControladorPersona(self, self.actualizarVistaPersonas)
         self.controladorMascota = ControladorMascota(self ,self.actualizarVistaMascota)
+        self.controladorDiagnostico = ControladorDiagnostico(self,self.actualizarVistaDiagnostico)
+
         
 
     def configMenu(self):
@@ -36,6 +40,7 @@ class Vista(tk.Tk):
         self.icon_persona = ImageTk.PhotoImage(Image.open("assets/person_icon.png").resize((20, 20)))
         self.icon_mascota = ImageTk.PhotoImage(Image.open("assets/pet_icon.png").resize((20, 20)))
         self.icon_tratamiento = ImageTk.PhotoImage(Image.open("assets/treatment_icon.webp").resize((20, 20)))
+        self.icon_Diagnotico = ImageTk.PhotoImage(Image.open("assets/icon_diagnostico.png").resize((20, 20)))
         self.icon_logo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((100, 100)))
         self.fondo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((600, 600)))
         
@@ -54,6 +59,11 @@ class Vista(tk.Tk):
         btn_mascota.pack(fill="x", anchor="w")
         btn_mascota.bind("<Enter>", lambda event: btn_mascota.config(bg=COLOR_HOVER, fg="white"))
         btn_mascota.bind("<Leave>", lambda event: btn_mascota.config(bg=COLOR_PRINCIPAL, fg="white"))
+
+        btn_diagnostico = Button(self.menu_lateral, text="     Diagnostico",image=self.icon_Diagnotico,compound="left", command=self.menuDiagnostico, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL,padx=5)
+        btn_diagnostico.pack(fill="x", anchor="w")
+        btn_diagnostico.bind("<Enter>", lambda event: btn_diagnostico.config(bg=COLOR_HOVER, fg="white"))
+        btn_diagnostico.bind("<Leave>", lambda event: btn_diagnostico.config(bg=COLOR_PRINCIPAL, fg="white"))
         
         btn_tratamiento = Button(self.menu_lateral, text="Tratamientos",image=self.icon_tratamiento,compound="left", command=menuTratamiento, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL, padx=20)
         btn_tratamiento.pack(fill="x", anchor="w")
@@ -79,7 +89,42 @@ class Vista(tk.Tk):
         for widget in self.pagina.winfo_children():
             widget.destroy()
 
-        Label(self.pagina, text="LISTA DE PERSONAS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
+        headerFrame = Frame(self.pagina, bg=self.pagina['bg'])
+        headerFrame.pack(fill='x', pady=5)
+
+        # GRID DEL FRAME DE ARRIBA
+        headerFrame.columnconfigure(0, weight=1)
+        headerFrame.columnconfigure(1, weight=1)
+        headerFrame.columnconfigure(2, weight=1)
+
+        label = Label(headerFrame, text="LISTA DE PERSONAS", font=("Roboto", 12), bg=self.pagina['bg'])
+        label.grid(row=0, column=1, pady=5)
+
+        # FILTRADORES
+        opciones = [
+            "Toda las Personas",
+            "Solo Activos",
+            "Propietarios",
+            "Veterinarios"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+
+        def actualizarFiltro(*args):
+            seleccion = valor.get()
+            if seleccion == "Solo Activos":
+                self.mostrarActivos()
+            elif seleccion == "Propietarios":
+                self.mostrarTipoPersona("CLI")
+            elif seleccion == "Veterinarios":
+                self.mostrarTipoPersona("EMP")
+            else:
+                self.actualizarVistaPersonas()
+
+        valor.trace("w", actualizarFiltro) 
+
+        menuFiltros = OptionMenu(headerFrame, valor, *opciones)
+        menuFiltros.grid(row=0, column=2, padx=10, sticky='e') 
 
         self.vista_personas = VistaPersona(self.pagina)
         self.vista_personas.pack(fill="both", expand=True)
@@ -89,9 +134,18 @@ class Vista(tk.Tk):
         Button(self.pagina, text="Cargar Nueva Persona", command=self.vista_personas.registrarPersona, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=8, padx=20, fill="x")
 
         Button(self.pagina, text="Cambiar Estado de Persona", command=self.abrir_cambiar_estado, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+
     
     def actualizarVistaPersonas(self):
         listaPersonas = ControladorPersona.cargarPersona([])
+        self.vista_personas.mostrar_persona(listaPersonas)
+
+    def mostrarActivos(self):
+        listaPersonas = ControladorPersona.cargarActivos([])
+        self.vista_personas.mostrar_persona(listaPersonas)
+
+    def mostrarTipoPersona(self, condition):
+        listaPersonas = ControladorPersona.cargarTipoPersona([], condition)
         self.vista_personas.mostrar_persona(listaPersonas)
 
     def menuMascota(self):
@@ -146,9 +200,53 @@ class Vista(tk.Tk):
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorPersona.cambiarEstadoPersona(entry_documento.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)
 
-    def menuTratamiento(self):
+    def menuDiagnostico(self):
         for widget in self.pagina.winfo_children():
             widget.destroy()
+
+        Label(self.pagina, text="LISTA DE DIAGNOSTICOS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
+
+        self.vista_diagnostico = VistaDiagnostico(self.pagina)
+        self.vista_diagnostico.pack(fill="both", expand=True)
+
+        self.actualizarVistaDiagnostico()
+
+        Button(self.pagina, text="Cargar Nuevo Diagnóstico", command=self.vista_diagnostico.cargarNuevoDiagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=8, padx=20, fill="x")
+
+        Button(self.pagina, text="Cambiar Estado de Diagnóstico", command=self.cambiarEstadoDiagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+
+    def actualizarVistaDiagnostico(self):
+        listaDiagnostico = ControladorDiagnostico.cargarDiagnostico([])
+        self.vista_diagnostico.mostrar_Diagnostico(listaDiagnostico)
+
+    def cambiarEstadoDiagnostico(self): 
+        cambiar_estado_ventana = Toplevel(self)
+        cambiar_estado_ventana.title("Cambiar Estado de Diagnostico")
+        cambiar_estado_ventana.geometry("450x250")
+
+        label_nombre = Label(cambiar_estado_ventana, text="NOMBRE DE LA MASCOTA QUE DESEA CAMBIAR")
+        label_nombre.pack(pady=5)
+
+        entry_nombre = Entry(cambiar_estado_ventana)
+        entry_nombre.pack(pady=5)
+
+        label_propietario = Label(cambiar_estado_ventana, text="ID DEL DUEÑO DE LA MASCOTA")
+        label_propietario.pack(pady=5)
+
+        entry_propietario = Entry(cambiar_estado_ventana)
+        entry_propietario.pack(pady=5)
+
+        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
+        label_mensaje.pack(pady=5)
+
+        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorDiagnostico.cambiarEstadoDiagnostico(entry_nombre.get(),entry_propietario.get(), label_mensaje))
+        btn_cambiar_estado.pack(pady=20)    
+
+
+def menuTratamiento():
+    ventana_tratamiento = Toplevel()
+    ventana_tratamiento.title("Menú Tratamiento")
+    ventana_tratamiento.geometry("300x200")
 
         
 

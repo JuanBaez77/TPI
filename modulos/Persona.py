@@ -48,39 +48,6 @@ class Persona:
     def setEstado(self, estado):
         self.__estado = estado
 
-    @classmethod
-    def mostrarPersonaActiva(cls, parent_frame):
-        try:
-            for widget in parent_frame.winfo_children():
-                widget.destroy()
-
-            Label(parent_frame, text="LISTA DE PERSONAS ACTIVAS", font=("Roboto", 12), bg=parent_frame['bg']).pack(pady=10)
-
-            text_frame = Frame(parent_frame, bg=parent_frame['bg'])
-            text_frame.pack(fill='both', expand=True)
-            text_box = Text(text_frame, wrap="none", font=("Roboto", 10), bg="#f1f1f1", state='disabled')
-            text_box.pack(side="left", fill="both", expand=True)
-            scrollbar_y = Scrollbar(text_frame, command=text_box.yview)
-            scrollbar_y.pack(side="right", fill="y")
-            scrollbar_x = Scrollbar(text_frame, command=text_box.xview, orient="horizontal")
-            scrollbar_x.pack(side="bottom", fill="x")
-            text_box.config(yscrollcommand=scrollbar_y.set, xscrollcommand=scrollbar_x.set)
-            text_box.config(state='normal')
-
-            headers = f"{'Nombre':<20}{'Documento':<20}{'Teléfono':<20}\n"
-            text_box.insert("end", headers)
-            text_box.insert("end", "-"*60 + "\n")
-
-            with open("csv/persona.csv", encoding="UTF-8") as file:
-                reader = csv.reader(file)
-                next(reader)
-                for row in reader:
-                    if row[6] == "True":
-                        persona_info = f"{row[0] + ' ' + row[1]:<20}{row[3]:<20}{row[4]:<20}\n"
-                        text_box.insert("end", persona_info)
-            text_box.config(state='disabled')
-        except FileNotFoundError:
-            messagebox.showerror("Error", "No se encontró el archivo personas")
 
     def __str__(self):
         return f"{self.__nombre} {self.__apellido}, {self.__tipoDocumento}: {self.__documento}, Tel: {self.__telefono}, Tipo: {self.__tipoPersona}, Estado: {self.__estado}"
