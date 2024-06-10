@@ -111,6 +111,17 @@ class ControladorPersona:
                     persona = Persona(nombre, apellido, tipoDocumento, documento, telefono, tipoPersona, estado)
                     listaPersonas.append(persona)
         return listaPersonas
+    
+    def cambiarPersona(self,id,atirbuto,nuevovalor):
+        listaPersonas = self.cargarPersona()
+        for persona in listaPersonas:
+            if Persona.getDocumento() == id:
+                setter = f"set{atributo}"
+                persona.setter = nuevovalor
+        guardarPersona(listaPersonas)
+    
+
+
     def cargarPropietario(self):
         # Cargar propietarios desde el archivo CSV
         listaPropietarioCompleta = []
