@@ -26,6 +26,9 @@ class VistaPersona(tk.Frame):
         
         # CONFIGURAR LA TABLA PARA CENTRAR LOS OBJETOS
         self.treeview.column("#0", width=0, stretch=tk.NO)
+
+
+        
         self.treeview.column("Nombre", anchor=tk.CENTER, width=100)
         self.treeview.column("Documento", anchor=tk.CENTER, width=100)
         self.treeview.column("Telefono", anchor=tk.CENTER, width=100)

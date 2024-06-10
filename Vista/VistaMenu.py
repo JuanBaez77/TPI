@@ -146,13 +146,14 @@ class Vista(tk.Tk):
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorPersona.cambiarEstadoPersona(entry_documento.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)
 
-def menuTratamiento():
-    ventana_tratamiento = Toplevel()
-    ventana_tratamiento.title("Menú Tratamiento")
-    ventana_tratamiento.geometry("300x200")
+    def menuTratamiento(self):
+        for widget in self.pagina.winfo_children():
+            widget.destroy()
 
-    menu_tratamiento = Menu(ventana_tratamiento)
-    ventana_tratamiento.config(menu=menu_tratamiento)
+        
 
-    menu_tratamiento.add_command(label="Tratamientos Disponibles")
-    menu_tratamiento.add_command(label="Agenda de Tratamientos")
+        menu_tratamiento = Menu()
+        
+
+        menu_tratamiento.add_command(label="Tratamientos Disponibles")
+        menu_tratamiento.add_command(label="Agenda de Tratamientos")
