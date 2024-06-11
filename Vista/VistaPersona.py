@@ -48,6 +48,41 @@ class VistaPersona(tk.Frame):
         self.treeview.tag_configure('green', background='#f0f0f0', foreground='black')
         self.treeview.tag_configure('red', background='lightcoral', foreground='black')
 
+    def cambiarPersona(self):
+        ventana = Toplevel()
+        ventana.geometry("300x400")
+        ventana.title("Cambiar Persona")
+        ventana.resizable(False,False)
+        ventana.config(background="#2a3138")
+
+        tituloVentana = Label(ventana, text="Cambiar Persona", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
+        cambio = StringVar()
+        entryCambio = Entry(ventana,textvariable=cambio, width="35").place(x=22, y=340)
+
+        opciones = [
+            "Nombre",
+            "Apellido",
+            "Documento",
+            "Telefono"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+        def actualizarPersona(*args):
+            seleccion = valor.get()
+            if seleccion == "Nombre":
+                selecCambio = "nombre"
+            elif seleccion == "Apellido":
+                selecCambio = "apellido"
+            elif seleccion == "Documento":
+                selecCambio = "documento"
+            else:
+                selecCambio = "telefono"
+            return selecCambio
+        cambioEntry = actualizarPersona() 
+
+        menuCambios = OptionMenu(ventana, valor, *opciones).pack()
+        submit = Button(cambio, text="Cambiar", command=lambda: self.guardarPersona(cambioEntry, ventana), width=30)
+
 
     def registrarPersona(self):
         registro = Toplevel()

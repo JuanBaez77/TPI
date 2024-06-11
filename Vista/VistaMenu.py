@@ -135,6 +135,9 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cambiar Estado de Persona", command=self.abrir_cambiar_estado, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
 
+        Button(self.pagina, text="Cambiar Persona", command=self.vista_personas.cambiarPersona, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+
+
     
     def actualizarVistaPersonas(self):
         listaPersonas = ControladorPersona.cargarPersona([])
@@ -200,6 +203,9 @@ class Vista(tk.Tk):
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorPersona.cambiarEstadoPersona(entry_documento.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)
 
+    def menuTratamiento(self):
+        for widget in self.pagina.winfo_children():
+            widget.destroy()
     def menuDiagnostico(self):
         for widget in self.pagina.winfo_children():
             widget.destroy()
@@ -250,8 +256,8 @@ def menuTratamiento():
 
         
 
-        menu_tratamiento = Menu()
+    menu_tratamiento = Menu()
         
 
-        menu_tratamiento.add_command(label="Tratamientos Disponibles")
-        menu_tratamiento.add_command(label="Agenda de Tratamientos")
+    menu_tratamiento.add_command(label="Tratamientos Disponibles")
+    menu_tratamiento.add_command(label="Agenda de Tratamientos")
