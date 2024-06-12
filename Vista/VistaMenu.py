@@ -171,9 +171,28 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cambiar Estado de Diagnóstico", command=self.cambiarEstadoDiagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
 
+        # Botón para mostrar el ranking de mascotas
+        Button(self.pagina, text="Ranking", command=self.mostrarRanking, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+
+        # Botón para mostrar la cantidad de diagnósticos por raza
+        Button(self.pagina, text="Cant/Razas", command=self.mostrarCantidadRazasPorDiagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+
+    def actualizarRankingDiagnostico(self):
+        ranking = self.controladorDiagnostico.cargarRanking()
+        self.vista_diagnostico.mostrarRanking(ranking)
+
     def actualizarVistaDiagnostico(self):
         listaDiagnostico = ControladorDiagnostico.cargarDiagnostico([])
         self.vista_diagnostico.mostrar_Diagnostico(listaDiagnostico)
+
+    def mostrarRanking(self):
+        ranking = self.controladorDiagnostico.cargarRanking()
+        self.vista_diagnostico.mostrarRanking(ranking)
+
+    def mostrarCantidadRazasPorDiagnostico(self):
+        self.menuDiagnostico()
+        self.vista_diagnostico.mostrarCantidadRazasPorDiagnostico()
+
 
     def cambiarEstadoDiagnostico(self): 
         cambiar_estado_ventana = Toplevel(self)
@@ -197,7 +216,7 @@ class Vista(tk.Tk):
 
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorDiagnostico.cambiarEstadoDiagnostico(entry_nombre.get(),entry_propietario.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)    
-
+    
 
 def menuTratamiento():
     ventana_tratamiento = Toplevel()

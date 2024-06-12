@@ -69,10 +69,14 @@ class VistaDiagnostico(tk.Frame):
         Label(registro, text="Selecciona un Diagnostico:", bg="#2a3138", fg="white").place(x=22, y=130)
         Label(registro, text="Propietario:", bg="#2a3138", fg="white").place(x=22, y=190)
 
-        entryNombre = Entry(registro, textvariable=nombre, width="35").place(x=22, y=100)
         entryDiagnostico = Entry(registro, textvariable=diagnostico, width="35").place(x=350, y=160)
 
-        listaPropietario = self.mostrarPropietario()
+        listamascota = self.mostrarMascota()
+        entrynombre = OptionMenu(registro, nombre, *listamascota)
+        entrynombre.place(x=22, y=95)
+        entrynombre.config(font=("Roboto", 9), bg="#3e444e", fg="white", highlightbackground="#2a3138", highlightcolor="#2a3138")
+
+        listaPropietario = self.mostrarID()
         entryPropietario = OptionMenu(registro, propietario, *listaPropietario)
         entryPropietario.place(x=22, y=220)
         entryPropietario.config(font=("Roboto", 9), bg="#3e444e", fg="white", highlightbackground="#2a3138", highlightcolor="#2a3138")
@@ -87,9 +91,8 @@ class VistaDiagnostico(tk.Frame):
         enviar = Button(registro, text="Registrar", command=lambda: self.guardarNuevoDiagnostico(newDiagnostico, registro), width=30, bg="#18BC9C")
         enviar.place(x=22, y=450)
 
-    def guardarNuevoDiagnostico(self, newDiagnostico,registro):
-        # CON ESTE METODO GUARDAMOS EL DIAGNOSTICO EN EL CSV
-        ControladorDiagnostico.guardarDiagnostico(newDiagnostico,registro)
+    def guardarNuevoDiagnostico(self, newDiagnostico, registro):
+        ControladorDiagnostico.guardarDiagnostico(self,newDiagnostico, registro)
         
     def mostrarDiagnostico(self):
         # CON ESTE METODO MOSTRAMOS LOS DIAGNOSTICOS ALMACENADOS 
@@ -99,10 +102,48 @@ class VistaDiagnostico(tk.Frame):
             listaDiagnosticosDisponibles.append(diagnostico)  
         return listaDiagnosticosDisponibles
     
-    def mostrarPropietario(self):
+    def mostrarID(self):
         # CON ESTE METODO MOSTRAMOS LOS DIAGNOSTICOS ALMACENADOS 
         listaPopietariosDisponibles = []
-        lista = ControladorPersona.cargarPropietario(self) 
+        lista = ControladorDiagnostico.cargarID(self) 
         for propietario in lista:
             listaPopietariosDisponibles.append(propietario)  
         return listaPopietariosDisponibles
+
+    def mostrarMascota(self):
+        # CON ESTE METODO MOSTRAMOS LOS DIAGNOSTICOS ALMACENADOS 
+        listaMascotasDisponibles = []
+        lista = ControladorDiagnostico.cargarMascota(self) 
+        for nombre in lista:
+            listaMascotasDisponibles.append(nombre)  
+        return listaMascotasDisponibles
+    
+    def mostrarRanking(self, ranking):
+        ranking_window = Toplevel(self.master)
+        ranking_window.title("Ranking de Diagnósticos")
+        
+        treeview_ranking = ttk.Treeview(ranking_window, columns=("Propietario", "Mascota", "Cantidad de Diagnósticos"), show="headings")
+        treeview_ranking.heading("Propietario", text="Propietario")
+        treeview_ranking.heading("Mascota", text="Mascota")
+        treeview_ranking.heading("Cantidad de Diagnósticos", text="Cantidad de Diagnósticos")
+        treeview_ranking.pack(fill="both", expand=True)
+        
+        treeview_ranking.column("#0", width=0, stretch=tk.NO)
+        treeview_ranking.column("Propietario", anchor=tk.CENTER, width=100)
+        treeview_ranking.column("Mascota", anchor=tk.CENTER, width=100)
+        treeview_ranking.column("Cantidad de Diagnósticos", anchor=tk.CENTER, width=150)
+        
+
+        for propietario, mascota, cantidad in ranking:
+            treeview_ranking.insert("", "end", values=(propietario, mascota, cantidad))
+
+    def mostrarCantidadRazasPorDiagnostico(self, razas_por_diagnostico):
+        # Limpiar la lista de diagnósticos antes de mostrar los nuevos resultados
+        for widget in self.lista_Diagnostico:
+            widget.destroy()
+        
+        # Mostrar los diagnósticos por raza en la interfaz gráfica
+        for raza, cantidad in razas_por_diagnostico.items():
+            label = tk.Label(self, text=f"Diagnósticos para la raza '{raza}': {cantidad}")
+            label.pack()
+            self.lista_Diagnostico.append(label)
