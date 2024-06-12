@@ -8,6 +8,7 @@ class VistaPersona(tk.Frame):
         super().__init__(master, *args, **kwargs)
         self.master = master
         self.lista_personas = []
+        self.controlador = ControladorPersona
     
         # CREAR UN ESTILO PARA LA TABLA
         self.style = ttk.Style()
@@ -52,12 +53,13 @@ class VistaPersona(tk.Frame):
         ventana = Toplevel()
         ventana.geometry("300x400")
         ventana.title("Cambiar Persona")
-        ventana.resizable(False,False)
+        ventana.resizable(False, False)
         ventana.config(background="#2a3138")
 
         tituloVentana = Label(ventana, text="Cambiar Persona", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
-        cambio = StringVar()
-        entryCambio = Entry(ventana,textvariable=cambio, width="35").place(x=22, y=340)
+        idVar = StringVar()
+        idEntry = Entry(ventana, textvariable=idVar, width="35"). place(x=22, y=60)
+        Label(ventana, text="ID de la persona:", bg="#2a3138", fg="white").place(x=22, y=40)
 
         opciones = [
             "Nombre",
@@ -67,22 +69,27 @@ class VistaPersona(tk.Frame):
         ]
         valor = StringVar()
         valor.set(opciones[0])
+
+        OptionMenu(ventana, valor, *opciones).place(x=22, y=100)
+        cambio = StringVar()
+        entryCambio = Entry(ventana, textvariable=cambio, width="35").place(x=22, y=160)
+        Label(ventana, text="Nuevo Valor:", bg="#2a3138", fg="white").place(x=22, y=140)
+
         def actualizarPersona(*args):
             seleccion = valor.get()
             if seleccion == "Nombre":
-                selecCambio = "nombre"
+                selecCambio = 1
             elif seleccion == "Apellido":
-                selecCambio = "apellido"
+                selecCambio = 2
             elif seleccion == "Documento":
-                selecCambio = "documento"
+                selecCambio = 4
             else:
-                selecCambio = "telefono"
-            return selecCambio
-        cambioEntry = actualizarPersona() 
+                selecCambio = 5
+            campo = selecCambio
+            resultado = self.controlador.cambiarPersona(self.controlador.cargarPersona([]), idVar.get(), campo, cambio.get())
+            print (resultado)
 
-        menuCambios = OptionMenu(ventana, valor, *opciones).pack()
-        submit = Button(cambio, text="Cambiar", command=lambda: self.guardarPersona(cambioEntry, ventana), width=30)
-
+        Button(ventana, text="Cambiar", command=actualizarPersona, width=30).place(x=22, y=200)
 
     def registrarPersona(self):
         registro = Toplevel()
