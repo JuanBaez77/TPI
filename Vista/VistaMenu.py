@@ -89,19 +89,66 @@ class Vista(tk.Tk):
         for widget in self.pagina.winfo_children():
             widget.destroy()
 
-        Label(self.pagina, text="LISTA DE PERSONAS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
+        headerFrame = Frame(self.pagina, bg=self.pagina['bg'])
+        headerFrame.pack(fill='x', pady=5)
+
+        # GRID DEL FRAME DE ARRIBA
+        headerFrame.columnconfigure(0, weight=1)
+        headerFrame.columnconfigure(1, weight=1)
+        headerFrame.columnconfigure(2, weight=1)
+
+        label = Label(headerFrame, text="LISTA DE PERSONAS", font=("Roboto", 12), bg=self.pagina['bg'])
+        label.grid(row=0, column=1, pady=5)
+
+        # FILTRADORES
+        opciones = [
+            "Toda las Personas",
+            "Solo Activos",
+            "Propietarios",
+            "Veterinarios"
+        ]
+        valor = StringVar()
+        valor.set(opciones[1])
+
+        def actualizarFiltro(*args):
+            seleccion = valor.get()
+            if seleccion == "Solo Activos":
+                self.mostrarActivos()
+            elif seleccion == "Propietarios":
+                self.mostrarTipoPersona("CLI")
+            elif seleccion == "Veterinarios":
+                self.mostrarTipoPersona("EMP")
+            else:
+                self.actualizarVistaPersonas()
+
+        valor.trace("w", actualizarFiltro) 
+
+        menuFiltros = OptionMenu(headerFrame, valor, *opciones)
+        menuFiltros.grid(row=0, column=2, padx=10, sticky='e') 
 
         self.vista_personas = VistaPersona(self.pagina)
         self.vista_personas.pack(fill="both", expand=True)
 
-        self.actualizarVistaPersonas()
+        self.mostrarActivos()
 
         Button(self.pagina, text="Cargar Nueva Persona", command=self.vista_personas.registrarPersona, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=8, padx=20, fill="x")
 
         Button(self.pagina, text="Cambiar Estado de Persona", command=self.abrir_cambiar_estado, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+
+        Button(self.pagina, text="Cambiar Persona", command=self.vista_personas.cambiarPersona, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+
+
     
     def actualizarVistaPersonas(self):
         listaPersonas = ControladorPersona.cargarPersona([])
+        self.vista_personas.mostrar_persona(listaPersonas)
+
+    def mostrarActivos(self):
+        listaPersonas = ControladorPersona.cargarActivos([])
+        self.vista_personas.mostrar_persona(listaPersonas)
+
+    def mostrarTipoPersona(self, condition):
+        listaPersonas = ControladorPersona.cargarTipoPersona([], condition)
         self.vista_personas.mostrar_persona(listaPersonas)
 
     def menuMascota(self):
@@ -142,20 +189,24 @@ class Vista(tk.Tk):
     def abrir_cambiar_estado(self): #podriamos hacer polimosrfismo para usar esta ventana para cambiar los estados de todo
         cambiar_estado_ventana = Toplevel(self)
         cambiar_estado_ventana.title("Cambiar Estado de Persona")
-        cambiar_estado_ventana.geometry("400x200")
+        cambiar_estado_ventana.geometry("550x200")
+        cambiar_estado_ventana.config(background=COLOR_PRINCIPAL)
 
-        label_documento = Label(cambiar_estado_ventana, text="DOCUMENTO DE LA PERSONA QUE DESEA CAMBIAR")
+        label_documento = Label(cambiar_estado_ventana, text="DOCUMENTO DE LA PERSONA QUE DESEA CAMBIAR", fg="white", bg=COLOR_PRINCIPAL, font=("robot", 10))
         label_documento.pack(pady=5)
 
         entry_documento = Entry(cambiar_estado_ventana)
         entry_documento.pack(pady=5)
 
-        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
+        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red", bg="#2a3138")
         label_mensaje.pack(pady=5)
 
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorPersona.cambiarEstadoPersona(entry_documento.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)
 
+    def menuTratamiento(self):
+        for widget in self.pagina.winfo_children():
+            widget.destroy()
     def menuDiagnostico(self):
         for widget in self.pagina.winfo_children():
             widget.destroy()
@@ -223,8 +274,10 @@ def menuTratamiento():
     ventana_tratamiento.title("Menú Tratamiento")
     ventana_tratamiento.geometry("300x200")
 
-    menu_tratamiento = Menu(ventana_tratamiento)
-    ventana_tratamiento.config(menu=menu_tratamiento)
+        
+
+    menu_tratamiento = Menu()
+        
 
     menu_tratamiento.add_command(label="Tratamientos Disponibles")
     menu_tratamiento.add_command(label="Agenda de Tratamientos")

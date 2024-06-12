@@ -8,6 +8,7 @@ class VistaPersona(tk.Frame):
         super().__init__(master, *args, **kwargs)
         self.master = master
         self.lista_personas = []
+        self.controlador = ControladorPersona
     
         # CREAR UN ESTILO PARA LA TABLA
         self.style = ttk.Style()
@@ -26,6 +27,9 @@ class VistaPersona(tk.Frame):
         
         # CONFIGURAR LA TABLA PARA CENTRAR LOS OBJETOS
         self.treeview.column("#0", width=0, stretch=tk.NO)
+
+
+        
         self.treeview.column("Nombre", anchor=tk.CENTER, width=100)
         self.treeview.column("Documento", anchor=tk.CENTER, width=100)
         self.treeview.column("Telefono", anchor=tk.CENTER, width=100)
@@ -45,6 +49,47 @@ class VistaPersona(tk.Frame):
         self.treeview.tag_configure('green', background='#f0f0f0', foreground='black')
         self.treeview.tag_configure('red', background='lightcoral', foreground='black')
 
+    def cambiarPersona(self):
+        ventana = Toplevel()
+        ventana.geometry("300x350")
+        ventana.title("Cambiar Persona")
+        ventana.resizable(False, False)
+        ventana.config(background="#2a3138")
+
+        tituloVentana = Label(ventana, text="Cambiar Persona", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
+        idVar = StringVar()
+        idEntry = Entry(ventana, textvariable=idVar, width="35"). place(x=22, y=80)
+        Label(ventana, text="ID de la persona:", bg="#2a3138", fg="white").place(x=22, y=60)
+
+        opciones = [
+            "Nombre",
+            "Apellido",
+            "Documento",
+            "Telefono"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+
+        OptionMenu(ventana, valor, *opciones).place(x=22, y=120)
+        cambio = StringVar()
+        entryCambio = Entry(ventana, textvariable=cambio, width="35").place(x=22, y=180)
+        Label(ventana, text="Nuevo Valor:", bg="#2a3138", fg="white").place(x=22, y=160)
+        label_mensaje = Label(ventana, text="", fg="white", bg="#2a3138", font=("roboto", 10))
+        label_mensaje.place(x=22, y=260)
+        def actualizarPersona(*args):
+            seleccion = valor.get()
+            if seleccion == "Nombre":
+                selecCambio = 1
+            elif seleccion == "Apellido":
+                selecCambio = 2
+            elif seleccion == "Documento":
+                selecCambio = 4
+            else:
+                selecCambio = 5
+            campo = selecCambio
+            resultado = self.controlador.cambiarPersona(self.controlador.cargarPersona([]), idVar.get(), campo, cambio.get(),label_mensaje)
+
+        Button(ventana, text="Cambiar", command=actualizarPersona, width=30).place(x=22, y=220)
 
     def registrarPersona(self):
         registro = Toplevel()
