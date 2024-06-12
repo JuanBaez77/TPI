@@ -108,7 +108,7 @@ class Vista(tk.Tk):
             "Veterinarios"
         ]
         valor = StringVar()
-        valor.set(opciones[0])
+        valor.set(opciones[1])
 
         def actualizarFiltro(*args):
             seleccion = valor.get()
@@ -129,7 +129,7 @@ class Vista(tk.Tk):
         self.vista_personas = VistaPersona(self.pagina)
         self.vista_personas.pack(fill="both", expand=True)
 
-        self.actualizarVistaPersonas()
+        self.mostrarActivos()
 
         Button(self.pagina, text="Cargar Nueva Persona", command=self.vista_personas.registrarPersona, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=8, padx=20, fill="x")
 
@@ -189,15 +189,16 @@ class Vista(tk.Tk):
     def abrir_cambiar_estado(self): #podriamos hacer polimosrfismo para usar esta ventana para cambiar los estados de todo
         cambiar_estado_ventana = Toplevel(self)
         cambiar_estado_ventana.title("Cambiar Estado de Persona")
-        cambiar_estado_ventana.geometry("400x200")
+        cambiar_estado_ventana.geometry("550x200")
+        cambiar_estado_ventana.config(background=COLOR_PRINCIPAL)
 
-        label_documento = Label(cambiar_estado_ventana, text="DOCUMENTO DE LA PERSONA QUE DESEA CAMBIAR")
+        label_documento = Label(cambiar_estado_ventana, text="DOCUMENTO DE LA PERSONA QUE DESEA CAMBIAR", fg="white", bg=COLOR_PRINCIPAL, font=("robot", 10))
         label_documento.pack(pady=5)
 
         entry_documento = Entry(cambiar_estado_ventana)
         entry_documento.pack(pady=5)
 
-        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
+        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red", bg="#2a3138")
         label_mensaje.pack(pady=5)
 
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorPersona.cambiarEstadoPersona(entry_documento.get(), label_mensaje))

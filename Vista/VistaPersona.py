@@ -51,15 +51,15 @@ class VistaPersona(tk.Frame):
 
     def cambiarPersona(self):
         ventana = Toplevel()
-        ventana.geometry("300x400")
+        ventana.geometry("300x350")
         ventana.title("Cambiar Persona")
         ventana.resizable(False, False)
         ventana.config(background="#2a3138")
 
         tituloVentana = Label(ventana, text="Cambiar Persona", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
         idVar = StringVar()
-        idEntry = Entry(ventana, textvariable=idVar, width="35"). place(x=22, y=60)
-        Label(ventana, text="ID de la persona:", bg="#2a3138", fg="white").place(x=22, y=40)
+        idEntry = Entry(ventana, textvariable=idVar, width="35"). place(x=22, y=80)
+        Label(ventana, text="ID de la persona:", bg="#2a3138", fg="white").place(x=22, y=60)
 
         opciones = [
             "Nombre",
@@ -70,11 +70,12 @@ class VistaPersona(tk.Frame):
         valor = StringVar()
         valor.set(opciones[0])
 
-        OptionMenu(ventana, valor, *opciones).place(x=22, y=100)
+        OptionMenu(ventana, valor, *opciones).place(x=22, y=120)
         cambio = StringVar()
-        entryCambio = Entry(ventana, textvariable=cambio, width="35").place(x=22, y=160)
-        Label(ventana, text="Nuevo Valor:", bg="#2a3138", fg="white").place(x=22, y=140)
-
+        entryCambio = Entry(ventana, textvariable=cambio, width="35").place(x=22, y=180)
+        Label(ventana, text="Nuevo Valor:", bg="#2a3138", fg="white").place(x=22, y=160)
+        label_mensaje = Label(ventana, text="", fg="white", bg="#2a3138", font=("roboto", 10))
+        label_mensaje.place(x=22, y=260)
         def actualizarPersona(*args):
             seleccion = valor.get()
             if seleccion == "Nombre":
@@ -86,10 +87,9 @@ class VistaPersona(tk.Frame):
             else:
                 selecCambio = 5
             campo = selecCambio
-            resultado = self.controlador.cambiarPersona(self.controlador.cargarPersona([]), idVar.get(), campo, cambio.get())
-            print (resultado)
+            resultado = self.controlador.cambiarPersona(self.controlador.cargarPersona([]), idVar.get(), campo, cambio.get(),label_mensaje)
 
-        Button(ventana, text="Cambiar", command=actualizarPersona, width=30).place(x=22, y=200)
+        Button(ventana, text="Cambiar", command=actualizarPersona, width=30).place(x=22, y=220)
 
     def registrarPersona(self):
         registro = Toplevel()
