@@ -1,8 +1,8 @@
 Nombre,Raza,Propietario,Estado
 Coco,Golden,21,True
-Firulais,Husky,3,False
+Firulais,Husky,3,True
 Luna,Beagle,29,False
-Max,Labrador,8,True
+Max,Pug,12,True
 Bella,Poodle,31,True
 Rocky,Bulldog,25,False
 Lucy,Shih Tzu,14,False
