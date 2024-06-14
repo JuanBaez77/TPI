@@ -212,7 +212,39 @@ class Vista(tk.Tk):
         for widget in self.pagina.winfo_children():
             widget.destroy()
 
-        Label(self.pagina, text="LISTA DE DIAGNOSTICOS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
+        headerFrame = Frame(self.pagina, bg=self.pagina['bg'])
+        headerFrame.pack(fill='x', pady=5)
+
+        # GRID DEL FRAME DE ARRIBA
+        headerFrame.columnconfigure(0, weight=1)
+        headerFrame.columnconfigure(1, weight=1)
+        headerFrame.columnconfigure(2, weight=1)
+
+        label = Label(headerFrame, text="LISTA DIAGNOSTICOS", font=("Roboto", 12), bg=self.pagina['bg'])
+        label.grid(row=0, column=1, pady=5)
+
+        # FILTRADORES
+        opciones = [
+            "Diagnosticos",
+            "Ranking",
+            "Cant/Razas"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+
+        def actualizarFiltro(*args):
+            seleccion = valor.get()
+            if seleccion == "Diagnosticos":
+                self.actualizarVistaDiagnostico()
+            elif seleccion == "Ranking":
+                self.mostrarRanking()
+            else:
+                self.actualizarVistaDiagnostico()
+
+        valor.trace("w", actualizarFiltro)
+
+        menuFiltros = OptionMenu(headerFrame, valor, *opciones)
+        menuFiltros.grid(row=0, column=2, padx=10, sticky='e')  
 
         self.vista_diagnostico = VistaDiagnostico(self.pagina)
         self.vista_diagnostico.pack(fill="both", expand=True)
@@ -223,10 +255,8 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cambiar Estado de Diagnóstico", command=self.cambiarEstadoDiagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
 
-        Button(self.pagina, text="Ranking", command=self.mostrarRanking, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Diagnostico", command=self.vista_diagnostico.cambiarDiag, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
 
-        Button(self.pagina, text="Cant/Razas", command=self.mostrarCantidadRazasPorDiagnostico, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
-    
     def mostrarRanking(self):
         controlador_diagnostico = ControladorDiagnostico(self)
         ranking = controlador_diagnostico.generarRanking()  

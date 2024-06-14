@@ -1,42 +1,43 @@
-Nombre,Diagnostico,Propietario,Estado
-Coco, Artritis, 21,true
-Firulais, Displasia de Cadera, 3,false
-Luna, Alergia Alimentaria, 29,false
-Max, Diabetes Canina, 8, true
-Bella, Ansiedad por Separación, 31, true
-Rocky, Infección del Oído, 25, false
-Lucy, Problemas de Tiroides, 14, false
-Charlie, Síndrome de Brachiocefálico, 32, true
-Daisy, Obesidad Canina, 17, true
-Milo, Parvovirus, 20, false
-Bailey, Enfermedad del Corazón, 12, false
-Molly, Dermatitis Atópica, 24, true
-Ulio, Diabetes Canina, 9, true
-Simba, Ansiedad por Separación, 18, false
-Buster, Displasia de Cadera, 22, true
-Nala, Dermatitis Atópica, 13, false
-Buddy, Infección del Tracto Urinario, 1, true
-Lola, Problemas de Conducta, 26, true
-Oliver, Alergia Alimentaria, 11, true
-Sadie, Problemas de Tiroides, 6, false
-Toby, Parvovirus, 2, true
-Maggie, Enfermedad del Corazón, 10, false
-Jake, Ansiedad por Separación, 4, false
-Zoe, Diabetes Canina, 5, true
-Leo, Displasia de Cadera, 30, false
-Ruby, Alergia Alimentaria, 15, true
-Sammy, Problemas de Conducta, 27, false
-Stella, Artritis, 28, true
-Oscar, Dermatitis Atópica, 19, true
-Missy, Infección del Tracto Urinario, 7, false
-Gizmo, Síndrome de Brachiocefálico, 23, true
-Ellie, Obesidad Canina, 16, true
-Rex, Displasia de Cadera, 33, false
-Mia, Alergia Alimentaria, 34, true
-Koda, Parvovirus, 21,true
-Teddy, Problemas de Conducta, 2, true
-Duke, Displasia de Cadera, 3, true
-Roco, Ansiedad por Separación, 4, true
-Julian, Problemas de Tiroides, 6, false
-Ulio, Dermatitis Atópica, 1, true
-Toby, Obesidad Canina,2,True
+Nombre,Diagnostico,Propietario,Estado,id
+Coco,Cataratas,21,true,1
+Firulais,Displasia de Cadera,3,false,2
+Luna,Alergia Alimentaria,29,false,3
+Max,Diabetes Canina,8,true,4
+Bella,Ansiedad por Separación,31,true,5
+Rocky,Infección del Oído,25,false,6
+Lucy,Problemas de Tiroides,14,false,7
+Charlie,Síndrome de Brachiocefálico,32,true,8
+Daisy,Obesidad Canina,17,true,9
+Milo,Parvovirus,20,false,10
+Bailey,Enfermedad del Corazón,12,false,11
+Molly,Dermatitis Atópica,24,true,12
+Ulio,Diabetes Canina,9,true,13
+Simba,Ansiedad por Separación,18,false,14
+Buster,Displasia de Cadera,22,true,15
+Nala,Dermatitis Atópica,13,false,16
+Buddy,Infección del Tracto Urinario,1,true,17
+Lola,Problemas de Conducta,26,true,18
+Oliver,Alergia Alimentaria,11,true,19
+Sadie,Problemas de Tiroides,6,false,20
+Toby,Parvovirus,2,true,21
+Maggie,Enfermedad del Corazón,10,false,22
+Jake,Ansiedad por Separación,4,false,23
+Zoe,Diabetes Canina,5,true,24
+Leo,Displasia de Cadera,30,false,25
+Ruby,Alergia Alimentaria,15,true,26
+Sammy,Problemas de Conducta,27,false,27
+Stella,Artritis,28,true,28
+Oscar,Dermatitis Atópica,19,true,29
+Missy,Infección del Tracto Urinario,7,false,30
+Gizmo,Síndrome de Brachiocefálico,23,true,31
+Ellie,Obesidad Canina,16,true,32
+Rex,Displasia de Cadera,33,false,33
+Mia,Alergia Alimentaria,34,true,34
+Koda,Parvovirus,21,true,35
+Teddy,Problemas de Conducta,2,true,36
+Duke,Displasia de Cadera,3,true,37
+Roco,Ansiedad por Separación,4,true,38
+Julian,Problemas de Tiroides,6,false,39
+Ulio,Dermatitis Atópica,1,true,40
+Toby,Obesidad Canina,2,true,41
+Toby,Obesidad Canina,2,true,42

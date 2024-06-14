@@ -9,6 +9,7 @@ class VistaDiagnostico(tk.Frame):
         super().__init__(master, *args, **kwargs)
         self.master = master
         self.lista_Diagnostico = []
+        self.controlador = ControladorDiagnostico
     
         # CREAR UN ESTILO PARA LA TABLA
         self.style = ttk.Style()
@@ -18,11 +19,12 @@ class VistaDiagnostico(tk.Frame):
         self.treeview = ttk.Treeview(self.master, style="Treeview")
         
         # CREAR LA TABLA
-        self.treeview = ttk.Treeview(self, columns=("Nombre", "Diagnostico", "Propietario", "Estado"), show="headings")
+        self.treeview = ttk.Treeview(self, columns=("Nombre", "Diagnostico", "Propietario", "Estado","ID"), show="headings")
         self.treeview.heading("Nombre", text="Nombre")
         self.treeview.heading("Diagnostico", text="Diagnostico")
         self.treeview.heading("Propietario", text="Propietario")
         self.treeview.heading("Estado", text="Estado")
+        self.treeview.heading("ID", text="ID")
         self.treeview.pack(fill="both", expand=True)
         
         # CONFIGURAR LA TABLA PARA CENTRAR LOS OBJETOS
@@ -31,6 +33,7 @@ class VistaDiagnostico(tk.Frame):
         self.treeview.column("Diagnostico", anchor=tk.CENTER, width=100)
         self.treeview.column("Propietario", anchor=tk.CENTER, width=100)
         self.treeview.column("Estado", anchor=tk.CENTER, width=100)
+        self.treeview.column("ID", anchor=tk.CENTER, width=100)
 
     def mostrar_Diagnostico(self, lista_Diagnostico):
         for i in self.treeview.get_children():
@@ -41,8 +44,9 @@ class VistaDiagnostico(tk.Frame):
             diagnostico_val = diagnostico.get_diagnostico()
             propietario = diagnostico.get_propietario()
             estado = diagnostico.get_estado().strip().lower()
+            id = diagnostico.get_id()
             estado_color = "green" if estado == "true" else "red"
-            self.treeview.insert("", "end", values=(nombre, diagnostico_val, propietario, estado))
+            self.treeview.insert("", "end", values=(nombre, diagnostico_val, propietario, estado,id))
             self.treeview.item(self.treeview.get_children()[-1], tags=(estado_color,))
         
         self.treeview.tag_configure('green', background='#f0f0f0', foreground='black')
@@ -142,14 +146,35 @@ class VistaDiagnostico(tk.Frame):
 
         for raza, cantidad in razas_por_diagnostico.items():
             treeview_raza.insert("", "end", values=(raza, cantidad))
-    
-    def mostrarCantidadRazasPorDiagnostico(self, razas_por_diagnostico):
-        # Limpiar la lista de diagnósticos antes de mostrar los nuevos resultados
-        for widget in self.lista_Diagnostico:
-            widget.destroy()
-        
-        # Mostrar los diagnósticos por raza en la interfaz gráfica
-        for raza, cantidad in razas_por_diagnostico.items():
-            label = tk.Label(self, text=f"Diagnósticos para la raza '{raza}': {cantidad}")
-            label.pack()
-            self.lista_Diagnostico.append(label)
+
+    def cambiarDiag(self):
+        ventana = Toplevel()
+        ventana.geometry("300x350")
+        ventana.title("Cambiar Persona")
+        ventana.resizable(False, False)
+        ventana.config(background="#2a3138")
+
+        tituloVentana = Label(ventana, text="Cambiar Diagnostico", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
+        idVar = StringVar()
+        idEntry = Entry(ventana, textvariable=idVar, width="35"). place(x=22, y=80)
+        Label(ventana, text="ID de la mascota:", bg="#2a3138", fg="white").place(x=22, y=60)
+
+        opciones = [
+            "Diagnostico"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+
+        OptionMenu(ventana, valor, *opciones).place(x=22, y=120)
+        cambio = StringVar()
+        entryCambio = Entry(ventana, textvariable=cambio, width="35").place(x=22, y=180)
+        Label(ventana, text="Nuevo Valor:", bg="#2a3138", fg="white").place(x=22, y=160)
+        label_mensaje = Label(ventana, text="", fg="white", bg="#2a3138", font=("roboto", 10))
+        label_mensaje.place(x=22, y=260)
+        def actualizarDiag(*args):
+            seleccion = valor.get()
+            if seleccion == "Diagnostico":
+                selecCambio = 1
+            campo = selecCambio
+            resultado = self.controlador.cambiarDiagnostico(self.controlador.cargarDiagnostico([]), idVar.get(), campo, cambio.get(),label_mensaje)
+        Button(ventana, text="Cambiar", command=actualizarDiag, width=30).place(x=22, y=220)
