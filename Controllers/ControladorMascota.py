@@ -14,7 +14,7 @@ class ControladorMascota:
     
     def cargarMascotas(lista=list):
         # ESTE METODO VA A ALMACENAR LAS RAZAS EN UNA LISTA Y LA RETORNA
-        with open("TPI/csv/mascota.csv", mode='r', encoding="utf-8", newline="") as archivo:
+        with open("csv/mascota.csv", mode='r', encoding="utf-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido) 
             for linea in contenido:
@@ -29,7 +29,7 @@ class ControladorMascota:
     def guardarMascota(list, registro):
         # ESTE METODO VA A CREAR UNA NUEVA LINEA EN EL CSV CON EL NOMBRE, RAZA, PROPIETARIO Y ESTADO
         def cambiarAIDPropietario(propietario_val):
-            with open("TPI/csv/persona.csv", encoding="UTF-8") as file:
+            with open("csv/persona.csv", encoding="UTF-8") as file:
                     reader = csv.reader(file)
                     header = next(reader)
                     for row in reader:
@@ -43,7 +43,7 @@ class ControladorMascota:
         estado_val = True
         nueva_mascota = Mascota(nombre_val,raza_val,propietario_val,estado_val)
         
-        with open("TPI/csv/mascota.csv", "a", newline="") as file:
+        with open("csv/mascota.csv", "a", newline="") as file:
             writer = csv.writer(file)
             writer.writerow([
                 nueva_mascota.get_nombre(),
@@ -57,7 +57,7 @@ class ControladorMascota:
     def cargarRazas(self):
         # ESTE METODO VA A ALMACENAR LAS RAZAS EN UNA LISTA Y LA VA A RETORNAR
         listaRazasCompleta = []
-        with open("TPI/csv/razas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        with open("csv/razas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             for i in contenido:
                 listaRazasCompleta.append(i)
@@ -69,7 +69,7 @@ class ControladorMascota:
         if nombre_raza:
             raza = Raza(nombre_raza, 1)
             try:
-                with open("TPI/csv/razas.csv", mode='a', newline='') as archivo:
+                with open("csv/razas.csv", mode='a', newline='') as archivo:
                     razaNueva = csv.writer(archivo)
                     razaNueva.writerow([raza.get_raza(), "1"])
                 messagebox.showinfo("Éxito", f"Raza '{raza.get_raza()}' guardada en razas.csv")
@@ -82,7 +82,7 @@ class ControladorMascota:
         # ESTE METODO MODIFICARA EL ESTADO DE LA MASCOTA DE TRUE A FALSE Y VICEVERSA
         mascotas = []
         encontrado = False
-        with open("TPI/csv/mascota.csv", encoding="UTF-8") as file:
+        with open("csv/mascota.csv", encoding="UTF-8") as file:
             reader = csv.reader(file)
             header = next(reader)
             for row in reader:
@@ -98,7 +98,7 @@ class ControladorMascota:
                 mascotas.append(row)
 
         if encontrado:
-            with open("TPI/csv/mascota.csv", "w", newline="", encoding="utf-8") as file:
+            with open("csv/mascota.csv", "w", newline="", encoding="utf-8") as file:
                 writer = csv.writer(file)
                 writer.writerow(header)
                 writer.writerows(mascotas)
@@ -112,7 +112,7 @@ class ControladorMascota:
         listaMascotas = cargarmascota
         mascotas = []
         encontrado = False
-        with open("TPI/csv/mascota.csv", encoding="UTF-8") as file:
+        with open("csv/mascota.csv", encoding="UTF-8") as file:
             reader = csv.reader(file)
             header = next(reader)
             for row in reader:
@@ -122,7 +122,7 @@ class ControladorMascota:
                 mascotas.append(row)
 
         if encontrado:
-            with open("TPI/csv/mascota.csv", "w", newline="", encoding="utf-8") as file:
+            with open("csv/mascota.csv", "w", newline="", encoding="utf-8") as file:
                 writer = csv.writer(file)
                 writer.writerow(header)
                 writer.writerows(mascotas)
