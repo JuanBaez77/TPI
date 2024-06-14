@@ -9,7 +9,7 @@ class ControladorTratamiento:
     
     # ESTE METODO ALMACENA LOS TRATAMIENTOS EN UNA LISTA Y LOS RETORNA
     def cargarTratramiento(lista = list):    
-        with open("csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        with open("TPI/csv/persona.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido) 
             for linea in contenido:
@@ -29,7 +29,7 @@ class ControladorTratamiento:
             estado_val = True
             nuevo_tratamiento = Tratamiento(nombre_val,destino_val,estado_val)
         
-            with open("csv/tratamiento.csv", "a", newline="") as file:
+            with open("TPI/csv/tratamiento.csv", "a", newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow([
                     nuevo_tratamiento.get_nombre(),
@@ -45,7 +45,7 @@ class ControladorTratamiento:
         encontrado = False
 
         try:
-            with open("csv/tratamiento.csv", encoding="UTF-8") as file:
+            with open("TPI/csv/tratamiento.csv", encoding="UTF-8") as file:
                 reader = csv.reader(file)
                 header = next(reader)
                 for row in reader:
@@ -61,7 +61,7 @@ class ControladorTratamiento:
                     tratamiento.append(row)
 
             if encontrado:
-                with open("csv/tratamiento.csv", "w", newline="", encoding="utf-8") as file:
+                with open("TPI/csv/tratamiento.csv", "w", newline="", encoding="utf-8") as file:
                     writer = csv.writer(file)
                     writer.writerow(header)
                     writer.writerows(tratamiento)
