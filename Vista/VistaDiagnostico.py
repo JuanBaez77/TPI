@@ -119,24 +119,30 @@ class VistaDiagnostico(tk.Frame):
         return listaMascotasDisponibles
     
     def mostrarRanking(self, ranking):
-        ranking_window = Toplevel(self.master)
+        ranking_window = tk.Toplevel(self.master)
         ranking_window.title("Ranking de Diagnósticos")
-        
-        treeview_ranking = ttk.Treeview(ranking_window, columns=("Propietario", "Mascota", "Cantidad de Diagnósticos"), show="headings")
-        treeview_ranking.heading("Propietario", text="Propietario")
+
+        treeview_ranking = ttk.Treeview(ranking_window, columns=("Mascota", "Cantidad de Diagnósticos"), show="headings")
         treeview_ranking.heading("Mascota", text="Mascota")
         treeview_ranking.heading("Cantidad de Diagnósticos", text="Cantidad de Diagnósticos")
         treeview_ranking.pack(fill="both", expand=True)
-        
-        treeview_ranking.column("#0", width=0, stretch=tk.NO)
-        treeview_ranking.column("Propietario", anchor=tk.CENTER, width=100)
-        treeview_ranking.column("Mascota", anchor=tk.CENTER, width=100)
-        treeview_ranking.column("Cantidad de Diagnósticos", anchor=tk.CENTER, width=150)
-        
 
-        for propietario, mascota, cantidad in ranking:
-            treeview_ranking.insert("", "end", values=(propietario, mascota, cantidad))
+        # Agregar los datos del ranking a la tabla
+        for mascota, cantidad in ranking:
+            treeview_ranking.insert("", "end", values=(mascota, cantidad))
 
+    def mostrarCantidadRazasPorDiagnostico(self, razas_por_diagnostico):
+        raza_window = tk.Toplevel(self.master)
+        raza_window.title("Cantidad de Diagnósticos por Raza")
+
+        treeview_raza = ttk.Treeview(raza_window, columns=("Raza", "Cantidad"), show="headings")
+        treeview_raza.heading("Raza", text="Raza")
+        treeview_raza.heading("Cantidad", text="Cantidad")
+        treeview_raza.pack(fill="both", expand=True)
+
+        for raza, cantidad in razas_por_diagnostico.items():
+            treeview_raza.insert("", "end", values=(raza, cantidad))
+    
     def mostrarCantidadRazasPorDiagnostico(self, razas_por_diagnostico):
         # Limpiar la lista de diagnósticos antes de mostrar los nuevos resultados
         for widget in self.lista_Diagnostico:

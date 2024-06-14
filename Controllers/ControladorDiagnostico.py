@@ -10,7 +10,6 @@ class ControladorDiagnostico:
         self._vista = vista
         self._listaDiagnostico = []
         self.update_callback = update_callback
-    
 
     def guardarDiagnostico(self, lista, registro):
         def IDPropietario(propietario_val):
@@ -132,53 +131,47 @@ class ControladorDiagnostico:
         except Exception as e:
             messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
 
-    def cargarRanking(self):
-            diagnosticos = {}
-            
-            with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
-                contenido = csv.reader(archivo)
-                next(contenido, None)  
-                for linea in contenido:
-                    propietario = linea[2] 
-                    nombre_mascota = linea[0]
-                    clave = (propietario, nombre_mascota) 
-                    if clave in diagnosticos:
-                        diagnosticos[clave] += 1
-                    else:
-                        diagnosticos[clave] = 1
-        
-            ranking = sorted(diagnosticos.items(), key=lambda x: x[1], reverse=True)
-            
-            ranking_lista = [[item[0][0], item[0][1], item[1]] for item in ranking]  
-            
-            return ranking_lista
-
     def cantidadRazasPorDiagnostico(self):
-        try:
-            razas_mascotas = {}
-            with open("csv/mascota.csv", mode='r', encoding="UTF-8", newline="") as archivo:
-                contenido = csv.reader(archivo)
-                next(contenido) 
-                for linea in contenido:
-                    raza = linea[1]
-                    if raza not in razas_mascotas:
-                        razas_mascotas[raza] = 0
+        razas_mascotas = {}
+        with open("csv/mascota.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido) 
+            for linea in contenido:
+                raza = linea[1]
+                if raza not in razas_mascotas:
+                    razas_mascotas[raza] = 0
 
-            with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
-                contenido = csv.reader(archivo)
-                next(contenido)  
-                for linea in contenido:
-                    raza_diagnostico = linea[1]
-                    if raza_diagnostico in razas_mascotas:
-                        razas_mascotas[raza_diagnostico] += 1
+        with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido)  
+            for linea in contenido:
+                raza_diagnostico = linea[1]
+                if raza_diagnostico in razas_mascotas:
+                    razas_mascotas[raza_diagnostico] += 1
 
-            return razas_mascotas
-        except FileNotFoundError:
-            messagebox.showerror("Error", "El archivo de diagnósticos no se encuentra.")
-            return {}
-        except Exception as e:
-            messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
-            return {}
+        return razas_mascotas
+         
+    def generarRanking(self):
+        mascotas_diagnosticos = {}
+        with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido) 
+            for linea in contenido:
+                mascota = linea[0]
+                clave_diagnostico = mascota 
+                if clave_diagnostico in mascotas_diagnosticos:
+                    mascotas_diagnosticos[clave_diagnostico] += 1
+                else:
+                    mascotas_diagnosticos[clave_diagnostico] = 1
 
+        ranking_ordenado = sorted(mascotas_diagnosticos.items(), key=lambda x: x[1], reverse=True)
+        with open("csv/ranking.csv", mode='w', encoding="UTF-8", newline="") as archivo_ranking:
+            writer = csv.writer(archivo_ranking)
+            writer.writerow(['Mascota','Cantidad de Diagnósticos'])
+            for mascota, cantidad in ranking_ordenado:
+                writer.writerow([mascota,cantidad]) 
+        
+        return ranking_ordenado
+        
     def mostrarDiagnostico(self):
         self._vista.mostrar_Diagnostico(self._listaDiagnostico)
