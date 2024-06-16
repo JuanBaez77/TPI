@@ -238,6 +238,8 @@ class Vista(tk.Tk):
                 self.actualizarVistaDiagnostico()
             elif seleccion == "Ranking":
                 self.mostrarRanking()
+            elif seleccion == "Cant/Razas":
+                self.mostrarCantidadRazasPorDiagnostico()
             else:
                 self.actualizarVistaDiagnostico()
 
@@ -267,7 +269,6 @@ class Vista(tk.Tk):
         self.vista_diagnostico.mostrar_Diagnostico(listaDiagnostico)
 
     def mostrarCantidadRazasPorDiagnostico(self):
-        self.menuDiagnostico()
         razas_por_diagnostico = self.controladorDiagnostico.cantidadRazasPorDiagnostico()
         self.vista_diagnostico.mostrarCantidadRazasPorDiagnostico(razas_por_diagnostico)
 

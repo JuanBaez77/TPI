@@ -168,24 +168,26 @@ class ControladorDiagnostico:
             messagebox.showerror("Error", f"Ha ocurrido un error: {e}")
 
     def cantidadRazasPorDiagnostico(self):
-        razas_mascotas = {}
-        with open("csv/mascota.csv", mode='r', encoding="UTF-8", newline="") as archivo:
-            contenido = csv.reader(archivo)
-            next(contenido) 
-            for linea in contenido:
-                raza = linea[1]
-                if raza not in razas_mascotas:
-                    razas_mascotas[raza] = 0
-
-        with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
-            contenido = csv.reader(archivo)
-            next(contenido)  
-            for linea in contenido:
-                raza_diagnostico = linea[1]
-                if raza_diagnostico in razas_mascotas:
-                    razas_mascotas[raza_diagnostico] += 1
-
-        return razas_mascotas
+            razasmascotas = {}
+            with open("csv/mascota.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+                contenido = csv.reader(archivo)
+                next(contenido) 
+                for linea in contenido:
+                    nombre = linea[0]
+                    raza = linea[1]
+                    razasmascotas[nombre] = raza
+            conteorazas = {}
+            with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+                contenido = csv.reader(archivo)
+                next(contenido)
+                for linea in contenido:
+                    nombremascota = linea[0]
+                    if nombremascota in razasmascotas:
+                        raza = razasmascotas[nombremascota]
+                        if raza not in conteorazas:
+                            conteorazas[raza] = 0
+                        conteorazas[raza] += 1
+            return conteorazas
          
     def generarRanking(self):
         mascotas_diagnosticos = {}
