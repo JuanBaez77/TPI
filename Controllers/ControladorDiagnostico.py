@@ -109,14 +109,12 @@ class ControladorDiagnostico:
         return listaIDCompleta
     
     def cargarDiagnosticos(self):
-        listaDiagnosticoCompleta = set()  # Usamos un conjunto en lugar de una lista
-        
+        listaDiagnosticoCompleta = set() 
         with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido)
             for row in contenido:
-                listaDiagnosticoCompleta.add(row[1])  # Agregamos el diagnóstico al conjunto
-        
+                listaDiagnosticoCompleta.add(row[1]) 
         return list(listaDiagnosticoCompleta)
     
     def cargarMascota(self):

@@ -5,9 +5,11 @@ from Modulos.Persona import Persona
 from .VistaMascota import VistaMascota
 from Vista.VistaPersona import VistaPersona
 from Vista.VistaDiagnostico import VistaDiagnostico
+from Vista.VistaConsulta import VistaConsulta
 from Controllers.ControladorMascota import ControladorMascota
 from Controllers.ControladorPersona import ControladorPersona
 from Controllers.ControladorDiagnostico import ControladorDiagnostico
+from Controllers.ControladorConsulta import ControladorConsulta
 
 COLOR_PRINCIPAL = "#2a3138"
 COLOR_SECUNDARIO = "#18BC9C"
@@ -69,6 +71,11 @@ class Vista(tk.Tk):
         btn_tratamiento.pack(fill="x", anchor="w")
         btn_tratamiento.bind("<Enter>", lambda event: btn_tratamiento.config(bg=COLOR_HOVER, fg="white"))
         btn_tratamiento.bind("<Leave>", lambda event: btn_tratamiento.config(bg=COLOR_PRINCIPAL, fg="white"))
+
+        btn_consulta = Button(self.menu_lateral, text="     Consultas",image=self.icon_Diagnotico,compound="left", command=self.menuConsulta, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL,padx=5)
+        btn_consulta.pack(fill="x", anchor="w")
+        btn_consulta.bind("<Enter>", lambda event: btn_consulta.config(bg=COLOR_HOVER, fg="white"))
+        btn_consulta.bind("<Leave>", lambda event: btn_consulta.config(bg=COLOR_PRINCIPAL, fg="white"))
         
         btn_salir = Button(self.menu_lateral, text="SALIR", font=(fuente, 14), command=self.quit, fg="white", bd= 0, bg=COLOR_PRINCIPAL)
         btn_salir.pack(fill="x", side=tk.BOTTOM)
@@ -294,6 +301,24 @@ class Vista(tk.Tk):
 
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorDiagnostico.cambiarEstadoDiagnostico(entry_nombre.get(),entry_propietario.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)    
+
+    def menuConsulta(self):
+        for widget in self.pagina.winfo_children():
+            widget.destroy()
+
+        Label(self.pagina, text="Fichas Medicas", font=(fuente, 12), bg=self.pagina['bg']).pack(pady=5)
+
+        self.vista_consulta = VistaConsulta(self.pagina)
+        self.vista_consulta.pack(fill="both", expand=True)
+
+        self.actualizarVistaConsulta()
+
+        Button(self.pagina, text="Cargar Consulta", command=self.vista_consulta.cargarNuevoConsulta, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+    
+    def actualizarVistaConsulta(self):
+        listaConsulta = ControladorConsulta.cargarConsulta([])
+        self.vista_consulta.mostrarconsulta(listaConsulta)
+
     
 
 def menuTratamiento():
