@@ -3,6 +3,8 @@ import csv
 from tkinter import *
 from tkinter import messagebox
 import datetime
+import jinja2
+from xhtml2pdf import pisa
 class ControladorConsulta:
     def __init__(self, vista,update_callback=None):
         self.vistaConsulta = vista
@@ -18,24 +20,39 @@ class ControladorConsulta:
         observaciones_val = lista[6].get()
 
         nueva_consulta = Consulta(
-            fecha_val, nombre_mascota_val, diagnostico_val, veterinario_val,
-            tratamiento_val, vacunas_val, observaciones_val
-        )
+        fecha_val, nombre_mascota_val, diagnostico_val, veterinario_val,
+        tratamiento_val, vacunas_val, observaciones_val
+    )
 
+        # Nombre del PDF
         nombre_mascota = nueva_consulta.get_nombremascota().replace(":", "_").replace(" ", "_")
         fecha_consulta = nueva_consulta.get_fecha().replace(" ", "_").replace(":", "_")
-        filename_txt = f"{nombre_mascota}_{fecha_consulta}.txt"
+        filename_txt = f"{nombre_mascota}_{fecha_consulta}.pdf"
 
-        # Escribir en el archivo de texto
-        with open(f"FichasMedicas/{filename_txt}", "w") as f:
-            f.write("Ficha Medica\n")
-            f.write(f"Nombre de la mascota: {nueva_consulta.get_nombremascota()}\n")
-            f.write(f"Fecha de la consulta: {nueva_consulta.get_fecha()}\n")
-            f.write(f"Veterinario que lo atendio: {nueva_consulta.get_veterinario()}\n")
-            f.write(f"Diagnostico: {nueva_consulta.get_diagnostico()}\n")
-            f.write(f"Tratamiento recomendado: {nueva_consulta.get_tratamiento()}\n")
-            f.write(f"Vacunas: {nueva_consulta.get_vacunas()}\n")
-            f.write(f"Observaciones: {nueva_consulta.get_observaciones()}\n")
+        # Datos para el PDF
+        info = {
+            "fechaConsulta": nueva_consulta.get_fecha(),
+            "nombreMascota": nueva_consulta.get_nombremascota(),
+            "veterinario": nueva_consulta.get_veterinario(),
+            "diagnostico": nueva_consulta.get_diagnostico(),
+            "tratamientoRecom": nueva_consulta.get_tratamiento(),
+            "vacunas": nueva_consulta.get_vacunas(),
+            "observaciones": nueva_consulta.get_observaciones()
+        }
+
+        # Configuración del entorno Jinja2
+        env = jinja2.Environment(loader=jinja2.FileSystemLoader("assets/templates"))
+        template = env.get_template("template.html")
+
+        # Renderizado del HTML
+        htmlTem = template.render(info)
+
+        # Ruta relativa para guardar el PDF
+        pdf_file_path = f"FichasMedicas/{filename_txt}"
+
+        # Convertir HTML a PDF usando xhtml2pdf
+        with open(pdf_file_path, "wb") as pdfFile:
+            pisa_status = pisa.CreatePDF(htmlTem, dest=pdfFile)
 
         with open("csv/consultas.csv", "a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)

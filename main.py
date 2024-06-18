@@ -1,6 +1,5 @@
 # IMPORTAR MENU
 from Vista.VistaMenu import Vista
-from Controllers.ControladorPersona import ControladorPersona
 def nombreVeter():
         with open("assets/nombre.txt") as file:
                 reader = file.read()
