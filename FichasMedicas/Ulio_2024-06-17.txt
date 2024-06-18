@@ -1,8 +1,0 @@
-Ficha Medica
-Nombre de la mascota: Ulio
-Fecha de la consulta: 2024-06-17
-Veterinario que lo atendio: Diego Moreno
-Diagnostico: Obesidad Canina
-Tratamiento recomendado: AINEs
-Vacunas: Parainfluenza Canina
-Observaciones: AA

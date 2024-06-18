@@ -45,6 +45,7 @@ class Vista(tk.Tk):
         self.icon_Diagnotico = ImageTk.PhotoImage(Image.open("assets/icon_diagnostico.png").resize((20, 20)))
         self.icon_logo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((100, 100)))
         self.fondo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((600, 600)))
+        self.icon_Consulta = ImageTk.PhotoImage(Image.open("assets/consultaicono.png").resize((20, 20)))
         
         logo = Label(self.menu_lateral, image=self.icon_logo, bg=COLOR_PRINCIPAL)
         logo.pack(side=tk.TOP, padx=10)
@@ -72,7 +73,7 @@ class Vista(tk.Tk):
         btn_tratamiento.bind("<Enter>", lambda event: btn_tratamiento.config(bg=COLOR_HOVER, fg="white"))
         btn_tratamiento.bind("<Leave>", lambda event: btn_tratamiento.config(bg=COLOR_PRINCIPAL, fg="white"))
 
-        btn_consulta = Button(self.menu_lateral, text="     Consultas",image=self.icon_Diagnotico,compound="left", command=self.menuConsulta, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL,padx=5)
+        btn_consulta = Button(self.menu_lateral, text="     Consultas",image=self.icon_Consulta,compound="left", command=self.menuConsulta, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL,padx=20)
         btn_consulta.pack(fill="x", anchor="w")
         btn_consulta.bind("<Enter>", lambda event: btn_consulta.config(bg=COLOR_HOVER, fg="white"))
         btn_consulta.bind("<Leave>", lambda event: btn_consulta.config(bg=COLOR_PRINCIPAL, fg="white"))

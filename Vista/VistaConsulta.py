@@ -111,7 +111,6 @@ class VistaConsulta(tk.Frame):
 
     def guardarNuevaConsulta(self, newConsulta, registro):
         ControladorConsulta.guardarConsulta(self, newConsulta, registro)
-        ControladorConsulta.guardarFichaMedica(self,newConsulta)
 
     def mostrarMascota(self):
         # CON ESTE METODO MOSTRAMOS LOS DIAGNOSTICOS ALMACENADOS
