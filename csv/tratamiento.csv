@@ -1,3 +1,4 @@
+nombre,descripcion,estado
 AINEs,Antiinflamatorios para artritis,True
 Cirugía,Procedimiento para displasia de cadera,False
 Dieta Hipoalergénica,Alimentación especial para alergias alimentarias,True
@@ -13,5 +14,4 @@ Corticosteroides,Reduce inflamación de la piel para dermatitis atópica,False
 Antibióticos,Trata infecciones urinarias,True
 Terapia de Comportamiento,Corrige conductas no deseadas,False
 Cirugía de Cataratas, remueve cataratas y mejora visión,False
-aa,aa,True
-aaaa,aaa,True
+

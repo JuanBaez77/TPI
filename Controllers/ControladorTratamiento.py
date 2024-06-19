@@ -84,10 +84,15 @@ class ControladorVacuna:
         self.update_callback = update_callback
 
     # ESTE METODO ALMACENA LAS VACUNAS EN UNA LISTA Y LAS RETORNA
-    def cargarVacunas(lista = list):    
+    def cargarVacunas(self, lista=None):
+        if lista is None:
+            lista = []
+        elif not isinstance(lista, list):
+            raise ValueError("El argumento 'lista' debe ser de tipo list")
+
         with open("csv/vacuna.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
-            next(contenido) 
+            next(contenido)
             for linea in contenido:
                 nombre = linea[0]
                 descripcion = linea[1]
@@ -111,7 +116,13 @@ class ControladorVacuna:
             ])
         registro.destroy()
         messagebox.showinfo("Éxito", "Vacuna registrada con éxito")
-
+        
+    def guardarCambioVacuna(self, listaVacunas):
+        with open("csv/vacuna.csv", mode='w', encoding="UTF-8", newline="") as archivo:
+            writer = csv.writer(archivo)
+            writer.writerow(["Nombre", "Descripcion", "Estado"])
+            for vacuna in listaVacunas:
+                writer.writerow([vacuna.get_nombre(), vacuna.get_descripcion(), vacuna.get_estado()])
     def cambiarEstadoVacuna(self, nombre, label_mensaje):
         # ESTE METODO MODIFICARA EL ESTADO DE LA VACUNA DE TRUE A FALSE Y VICEVERSA
         vacuna = []
@@ -142,11 +153,13 @@ class ControladorVacuna:
             else:
                 label_mensaje.config(text="Error. Vacuna no encontrada", fg="red")
 
-    def cambiarVacuna(self,nombre,atributo,nuevovalor):
+    def cambiarVacuna(self, nombre, atributo, nuevovalor):
         listaVacunas = self.cargarVacunas()
         for vacuna in listaVacunas:
-            if Vacuna.get_nombre() == nombre:
-                setter = f"set{atributo}"
-                vacuna.setter = nuevovalor
-        self.guardarVacuna(listaVacunas)           
+            if vacuna.get_nombre() == nombre:
+                if atributo.lower() == "nombre":
+                    vacuna.set_nombre(nuevovalor)
+                elif atributo.lower() == "descripcion":
+                    vacuna.set_descripcion(nuevovalor)
+        self.guardarCambioVacuna(listaVacunas)          
 
