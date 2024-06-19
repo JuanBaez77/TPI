@@ -106,4 +106,27 @@ class ControladorMascota:
             if self.update_callback:
                     self.update_callback()
             else:
-                label_mensaje.config(text="Error. Documento no encontrado", fg="red")
+                label_mensaje.config(text="Error. Nombre no encontrado", fg="red")
+
+    def cambiarMascota(cargarmascota,document,cambio,valor,label_mensaje):
+        listaMascotas = cargarmascota
+        mascotas = []
+        encontrado = False
+        with open("csv/mascota.csv", encoding="UTF-8") as file:
+            reader = csv.reader(file)
+            header = next(reader)
+            for row in reader:
+                if row[0] == document:
+                    row[int(cambio)] = valor
+                    encontrado = True
+                mascotas.append(row)
+
+        if encontrado:
+            with open("csv/mascota.csv", "w", newline="", encoding="utf-8") as file:
+                writer = csv.writer(file)
+                writer.writerow(header)
+                writer.writerows(mascotas)
+                mensaje = f"Éxito al cambiar el valor a {valor}"
+        else:
+            mensaje = "Error, Nombre no encontrado."
+        label_mensaje.config(text=mensaje)

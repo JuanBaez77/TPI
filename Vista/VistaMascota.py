@@ -4,11 +4,13 @@ from tkinter import ttk
 from tkinter import Toplevel, Label, StringVar, Entry, Button, OptionMenu, messagebox
 from Controllers.ControladorMascota import ControladorMascota
 from Controllers.ControladorPersona import ControladorPersona
+
 class VistaMascota(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
         self.lista_mascotas = []
+        self.controlador = ControladorMascota
     
         # CREAR UN ESTILO PARA LA TABLA
         self.style = ttk.Style()
@@ -93,9 +95,9 @@ class VistaMascota(tk.Frame):
         enviar = Button(registro, text="Registrar", command=lambda: self.guardarMascota(newMascota, registro), width=30, bg="#18BC9C")
         enviar.place(x=22, y=450)
 
-    def guardarMascota(self, newPersona, registro):
+    def guardarMascota(self, newMascota, registro):
         # CON ESTE METODO GUARDAMOS LA MASCOTA EN EL CSV
-        ControladorMascota.guardarMascota(newPersona, registro)
+        ControladorMascota.guardarMascota(newMascota, registro)
     
     def guardarRaza(self, newRaza):
         # CON ESTE METODO GUARDAMOS LA RAZA EN EL CSV
@@ -116,3 +118,45 @@ class VistaMascota(tk.Frame):
         for propietario in lista:
             listaPropietarioDisponibles.append(propietario)
         return listaPropietarioDisponibles
+
+    def cambiarMascota(self):
+        ventana = Toplevel()
+        ventana.geometry("300x350")
+        ventana.title("Cambiar Mascota")
+        ventana.resizable(False, False)
+        ventana.config(background="#2a3138")
+
+        tituloVentana = Label(ventana, text="Cambiar Mascota", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
+        nmVar = StringVar()
+        idEntry = Entry(ventana, textvariable=nmVar, width="35"). place(x=22, y=80)
+        Label(ventana, text="Nombre de la Mascota:", bg="#2a3138", fg="white").place(x=22, y=60)
+
+        opciones = [
+            "Nombre",
+            "Raza",
+            "Propietario",
+            "Estado"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+
+        OptionMenu(ventana, valor, *opciones).place(x=22, y=120)
+        cambio = StringVar()
+        entryCambio = Entry(ventana, textvariable=cambio, width="35").place(x=22, y=180)
+        Label(ventana, text="Nuevo Valor:", bg="#2a3138", fg="white").place(x=22, y=160)
+        label_mensaje = Label(ventana, text="", fg="white", bg="#2a3138", font=("roboto", 10))
+        label_mensaje.place(x=22, y=260)
+        def actualizarMascota(*args):
+            seleccion = valor.get()
+            if seleccion == "Nombre":
+                selecCambio = 0
+            elif seleccion == "Raza":
+                selecCambio = 1
+            elif seleccion == "Propietario":
+                selecCambio = 2
+            else:
+                selecCambio = 3
+            campo = selecCambio
+            resultado = self.controlador.cambiarMascota(self.controlador.cargarMascotas([]), nmVar.get(), campo, cambio.get(),label_mensaje)
+
+        Button(ventana, text="Cambiar", command=actualizarMascota, width=30).place(x=22, y=220)

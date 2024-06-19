@@ -112,15 +112,28 @@ class ControladorPersona:
                     listaPersonas.append(persona)
         return listaPersonas
     
-    def cambiarPersona(self,id,atributo,nuevovalor):
-        listaPersonas = self.cargarPersona()
-        for persona in listaPersonas:
-            if Persona.getDocumento() == id:
-                setter = f"set{atributo}"
-                persona.setter = nuevovalor
-        guardarPersona(listaPersonas)
-    
+    def cambiarPersona(cargarpersona,document,cambio,valor,label_mensaje):
+        listaPersonas = cargarpersona
+        personas = []
+        encontrado = False
+        with open("csv/persona.csv", encoding="UTF-8") as file:
+            reader = csv.reader(file)
+            header = next(reader)
+            for row in reader:
+                if row[4] == document:
+                    row[int(cambio)] = valor
+                    encontrado = True
+                personas.append(row)
 
+        if encontrado:
+            with open("csv/persona.csv", "w", newline="", encoding="utf-8") as file:
+                writer = csv.writer(file)
+                writer.writerow(header)
+                writer.writerows(personas)
+                mensaje = f"Éxito al cambiar el valor a {valor}"
+        else:
+            mensaje = "Error, Documento no encontrado."
+        label_mensaje.config(text=mensaje)
 
     def cargarPropietario(self):
         # Cargar propietarios desde el archivo CSV

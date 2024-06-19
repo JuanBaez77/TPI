@@ -1,9 +1,9 @@
 id,Nombre,Apellido,Documento,NumeroDocumento,Telefono,TipoCliente,Estado
 1,Juan,Pérez,DNI,1023456789,5551234567,CLI,False
 2,María,Gómez,PAS,1012345678,5552345678,CLI,True
-3,Carlos,Sánchez,DNI,1023456790,5553456789,EMP,False
+3,Carlos,Sanchez,DNI,1023456790,5553456789,EMP,False
 4,Ana,Martínez,DNI,1023456791,5554567890,CLI,False
-5,Jorge,Jiménez,DNI,1023456792,5555678901,EMP,True
+5,Jorge,Jimenez,DNI,1023456792,5555678901,EMP,True
 6,Lucía,Rodríguez,PAS,1012345679,5556789012,CLI,True
 7,Fernando,García,DNI,1023456793,5557890123,CLI,False
 8,Rosa,Hernández,DNI,1012345680,5558901234,CLI,True
@@ -30,5 +30,3 @@ id,Nombre,Apellido,Documento,NumeroDocumento,Telefono,TipoCliente,Estado
 29,Gloria,Silva,PAS,1012345686,5569012346,CLI,False
 30,Tomás,Iglesias,DNI,1023456809,5560123457,CLI,True
 31,Inés,Cruz,DNI,1023456810,5561234568,CLI,True
-32,Mateo,Letona,DNI,1010101010,545454545454,CLI,True
-33,Ignacio,Picchio,DNI,46037747,35344119161,EMP,False

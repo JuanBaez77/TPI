@@ -1,0 +1,43 @@
+Fecha,NombreMascota,Diagnostico,Veterinario,Tratamiento,Vacunas,Observaciones
+2024-06-01,Coco,Cataratas,Jorge Jimenez,Cirugia de Cataratas,"Rabia;Moquillo Canino;Parvovirus Canino",Se realizo cirugia de cataratas.
+2024-06-02,Firulais,Displasia de Cadera,Rosa Hernandez,Cirugia,"Rabia;Moquillo Canino",Procedimiento quirurgico programado.
+2024-06-03,Luna,Alergia Alimentaria,Diego Moreno,Dieta Hipoalergenica,"Leptospirosis;Parainfluenza Canina",Se recomienda seguimiento dietetico.
+2024-06-04,Max,Diabetes Canina,Julio Navarro,Insulina,"Rabia;Hepatitis Canina",Control de glucosa en sangre regular.
+2024-06-05,Bella,Ansiedad por Separacion,Diego Moreno,Terapia de Comportamiento,"Rabia;Moquillo Canino",Terapias semanales recomendadas.
+2024-06-06,Rocky,Infeccion del Oido,Rosa Hernandez,Antibioticos,Leptospirosis,Tratamiento con antibioticos durante 10 dias.
+2024-06-07,Lucy,Problemas de Tiroides,Jorge Jimenez,Hormonas Tiroideas,Parainfluenza Canina,Revision trimestral recomendada.
+2024-06-08,Charlie,Sindrome de Brachiocefalico,Julio Navarro,Cirugia Correctiva,Hepatitis Canina,Cirugia programada para mejorar la respiracion.
+2024-06-09,Daisy,Obesidad Canina,Jorge Jimenez,Plan de Perdida de Peso,"Rabia;Parvovirus Canino",Dieta y ejercicio supervisado.
+2024-06-10,Milo,Parvovirus,Jorge Jimenez,Terapia de Soporte,Parvovirus Canino,Monitoreo intensivo recomendado.
+2024-06-11,Bailey,Enfermedad del Corazon,Diego Moreno,Medicamentos Cardiovasculares,Moquillo Canino,Tratamiento continuo necesario.
+2024-06-12,Molly,Dermatitis Atopica,Julio Navarro,Corticosteroides,Rinotraqueitis Felina,Tratamiento de corticoides durante 2 semanas.
+2024-06-13,Ulio,Diabetes Canina,Rosa Hernandez,Insulina,Rabia,Control de glucosa en sangre regular.
+2024-06-14,Simba,Ansiedad por Separacion,Diego Moreno,Terapia de Comportamiento,Hepatitis Canina,Terapias semanales recomendadas.
+2024-06-15,Buster,Displasia de Cadera,Jorge Jimenez,Cirugia,Rabia,Procedimiento quirurgico programado.
+2024-06-16,Nala,Dermatitis Atopica,Julio Navarro,Corticosteroides,Leptospirosis,Tratamiento de corticoides durante 2 semanas.
+2024-06-17,Buddy,Infeccion del Tracto Urinario,Rosa Hernandez,Antibioticos,Parainfluenza Canina,Tratamiento con antibioticos durante 10 dias.
+2024-06-18,Lola,Problemas de Conducta,Jorge Jimenez,Terapia de Comportamiento,Leptospirosis,Terapias semanales recomendadas.
+2024-06-19,Oliver,Alergia Alimentaria,Diego Moreno,Dieta Hipoalergenica,"Leptospirosis;Parainfluenza Canina",Se recomienda seguimiento dietetico.
+2024-06-20,Sadie,Problemas de Tiroides,Rosa Hernandez,Hormonas Tiroideas,Parainfluenza Canina,Revision trimestral recomendada.
+2024-06-21,Toby,Parvovirus,Julio Navarro,Terapia de Soporte,Parvovirus Canino,Monitoreo intensivo recomendado.
+2024-06-22,Maggie,Enfermedad del Corazon,Diego Moreno,Medicamentos Cardiovasculares,Moquillo Canino,Tratamiento continuo necesario.
+2024-06-23,Jake,Ansiedad por Separacion,Jorge Jimenez,Terapia de Comportamiento,"Rabia;Parvovirus Canino",Terapias semanales recomendadas.
+2024-06-24,Zoe,Diabetes Canina,Rosa Hernandez,Insulina,Moquillo Canino,Control de glucosa en sangre regular.
+2024-06-25,Leo,Displasia de Cadera,Jorge Jimenez,Cirugia,Rabia,Procedimiento quirurgico programado.
+2024-06-26,Ruby,Alergia Alimentaria,Diego Moreno,Dieta Hipoalergenica,"Leptospirosis;Parainfluenza Canina",Se recomienda seguimiento dietetico.
+2024-06-27,Sammy,Problemas de Conducta,Julio Navarro,Terapia de Comportamiento,Rabia,Terapias semanales recomendadas.
+2024-06-28,Stella,Artritis,Rosa Hernandez,AINEs,Rabia,Tratamiento antiinflamatorio.
+2024-06-29,Oscar,Dermatitis Atopica,Jorge Jimenez,Corticosteroides,Leptospirosis,Tratamiento de corticoides durante 2 semanas.
+2024-06-30,Missy,Infeccion del Tracto Urinario,Diego Moreno,Antibioticos,Rabia,Tratamiento con antibioticos durante 10 dias.
+2024-07-01,Gizmo,Sindrome de Brachiocefalico,Julio Navarro,Cirugia Correctiva,Hepatitis Canina,Cirugia programada para mejorar la respiracion.
+2024-07-02,Ellie,Obesidad Canina,Jorge Jimenez,Plan de Perdida de Peso,"Moquillo Canino",Dieta y ejercicio supervisado.
+2024-07-03,Rex,Displasia de Cadera,Rosa Hernandez,Cirugia,Parvovirus Canino,Procedimiento quirurgico programado.
+2024-07-04,Mia,Alergia Alimentaria,Diego Moreno,Dieta Hipoalergenica,"Leptospirosis;Parainfluenza Canina",Se recomienda seguimiento dietetico.
+2024-07-05,Koda,Parvovirus,Julio Navarro,Terapia de Soporte,Parvovirus Canino,Monitoreo intensivo recomendado.
+2024-07-06,Teddy,Problemas de Conducta,Jorge Jimenez,Terapia de Comportamiento,Rabia,Terapias semanales recomendadas.
+2024-07-07,Duke,Displasia de Cadera,Rosa Hernandez,Cirugia,Rabia,Procedimiento quirurgico programado.
+2024-07-08,Roco,Ansiedad por Separacion,Diego Moreno,Terapia de Comportamiento,Leptospirosis,Terapias semanales recomendadas.
+2024-07-09,Julian,Problemas de Tiroides,Rosa Hernandez,Hormonas Tiroideas,Parainfluenza Canina,Revision trimestral recomendada.
+2024-07-10,Ulio,Dermatitis Atopica,Jorge Jimenez,Corticosteroides,Leptospirosis,Tratamiento de corticoides durante 2 semanas.
+2024-07-11,Toby,Obesidad Canina,Jorge Jimenez,Plan de Perdida de Peso,"Moquillo Canino",Dieta y ejercicio supervisado.
+2024-07-12,Toby,Obesidad Canina,Jorge Jimenez,Plan de Perdida de Peso,"Moquillo Canino",Dieta y ejercicio supervisado.
