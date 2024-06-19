@@ -1,18 +1,31 @@
 class Vacuna:
-    def __init__(self, nombre, stock, descripción, estado):
+    def __init__(self, nombre, descripcion, estado):
         self.__nombre = nombre
-        self.__stock = stock
-        self.__descripción = descripción
+        self.__descripcion = descripcion
         self.__estado = estado
 
-    def estadoVacuna(self):
-        pass
+        #GETTERS
+    def get_nombre(self):
+        return self.__nombre
 
-    def mostrarStock(self):
-        pass
+    def get_descripcion(self):
+        return self.__descripcion
+
+    def get_estado(self):
+        return self.__estado
+
+    # SETTERS
+    def set_nombre(self, nombre):
+        self.__nombre = nombre
+
+    def set_descripcion(self, descripcion):
+        self.__descripcion = descripcion
+
+    def set_estado(self, estado):
+        self.__estado = estado
+
+    def __str__(self):
+        return f"Nombre:{self.__nombre}, Descripcion:{self.__descripcion}"
     
-    def mostrarTratamiento(self):
-        pass
-
-    def modificarVacuna(self):
-        pass
+    def __repr__(self):
+        return f"Nombre:{self.__nombre}, Descripcion:{self.__descripcion}"
