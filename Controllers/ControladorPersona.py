@@ -112,7 +112,7 @@ class ControladorPersona:
                     listaPersonas.append(persona)
         return listaPersonas
     
-    def cambiarPersona(self,id,atirbuto,nuevovalor):
+    def cambiarPersona(self,id,atributo,nuevovalor):
         listaPersonas = self.cargarPersona()
         for persona in listaPersonas:
             if Persona.getDocumento() == id:
