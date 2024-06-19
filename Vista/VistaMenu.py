@@ -11,6 +11,7 @@ from Controllers.ControladorPersona import ControladorPersona
 from Controllers.ControladorDiagnostico import ControladorDiagnostico
 from Controllers.ControladorConsulta import ControladorConsulta
 from Controllers.ControladorTratamiento import ControladorTratamiento
+from Controllers.ControladorTratamiento import ControladorVacuna
 from Vista.VistaVacuna import VistaVacuna
 from Vista.VistaTratamiento import VistaTratamiento
 
@@ -32,8 +33,8 @@ class Vista(tk.Tk):
         self.controladorPersona = ControladorPersona(self, self.actualizarVistaPersonas)
         self.controladorMascota = ControladorMascota(self ,self.actualizarVistaMascota)
         self.controladorDiagnostico = ControladorDiagnostico(self,self.actualizarVistaDiagnostico)
-        self.controladorTratamiento = ControladorTratamiento(self.actualizarVistaTratamiento, self.actualizarVistaVacuna)
-
+        self.controladorTratamiento = ControladorTratamiento(self, self.actualizarVistaTratamiento)
+        self.controladorVacuna = ControladorVacuna(self, self.actualizarVistaVacuna)
         
 
     def configMenu(self):
@@ -343,7 +344,7 @@ class Vista(tk.Tk):
         Button(self.pagina, text="Cambiar Vacuna",command=self.vista_vacuna.cambiarVacuna, bg="white", fg="red", font=("Roboto", 11), bd=0).pack(pady=3, padx=20, fill="x")
 
     def actualizarVistaVacuna(self):
-        listaVacuna = ControladorTratamiento.cargarVacunas([])
+        listaVacuna = ControladorVacuna.cargarVacunas([])
         self.vista_vacuna.mostrar_vacunas(listaVacuna)
         
     def cambiarEstadoVacuna(self): 
@@ -360,7 +361,7 @@ class Vista(tk.Tk):
         label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
         label_mensaje.pack(pady=5)
 
-        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorTratamiento.cambiarEstadoVacuna(entry_nombre.get(), label_mensaje))
+        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorVacuna.cambiarEstadoVacuna(entry_nombre.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)    
 
     def menuTratamiento(self):

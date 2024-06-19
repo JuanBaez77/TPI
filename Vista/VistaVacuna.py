@@ -1,14 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import Toplevel, Label, StringVar, Entry, Button, OptionMenu
-from Controllers.ControladorTratamiento import ControladorTratamiento
-
+from Controllers.ControladorTratamiento import ControladorVacuna
 class VistaVacuna(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
         self.lista_vacuna = []
-        self.controlador = ControladorTratamiento(self, self.mostrar_vacunas)
+        self.controlador = ControladorVacuna(self, self.mostrar_vacunas)
     
         # CREAR UN ESTILO PARA LA TABLA
         self.style = ttk.Style()
@@ -99,12 +98,12 @@ class VistaVacuna(tk.Frame):
         
     def guardarVacuna(self, newVacuna, registro):
         # CON ESTE METODO GUARDAMOS LA VACUNA EN EL CSV
-        ControladorTratamiento.guardarVacuna(newVacuna, registro)
+        ControladorVacuna.guardarVacuna(newVacuna, registro)
         
     def mostrarVacuna(self):
         # CON ESTE METODO MOSTRAMOS LAS VACUNAS ALMACENADAS 
         listaVacunasDisponibles = []
-        lista = ControladorTratamiento.cargarVacunas(self) #LLAMAMOS AL METODO PARA OBTENER LA LISTA CON LAS VACUNAS
+        lista = ControladorVacuna.cargarVacunas(self) #LLAMAMOS AL METODO PARA OBTENER LA LISTA CON LAS VACUNAS
         for vacuna in lista:
                 listaVacunasDisponibles.append(vacuna[0])
         return listaVacunasDisponibles
