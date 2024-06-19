@@ -7,7 +7,6 @@ class ControladorTratamiento:
     def __init__(self,vista,update_callback):
         self.vista = vista
         self.listaTratamientos = []
-        self.listaVacunas = []
         self.update_callback = update_callback
     
     # ESTE METODO ALMACENA LOS TRATAMIENTOS EN UNA LISTA Y LOS RETORNA
@@ -77,6 +76,12 @@ class ControladorTratamiento:
                 setter = f"set{atributo}"
                 tratamiento.setter = nuevovalor
         self.guardarTratamiento(listaTratamientos)        
+
+class ControladorVacuna:
+    def __init__(self,vista,update_callback):
+        self.vista = vista
+        self.listaVacunas = []
+        self.update_callback = update_callback
 
     # ESTE METODO ALMACENA LAS VACUNAS EN UNA LISTA Y LAS RETORNA
     def cargarVacunas(lista = list):    
