@@ -183,7 +183,7 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cargar Nueva Mascota", command=self.vista_mascotas.crearMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
         Button(self.pagina, text="Cambiar Estado", command=self.cambiarEstadoMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Cambiar Mascota",command=self.vista_mascotas.cambiarMascota, bg="white", fg="red", font=("Roboto", 11), bd=0).pack(pady=3, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Mascota",command=self.vista_mascotas.cambiarMascota, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
 
     def actualizarVistaMascota(self):
         listaMascota = ControladorMascota.cargarMascotas([])
@@ -341,7 +341,7 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cargar Nueva Vacuna", command=self.vista_vacuna.crearVacuna, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
         Button(self.pagina, text="Cambiar Estado", command=self.cambiarEstadoVacuna, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Cambiar Vacuna",command=self.vista_vacuna.cambiarVacuna, bg="white", fg="red", font=("Roboto", 11), bd=0).pack(pady=3, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Vacuna",command=self.vista_vacuna.cambiarVacuna, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
 
     def actualizarVistaVacuna(self):
         listaVacuna = ControladorVacuna.cargarVacunas([])
@@ -377,7 +377,7 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cargar Nuevo Tratamiento", command=self.vista_tratamiento.crearTratamiento, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
         Button(self.pagina, text="Cambiar Estado", command=self.cambiarEstadoTratamiento, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Cambiar Tratamiento",command=self.vista_tratamiento.cambiarTratamiento, bg="white", fg="red", font=("Roboto", 11), bd=0).pack(pady=3, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Tratamiento",command=self.vista_tratamiento.cambiarTratamiento, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
 
     def actualizarVistaTratamiento(self):
         listaTratamiento = ControladorTratamiento.cargarTratamiento([])
