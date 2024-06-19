@@ -5,14 +5,14 @@ from Modulos.Persona import Persona
 from .VistaMascota import VistaMascota
 from Vista.VistaPersona import VistaPersona
 from Vista.VistaDiagnostico import VistaDiagnostico
-from Vista.VistaTratamiento import VistaTratamiento
-from Vista.VistaVacuna import VistaVacuna
+from Vista.VistaConsulta import VistaConsulta
 from Controllers.ControladorMascota import ControladorMascota
 from Controllers.ControladorPersona import ControladorPersona
 from Controllers.ControladorDiagnostico import ControladorDiagnostico
-from Controllers.ControladorTratamiento import ControladorTratamiento
 from Controllers.ControladorConsulta import ControladorConsulta
-from Vista.VistaConsulta import VistaConsulta
+from Controllers.ControladorTratamiento import ControladorTratamiento
+from Vista.VistaVacuna import VistaVacuna
+from Vista.VistaTratamiento import VistaTratamiento
 
 COLOR_PRINCIPAL = "#2a3138"
 COLOR_SECUNDARIO = "#18BC9C"
@@ -32,7 +32,7 @@ class Vista(tk.Tk):
         self.controladorPersona = ControladorPersona(self, self.actualizarVistaPersonas)
         self.controladorMascota = ControladorMascota(self ,self.actualizarVistaMascota)
         self.controladorDiagnostico = ControladorDiagnostico(self,self.actualizarVistaDiagnostico)
-        self.controladorTratamiento = ControladorTratamiento(self.actualizarVistaTratamiento, self.actualizarVistaVacuna )
+        self.controladorTratamiento = ControladorTratamiento(self.actualizarVistaTratamiento, self.actualizarVistaVacuna)
 
         
 
@@ -47,7 +47,6 @@ class Vista(tk.Tk):
         self.icon_mascota = ImageTk.PhotoImage(Image.open("assets/pet_icon.png").resize((20, 20)))
         self.icon_tratamiento = ImageTk.PhotoImage(Image.open("assets/treatment_icon.webp").resize((20, 20)))
         self.icon_Diagnotico = ImageTk.PhotoImage(Image.open("assets/icon_diagnostico.png").resize((20, 20)))
-        self.icon_vacuna = ImageTk.PhotoImage(Image.open("assets/treatment_icon.webp").resize((20, 20)))
         self.icon_logo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((100, 100)))
         self.fondo = ImageTk.PhotoImage(Image.open("assets/logo_nuevo.png").resize((600, 600)))
         self.icon_Consulta = ImageTk.PhotoImage(Image.open("assets/consultaicono.png").resize((20, 20)))
@@ -73,21 +72,22 @@ class Vista(tk.Tk):
         btn_diagnostico.bind("<Enter>", lambda event: btn_diagnostico.config(bg=COLOR_HOVER, fg="white"))
         btn_diagnostico.bind("<Leave>", lambda event: btn_diagnostico.config(bg=COLOR_PRINCIPAL, fg="white"))
         
-        btn_tratamiento = Button(self.menu_lateral, text="Tratamientos",image=self.icon_tratamiento,compound="left", command=self.menuTratamiento, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL, padx=18)
+        btn_tratamiento = Button(self.menu_lateral, text="Tratamientos",image=self.icon_tratamiento,compound="left", command=self.menuTratamiento, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL, padx=20)
         btn_tratamiento.pack(fill="x", anchor="w")
         btn_tratamiento.bind("<Enter>", lambda event: btn_tratamiento.config(bg=COLOR_HOVER, fg="white"))
         btn_tratamiento.bind("<Leave>", lambda event: btn_tratamiento.config(bg=COLOR_PRINCIPAL, fg="white"))
+
+        btn_vacuna = Button(self.menu_lateral, text="Vacunas",image=self.icon_tratamiento,compound="left", command=self.menuVacuna, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL, padx=48)
+        btn_vacuna.pack(fill="x", anchor="w")
+        btn_vacuna.bind("<Enter>", lambda event: btn_vacuna.config(bg=COLOR_HOVER, fg="white"))
+        btn_vacuna.bind("<Leave>", lambda event: btn_vacuna.config(bg=COLOR_PRINCIPAL, fg="white"))
+
 
         btn_consulta = Button(self.menu_lateral, text="     Consultas",image=self.icon_Consulta,compound="left", command=self.menuConsulta, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL,padx=20)
         btn_consulta.pack(fill="x", anchor="w")
         btn_consulta.bind("<Enter>", lambda event: btn_consulta.config(bg=COLOR_HOVER, fg="white"))
         btn_consulta.bind("<Leave>", lambda event: btn_consulta.config(bg=COLOR_PRINCIPAL, fg="white"))
         
-        btn_vacuna = Button(self.menu_lateral, text="Vacunas",image=self.icon_vacuna,compound="left", command=self.menuVacuna, fg="white", font=(fuente, 12), bd= 0, bg=COLOR_PRINCIPAL, padx=48)
-        btn_vacuna.pack(fill="x", anchor="w")
-        btn_vacuna.bind("<Enter>", lambda event: btn_vacuna.config(bg=COLOR_HOVER, fg="white"))
-        btn_vacuna.bind("<Leave>", lambda event: btn_vacuna.config(bg=COLOR_PRINCIPAL, fg="white"))
-
         btn_salir = Button(self.menu_lateral, text="SALIR", font=(fuente, 14), command=self.quit, fg="white", bd= 0, bg=COLOR_PRINCIPAL)
         btn_salir.pack(fill="x", side=tk.BOTTOM)
         btn_salir.bind("<Enter>", lambda event: btn_salir.config(bg="red", fg="white"))
@@ -223,41 +223,6 @@ class Vista(tk.Tk):
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorPersona.cambiarEstadoPersona(entry_documento.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)
 
-    def menuTratamiento(self):
-        for widget in self.pagina.winfo_children():
-            widget.destroy()
-
-        Label(self.pagina, text="LISTA DE TRATAMIENTOS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
-
-        self.vista_tratamiento = VistaTratamiento(self.pagina)
-        self.vista_tratamiento.pack(fill="both", expand=True)
-
-        self.actualizarVistaTratamiento()
-
-        Button(self.pagina, text="Cargar Nuevo Tratamiento", command=self.vista_tratamiento.crearTratamiento, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Cambiar Estado", command=self.cambiarEstadoTratamiento, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        
-    def actualizarVistaTratamiento(self):
-        listaTratamiento = ControladorTratamiento.cargarTratamiento([])
-        self.vista_tratamiento.mostrar_tratamientos(listaTratamiento)
-        
-    def cambiarEstadoTratamiento(self): 
-        cambiar_estado_ventana = Toplevel(self)
-        cambiar_estado_ventana.title("Cambiar Estado de Tratamiento")
-        cambiar_estado_ventana.geometry("400x200")
-
-        label_nombre = Label(cambiar_estado_ventana, text="NOMBRE DEL TRATAMIENTO QUE DESEA CAMBIAR")
-        label_nombre.pack(pady=5)
-
-        entry_nombre = Entry(cambiar_estado_ventana)
-        entry_nombre.pack(pady=5)
-
-        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
-        label_mensaje.pack(pady=5)
-
-        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorTratamiento.cambiarEstadoTratamiento(entry_nombre.get(), label_mensaje))
-        btn_cambiar_estado.pack(pady=20)
-
     def menuDiagnostico(self):
         for widget in self.pagina.winfo_children():
             widget.destroy()
@@ -345,42 +310,6 @@ class Vista(tk.Tk):
         btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorDiagnostico.cambiarEstadoDiagnostico(entry_nombre.get(),entry_propietario.get(), label_mensaje))
         btn_cambiar_estado.pack(pady=20)    
 
-    def menuVacuna(self):
-        for widget in self.pagina.winfo_children():
-            widget.destroy()
-
-        Label(self.pagina, text="LISTA DE VACUNAS", font=("Roboto", 12), bg=self.pagina['bg']).pack(pady=5)
-
-        self.vista_vacuna = VistaVacuna(self.pagina)
-        self.vista_vacuna.pack(fill="both", expand=True)
-
-        self.actualizarVistaVacuna()
-
-        Button(self.pagina, text="Cargar Nueva Vacuna", command=self.vista_vacuna.crearVacuna, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Cambiar Estado", command=self.cambiarEstadoVacuna, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
-        Button(self.pagina, text="Cambiar Vacuna", command=self.vista_vacuna.cambiarVacuna, bg="white", fg="red", font=("Roboto", 12), bd=0).pack(pady=3, padx=20, fill="x")
-        
-    def actualizarVistaVacuna(self):
-        listaVacuna = ControladorTratamiento.cargarVacunas([])
-        self.vista_vacuna.mostrar_vacunas(listaVacuna)
-        
-    def cambiarEstadoVacuna(self): 
-        cambiar_estado_ventana = Toplevel(self)
-        cambiar_estado_ventana.title("Cambiar Estado de Vacuna")
-        cambiar_estado_ventana.geometry("400x200")
-
-        label_nombre = Label(cambiar_estado_ventana, text="NOMBRE DE LA VACUNA QUE DESEA CAMBIAR")
-        label_nombre.pack(pady=5)
-
-        entry_nombre2 = Entry(cambiar_estado_ventana)
-        entry_nombre2.pack(pady=5)
-
-        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
-        label_mensaje.pack(pady=5)
-
-        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorTratamiento.cambiarEstadoVacuna(entry_nombre2.get(), label_mensaje))
-        btn_cambiar_estado.pack(pady=20)
-
     def menuConsulta(self):
         for widget in self.pagina.winfo_children():
             widget.destroy()
@@ -397,3 +326,75 @@ class Vista(tk.Tk):
     def actualizarVistaConsulta(self):
         listaConsulta = ControladorConsulta.cargarConsulta([])
         self.vista_consulta.mostrarconsulta(listaConsulta)
+
+    def menuVacuna(self):
+        for widget in self.pagina.winfo_children():
+            widget.destroy()
+        
+        Label(self.pagina, text="LISTA DE VACUNAS", font=(fuente, 12), bg=self.pagina['bg']).pack(pady=5)
+
+        self.vista_vacuna = VistaVacuna(self.pagina)
+        self.vista_vacuna.pack(fill="both", expand=True)
+
+        self.actualizarVistaVacuna()
+
+        Button(self.pagina, text="Cargar Nueva Vacuna", command=self.vista_vacuna.crearVacuna, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Estado", command=self.cambiarEstadoVacuna, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Vacuna",command=self.vista_vacuna.cambiarVacuna, bg="white", fg="red", font=("Roboto", 11), bd=0).pack(pady=3, padx=20, fill="x")
+
+    def actualizarVistaVacuna(self):
+        listaVacuna = ControladorTratamiento.cargarVacunas([])
+        self.vista_vacuna.mostrar_vacunas(listaVacuna)
+        
+    def cambiarEstadoVacuna(self): 
+        cambiar_estado_ventana = Toplevel(self)
+        cambiar_estado_ventana.title("Cambiar Estado de Vacuna")
+        cambiar_estado_ventana.geometry("400x200")
+
+        label_nombre = Label(cambiar_estado_ventana, text="NOMBRE DE LA VACUNA QUE DESEA CAMBIAR")
+        label_nombre.pack(pady=5)
+
+        entry_nombre = Entry(cambiar_estado_ventana)
+        entry_nombre.pack(pady=5)
+
+        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
+        label_mensaje.pack(pady=5)
+
+        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorTratamiento.cambiarEstadoVacuna(entry_nombre.get(), label_mensaje))
+        btn_cambiar_estado.pack(pady=20)    
+
+    def menuTratamiento(self):
+        for widget in self.pagina.winfo_children():
+            widget.destroy()
+        
+        Label(self.pagina, text="LISTA DE TRATAMIENTOS", font=(fuente, 12), bg=self.pagina['bg']).pack(pady=5)
+
+        self.vista_tratamiento = VistaTratamiento(self.pagina)
+        self.vista_tratamiento.pack(fill="both", expand=True)
+
+        self.actualizarVistaTratamiento()
+
+        Button(self.pagina, text="Cargar Nuevo Tratamiento", command=self.vista_tratamiento.crearTratamiento, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Estado", command=self.cambiarEstadoTratamiento, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
+        Button(self.pagina, text="Cambiar Tratamiento",command=self.vista_tratamiento.cambiarTratamiento, bg="white", fg="red", font=("Roboto", 11), bd=0).pack(pady=3, padx=20, fill="x")
+
+    def actualizarVistaTratamiento(self):
+        listaTratamiento = ControladorTratamiento.cargarTratamiento([])
+        self.vista_tratamiento.mostrar_tratamientos(listaTratamiento)
+        
+    def cambiarEstadoTratamiento(self): 
+        cambiar_estado_ventana = Toplevel(self)
+        cambiar_estado_ventana.title("Cambiar Estado de Tratamiento")
+        cambiar_estado_ventana.geometry("400x200")
+
+        label_nombre = Label(cambiar_estado_ventana, text="NOMBRE DEL TRATAMIENTO QUE DESEA CAMBIAR")
+        label_nombre.pack(pady=5)
+
+        entry_nombre = Entry(cambiar_estado_ventana)
+        entry_nombre.pack(pady=5)
+
+        label_mensaje = Label(cambiar_estado_ventana, text="", fg="red")
+        label_mensaje.pack(pady=5)
+
+        btn_cambiar_estado = Button(cambiar_estado_ventana, text="Cambiar Estado", command=lambda: self.controladorTratamiento.cambiarEstadoTratamiento(entry_nombre.get(), label_mensaje))
+        btn_cambiar_estado.pack(pady=20)    

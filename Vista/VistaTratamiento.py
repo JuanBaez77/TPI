@@ -9,7 +9,7 @@ class VistaTratamiento(tk.Frame):
         self.master = master
         self.lista_tratamiento = []
         self.controlador = ControladorTratamiento(self, self.mostrar_tratamientos)
-    
+
         # CREAR UN ESTILO PARA LA TABLA
         self.style = ttk.Style()
         self.style.configure("Treeview.Heading", background="", foreground="red", font=("Roboto", 12, "bold"))
@@ -29,6 +29,35 @@ class VistaTratamiento(tk.Frame):
         self.treeview.column("Nombre", anchor=tk.CENTER, width=100)
         self.treeview.column("Descripcion", anchor=tk.CENTER, width=100)
         self.treeview.column("Estado", anchor=tk.CENTER, width=100)
+
+    def cambiarTratamiento(self):
+        ventana = Toplevel()
+        ventana.geometry("300x400")
+        ventana.title("Cambiar Tratamiento")
+        ventana.resizable(False,False)
+        ventana.config(background="#2a3138")
+
+        tituloVentana = Label(ventana, text="Cambiar Tratamiento", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
+        cambio = StringVar()
+        entryCambio = Entry(ventana,textvariable=cambio, width="35").place(x=22, y=340)
+
+        opciones = [
+            "Nombre",
+            "Descripcion"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+        def actualizarTratamiento(*args):
+            seleccion = valor.get()
+            if seleccion == "Nombre":
+                selecCambio = "nombre"
+            else:
+                selecCambio = "Descripcion"
+            return selecCambio
+        cambioEntry = actualizarTratamiento() 
+
+        menuCambios = OptionMenu(ventana, valor, *opciones).pack()
+        submit = Button(cambio, text="Cambiar", command=lambda: self.controlador.guardarTratamiento(cambioEntry, ventana), width=30)
 
     def mostrar_tratamientos(self, lista_tratamientos):
         # LIMPIAR LA TABLA

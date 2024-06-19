@@ -69,6 +69,14 @@ class ControladorTratamiento:
                     self.update_callback()
             else:
                 label_mensaje.config(text="Error. Tratamiento no encontrado", fg="red")
+    
+    def cambiarTratamiento(self,nombre,atributo,nuevovalor):
+        listaTratamientos = self.cargarTratamiento()
+        for tratamiento in listaTratamientos:
+            if Tratamiento.get_nombre() == nombre:
+                setter = f"set{atributo}"
+                tratamiento.setter = nuevovalor
+        self.guardarTratamiento(listaTratamientos)        
 
     # ESTE METODO ALMACENA LAS VACUNAS EN UNA LISTA Y LAS RETORNA
     def cargarVacunas(lista = list):    
@@ -130,7 +138,7 @@ class ControladorTratamiento:
                 label_mensaje.config(text="Error. Vacuna no encontrada", fg="red")
 
     def cambiarVacuna(self,nombre,atributo,nuevovalor):
-        listaVacunas = self.cargarTratamiento()
+        listaVacunas = self.cargarVacunas()
         for vacuna in listaVacunas:
             if Vacuna.get_nombre() == nombre:
                 setter = f"set{atributo}"
