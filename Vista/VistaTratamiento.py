@@ -34,30 +34,44 @@ class VistaTratamiento(tk.Frame):
         ventana = Toplevel()
         ventana.geometry("300x400")
         ventana.title("Cambiar Tratamiento")
-        ventana.resizable(False,False)
+        ventana.resizable(False, False)
         ventana.config(background="#2a3138")
 
-        tituloVentana = Label(ventana, text="Cambiar Tratamiento", font=("Roboto", 15), bg="#3e444e", fg="white", width="550", height="2").pack()
-        cambio = StringVar()
-        entryCambio = Entry(ventana,textvariable=cambio, width="35").place(x=22, y=340)
+        tituloVentana = Label(ventana, text="Cambiar Tratamiento", font=("Roboto", 15), bg="#3e444e", fg="white", width=550, height=2)
+        tituloVentana.pack()
 
-        opciones = [
-            "Nombre",
-            "Descripcion"
-        ]
+        # Etiqueta y entrada para el cambio
+        labelCambio = Label(ventana, text="Cambio que desea realizar:", bg="#2a3138", fg="white")
+        labelCambio.place(x=22, y=60)
+        opciones = ["Nombre", "Descripcion"]
         valor = StringVar()
         valor.set(opciones[0])
-        def actualizarTratamiento(*args):
-            seleccion = valor.get()
-            if seleccion == "Nombre":
-                selecCambio = "nombre"
-            else:
-                selecCambio = "Descripcion"
-            return selecCambio
-        cambioEntry = actualizarTratamiento() 
+        menuCambios = OptionMenu(ventana, valor, *opciones)
+        menuCambios.place(x=22, y=90)
 
-        menuCambios = OptionMenu(ventana, valor, *opciones).pack()
-        submit = Button(cambio, text="Cambiar", command=lambda: self.controlador.guardarTratamiento(cambioEntry, ventana), width=30)
+        # Etiqueta y entrada para el nombre del tratamiento
+        labelNombre = Label(ventana, text="Nombre del tratamiento:", bg="#2a3138", fg="white")
+        labelNombre.place(x=22, y=140)
+        idvar = StringVar()
+        entryNombre = Entry(ventana, textvariable=idvar, width=35)
+        entryNombre.place(x=22, y=170)
+
+        # Etiqueta y entrada para el nuevo valor
+        labelNuevoValor = Label(ventana, text="Nuevo valor:", bg="#2a3138", fg="white")
+        labelNuevoValor.place(x=22, y=220)
+        cambio = StringVar()
+        entryCambio = Entry(ventana, textvariable=cambio, width=35)
+        entryCambio.place(x=22, y=250)
+
+        def submitCambio():
+            atributo = valor.get()
+            nuevo_valor = cambio.get()
+            nombre = idvar.get()
+            self.controlador.cambiarTratamiento(nombre, atributo, nuevo_valor)
+            ventana.destroy()
+
+        submit = Button(ventana, text="Cambiar", command=submitCambio, width=30)
+        submit.place(x=75, y=300)
 
     def mostrar_tratamientos(self, lista_tratamientos):
         # LIMPIAR LA TABLA

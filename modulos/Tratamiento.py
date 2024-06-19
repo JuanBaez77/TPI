@@ -18,7 +18,7 @@ class Tratamiento:
     def set_nombre(self, nombre):
         self.__nombre = nombre
 
-    def set_destino(self, descripcion):
+    def set_descripcion(self, descripcion):
         self.__descripcion = descripcion
 
     def set_estado(self, estado):

@@ -10,7 +10,11 @@ class ControladorTratamiento:
         self.update_callback = update_callback
     
     # ESTE METODO ALMACENA LOS TRATAMIENTOS EN UNA LISTA Y LOS RETORNA
-    def cargarTratamiento(lista = list):    
+    def cargarTratamiento(self, lista=None):
+        if lista is None:
+            lista = []
+        elif not isinstance(lista, list):
+            raise ValueError("El argumento 'lista' debe ser de tipo list")    
         with open("csv/tratamiento.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido) 
@@ -38,6 +42,13 @@ class ControladorTratamiento:
 
         registro.destroy()
         messagebox.showinfo("Éxito", "Tratamiento registrado con éxito")
+    
+    def guardarcambio(self, listaTratamientos):
+        with open("csv/tratamiento.csv", mode='w', encoding="utf-8", newline="") as archivo:
+            writer = csv.writer(archivo)
+            writer.writerow(["Nombre", "Descripcion"])  # Escribir el encabezado
+            for tratamiento in listaTratamientos:
+                writer.writerow([tratamiento.get_nombre(), tratamiento.get_descripcion(), tratamiento.get_estado()])
 
     def cambiarEstadoTratamiento(self, nombre, label_mensaje):
         # ESTE METODO MODIFICARA EL ESTADO DEL TRATAMIENTO DE TRUE A FALSE Y VICEVERSA
@@ -69,13 +80,15 @@ class ControladorTratamiento:
             else:
                 label_mensaje.config(text="Error. Tratamiento no encontrado", fg="red")
     
-    def cambiarTratamiento(self,nombre,atributo,nuevovalor):
+    def cambiarTratamiento(self, nombre, atributo, nuevovalor):
         listaTratamientos = self.cargarTratamiento()
         for tratamiento in listaTratamientos:
-            if Tratamiento.get_nombre() == nombre:
-                setter = f"set{atributo}"
-                tratamiento.setter = nuevovalor
-        self.guardarTratamiento(listaTratamientos)        
+            if tratamiento.get_nombre() == nombre:
+                if atributo.lower() == "nombre":
+                    tratamiento.set_nombre(nuevovalor)
+                elif atributo.lower() == "descripcion":
+                    tratamiento.set_descripcion(nuevovalor)
+        self.guardarcambio(listaTratamientos)    
 
 class ControladorVacuna:
     def __init__(self,vista,update_callback):
