@@ -99,19 +99,19 @@ class ControladorConsulta:
     
     def cargarTratamiento(self):
         listaTratamiento = set()
-        with open("csv/consultas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        with open("csv/tratamiento.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido)
             for row in contenido:
-                listaTratamiento.add(row[4])
+                listaTratamiento.add(row[0])
         return listaTratamiento
     
     def cargarVacunas(self):
         listaVacunas = set()
-        with open("csv/consultas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+        with open("csv/vacuna.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido)
             for row in contenido:
-                listaVacunas.add(row[5])
+                listaVacunas.add(row[0])
         return listaVacunas
 

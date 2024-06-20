@@ -126,8 +126,8 @@ class VistaDiagnostico(tk.Frame):
         ranking_window = tk.Toplevel(self.master)
         ranking_window.title("Ranking de Diagnósticos")
 
-        treeview_ranking = ttk.Treeview(ranking_window, columns=("Mascota", "Cantidad de Diagnósticos"), show="headings")
-        treeview_ranking.heading("Mascota", text="Mascota")
+        treeview_ranking = ttk.Treeview(ranking_window, columns=("Diagnostico", "Cantidad de Diagnósticos"), show="headings")
+        treeview_ranking.heading("Diagnostico", text="Diagnostico")
         treeview_ranking.heading("Cantidad de Diagnósticos", text="Cantidad de Diagnósticos")
         treeview_ranking.pack(fill="both", expand=True)
 

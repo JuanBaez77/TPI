@@ -188,25 +188,24 @@ class ControladorDiagnostico:
             return conteorazas
          
     def generarRanking(self):
-        mascotas_diagnosticos = {}
+        diagnosticos_frecuencia = {}
         with open("csv/diagnostico.csv", mode='r', encoding="UTF-8", newline="") as archivo:
             contenido = csv.reader(archivo)
             next(contenido) 
             for linea in contenido:
-                mascota = linea[0]
-                clave_diagnostico = mascota 
-                if clave_diagnostico in mascotas_diagnosticos:
-                    mascotas_diagnosticos[clave_diagnostico] += 1
+                diagnostico = linea[1]  # Cambiado a la columna de Diagnóstico
+                if diagnostico in diagnosticos_frecuencia:
+                    diagnosticos_frecuencia[diagnostico] += 1
                 else:
-                    mascotas_diagnosticos[clave_diagnostico] = 1
+                    diagnosticos_frecuencia[diagnostico] = 1
 
-        ranking_ordenado = sorted(mascotas_diagnosticos.items(), key=lambda x: x[1], reverse=True)
+        ranking_ordenado = sorted(diagnosticos_frecuencia.items(), key=lambda x: x[1], reverse=True)
         with open("csv/ranking.csv", mode='w', encoding="UTF-8", newline="") as archivo_ranking:
             writer = csv.writer(archivo_ranking)
-            writer.writerow(['Mascota','Cantidad de Diagnósticos'])
-            for mascota, cantidad in ranking_ordenado:
-                writer.writerow([mascota,cantidad]) 
-        
+            writer.writerow(['Diagnóstico', 'Cantidad de Diagnósticos'])
+            for diagnostico, cantidad in ranking_ordenado:
+                writer.writerow([diagnostico, cantidad]) 
+            
         return ranking_ordenado
         
     def mostrarDiagnostico(self):
