@@ -35,6 +35,7 @@ class Vista(tk.Tk):
         self.controladorDiagnostico = ControladorDiagnostico(self,self.actualizarVistaDiagnostico)
         self.controladorTratamiento = ControladorTratamiento(self, self.actualizarVistaTratamiento)
         self.controladorVacuna = ControladorVacuna(self, self.actualizarVistaVacuna)
+        self.controladorConsulta = ControladorConsulta(self, self.actualizarVistaConsulta)
         
 
     def configMenu(self):
@@ -315,7 +316,38 @@ class Vista(tk.Tk):
         for widget in self.pagina.winfo_children():
             widget.destroy()
 
-        Label(self.pagina, text="Fichas Medicas", font=(fuente, 12), bg=self.pagina['bg']).pack(pady=5)
+        headerFrame = Frame(self.pagina, bg=self.pagina['bg'])
+        headerFrame.pack(fill='x', pady=5)
+
+        # GRID DEL FRAME DE ARRIBA
+        headerFrame.columnconfigure(0, weight=1)
+        headerFrame.columnconfigure(1, weight=1)
+        headerFrame.columnconfigure(2, weight=1)
+
+        label = Label(headerFrame, text="Consultas", font=("Roboto", 12), bg=self.pagina['bg'])
+        label.grid(row=0, column=1, pady=5)
+
+        # FILTRADORES
+        opciones = [
+            "Consultas",
+            "Cant/Mascota"
+        ]
+        valor = StringVar()
+        valor.set(opciones[0])
+
+        def actualizarFiltro(*args):
+            seleccion = valor.get()
+            if seleccion == "Consulta":
+                self.actualizarVistaConsulta()
+            elif seleccion == "Cant/Mascota":
+                self.mostrarCantidadMascotaPorConsulta()
+            else:
+                self.actualizarVistaConsulta()
+
+        valor.trace("w", actualizarFiltro)
+
+        menuFiltros = OptionMenu(headerFrame, valor, *opciones)
+        menuFiltros.grid(row=0, column=2, padx=10, sticky='e')  
 
         self.vista_consulta = VistaConsulta(self.pagina)
         self.vista_consulta.pack(fill="both", expand=True)
@@ -324,6 +356,11 @@ class Vista(tk.Tk):
 
         Button(self.pagina, text="Cargar Consulta", command=self.vista_consulta.cargarNuevoConsulta, bg="white", fg="red", font=("Roboto", 10), bd=0).pack(pady=10, padx=20, fill="x")
     
+
+    def mostrarCantidadMascotaPorConsulta(self):
+        mascota_por_consulta = self.controladorConsulta.contarConsultasPorMascota()
+        self.vista_consulta.mostrarCantidadMascotaPorConsulta(mascota_por_consulta)
+
     def actualizarVistaConsulta(self):
         listaConsulta = ControladorConsulta.cargarConsulta([])
         self.vista_consulta.mostrarconsulta(listaConsulta)

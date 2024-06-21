@@ -20,9 +20,9 @@ class ControladorConsulta:
         observaciones_val = lista[6].get()
 
         nueva_consulta = Consulta(
-        fecha_val, nombre_mascota_val, diagnostico_val, veterinario_val,
-        tratamiento_val, vacunas_val, observaciones_val
-    )
+            fecha_val, nombre_mascota_val, diagnostico_val, veterinario_val,
+            tratamiento_val, vacunas_val, observaciones_val
+        )
 
         # Nombre del PDF
         nombre_mascota = nueva_consulta.get_nombremascota().replace(":", "_").replace(" ", "_")
@@ -68,7 +68,7 @@ class ControladorConsulta:
 
         registro.destroy()
         messagebox.showinfo("Éxito", "Consulta registrada con éxito")
-        
+
     def cargarConsulta(lista=list):
         lista = []
         with open("csv/consultas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
@@ -96,7 +96,7 @@ class ControladorConsulta:
                 if row[6] == "EMP" and row[7] == "True":
                     listaPropietarioCompleta.append(f"{row[1]} {row[2]}")
         return list(listaPropietarioCompleta)
-    
+
     def cargarTratamiento(self):
         listaTratamiento = set()
         with open("csv/tratamiento.csv", mode='r', encoding="UTF-8", newline="") as archivo:
@@ -105,7 +105,7 @@ class ControladorConsulta:
             for row in contenido:
                 listaTratamiento.add(row[0])
         return listaTratamiento
-    
+
     def cargarVacunas(self):
         listaVacunas = set()
         with open("csv/vacuna.csv", mode='r', encoding="UTF-8", newline="") as archivo:
@@ -115,3 +115,15 @@ class ControladorConsulta:
                 listaVacunas.add(row[0])
         return listaVacunas
 
+    def contarConsultasPorMascota(self):
+        consultas_por_mascota = {}
+        with open("csv/consultas.csv", mode='r', encoding="UTF-8", newline="") as archivo:
+            contenido = csv.reader(archivo)
+            next(contenido)  # Saltar la cabecera
+            for linea in contenido:
+                nombre_mascota = linea[1]
+                if nombre_mascota in consultas_por_mascota:
+                    consultas_por_mascota[nombre_mascota] += 1
+                else:
+                    consultas_por_mascota[nombre_mascota] = 1
+        return consultas_por_mascota

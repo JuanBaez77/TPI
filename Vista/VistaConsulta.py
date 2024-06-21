@@ -148,3 +148,16 @@ class VistaConsulta(tk.Frame):
         for Vacunas in lista:
             listavacunasDisponibles.append(Vacunas)
         return listavacunasDisponibles
+    
+    def mostrarCantidadMascotaPorConsulta(self, mascota_por_diagnostico):
+        mascota_window = tk.Toplevel(self.master)
+        mascota_window.title("Cantidad de Mascotas por Consulta")
+
+        treeview_mascota = ttk.Treeview(mascota_window, columns=("Mascota", "Cantidad"), show="headings")
+        treeview_mascota.heading("Mascota", text="Mascota")
+        treeview_mascota.heading("Cantidad", text="Cantidad")
+        treeview_mascota.pack(fill="both", expand=True)
+
+        for mascota, cantidad in mascota_por_diagnostico.items():
+            treeview_mascota.insert("", "end", values=(mascota, cantidad))
+
