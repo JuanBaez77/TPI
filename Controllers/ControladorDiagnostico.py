@@ -58,8 +58,6 @@ class ControladorDiagnostico:
             ])
         registro.destroy()
         messagebox.showinfo("Éxito", "Diagnóstico registrado con éxito")
-        if self.update_callback:
-            self.update_callback()
 
     def cambiarDiagnostico(cargardiagnostico,name,cambio,valor,label_mensaje):
         diagnostico = []

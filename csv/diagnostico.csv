@@ -1,5 +1,5 @@
 Nombre,Diagnostico,Propietario,Estado,id
-Coco,Cataratas,21,true,1
+Coco,Problemas en las piernas,21,true,1
 Firulais,Displasia de Cadera,3,false,2
 Luna,Alergia Alimentaria,29,false,3
 Max,Diabetes Canina,8,true,4
@@ -41,3 +41,5 @@ Julian,Problemas de Tiroides,6,false,39
 Ulio,Dermatitis Atópica,1,true,40
 Toby,Obesidad Canina,2,true,41
 Toby,Obesidad Canina,2,true,42
+Toby,Cataratas gratinada,2,True,43
+Nala,Alergia Alimentaria,13,True,44
